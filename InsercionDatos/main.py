@@ -28,3 +28,4 @@ def insertarDatos_restaurante():
 
 print("Hola")   
 
+print("Otro hola")

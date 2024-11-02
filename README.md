@@ -3,9 +3,9 @@ La carpeta llamda restaurante, es el proyecto de NetBeans, el cual deberas abrir
 1. Abre Apache NetBeans 19
 2. Da clic en File
 3. Selecciona Open Project(abrir proyecto)
-4. Busca la carpeta en donde clonaste el repositorio y escoje la carpeta llamada restaurante. El propio IDE lo identificara como un proyecto de java, yaque tendra el icono de un proyecto
+4. Busca la carpeta en donde clonaste el repositorio y escoje la carpeta llamada restaurante. El propio IDE lo identificara como un proyecto de java, ya que tendra el icono de un proyecto
 5. Listo tendrás abierto el proyecto de java en netbeans
-Recomendación: Vincula tu cuenta de git-hub con el IDE para que detecte los caambios y te sea más comodo subirlos
+Recomendación: Vincula tu cuenta de git-hub con el IDE para que detecte los cambios y te sea más comodo subirlos
 
 Una vez abierto el proyecto en Netbeans, es necesario importar una libreria, en el apartado del proyecto en *libreries* debes importar una libreria del repositorio 
 1. da clic derecho en *libraries* y selecciona Add JAR/folder

@@ -1,3 +1,4 @@
+#ESTO ES UNA PRUEBA, NO DEBE EJECUTARSE EN LA BASE DE DATOS DEL PROYECTO
 import psycopg2
 
 connection = psycopg2.connect(

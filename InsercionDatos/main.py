@@ -25,5 +25,6 @@ def insertarDatos_restaurante():
     ROW('Calle Ejemplo', 'Colonia Ejemplo', 'Pais Ejemplo', '12345')::direccion)"""
     cursor.execute(query)
     cursor.close()
-    
+
+print("Hola")   
 

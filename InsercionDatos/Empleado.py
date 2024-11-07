@@ -2,7 +2,9 @@ import csv
 import psycopg2
 import random
 import os
-
+from GenerarRFC import generar_rfc
+from GenerarFechaNac import generar_fecha_aleatoria
+from GenerarCurp import generar_curp
 
 #conexion a la base de datos
 def connect_to_db():
@@ -30,7 +32,6 @@ def load_csv_direccion(filename):
     filepath = os.path.join("data", filename)  # Especifica la ruta de la carpeta
     with open(filepath, 'r') as file:
         return [line.strip() for line in file]
-
 #insertar datos en la tabla persona
 def insert_persona_empleado_data(cursor, nombres,apellidos_paterno,apellidos_materno,telefonos,direcciones):
     for i in range(1000):
@@ -45,8 +46,9 @@ def insert_persona_empleado_data(cursor, nombres,apellidos_paterno,apellidos_mat
         VALUES (%s, %s, %s, %s, ROW(%s, %s, %s, %s),%s, %s, %s,CURRENT_DATE, %s, %s, %s);
         """
          # Valores de ejemplo para RFC, CURP, salario, etc.
-        rfc = 'RFC'+str(i)
-        curp = 'CURP'
+        fecha_nac_aleatoria= generar_fecha_aleatoria()
+        rfc = generar_rfc(nombre,apellido_paterno,apellido_materno,fecha_nac_aleatoria)
+        curp = generar_curp(nombre,apellido_paterno,apellido_materno,fecha_nac_aleatoria,direccion[2])
         salario = 1000.00
         id_restaurante = 1
         id_horario = 1
@@ -54,6 +56,7 @@ def insert_persona_empleado_data(cursor, nombres,apellidos_paterno,apellidos_mat
         #Función execute para ejecutar el query en la base de datos
         cursor.execute(query, (nombre, apellido_paterno, apellido_materno, telefono, direccion[0], direccion[1], direccion[2], direccion[3],
                        rfc, curp, salario, id_restaurante, id_horario, id_puesto))
+        print(f"Inserción: {i}",end='\r')
     
 # Programa principal
 def main():
@@ -81,7 +84,6 @@ def main():
             inserciones_1000 = int(input("Escribe del 1 al 1000 cuantas inserciones quieres hacer,\n si eliges 1 es equivalente a 1000 registros, si eliges 1000 es equivalente a 1 millon registros\n"))
             for i in range(inserciones_1000):
                 insert_persona_empleado_data(cursor,nombres,apellidos_paternos,apellidos_maternos,telefonos,direcciones)
-                print(f"Inserción: {i*1000}",end='\r')
             control = input("¿Insertar de nuevo? 's' para volver a insertar más registros más ó 'n' para terminar: ")
             if control.lower() == 's':
                 continue

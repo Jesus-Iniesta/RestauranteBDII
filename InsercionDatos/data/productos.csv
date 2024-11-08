@@ -1,0 +1,37 @@
+//Nombre,precio,stock,descripcion,id_cat
+Capuccino,59,100,'Tradicional Capuccino(300ml)',2
+Café Americano,49,100,'Café americano 100% organico y de comercio justo',2
+Chocolate Caliente Sierra Morena,78,100,'Elaborado con chocolate sierra Morena de comunidades artesanales',2
+Frappé Capuchino,89,100,'Consientete con su delicioso sabor (400)ml',1
+Frappé Moka,89,100,'Consientete con su delicioso sabor (400)ml',1
+Chocolate Tradicional Frio,73,100,'Chocolate con leche fria (355ml),1
+Coca cola,46,100,'Refresco en lata (355ml)',1
+Coca cola sin azucar,46,100,'Refresco en lata (355ml)',1
+Coca cola light,46,100,'Refresco en lata (355ml)',1
+Sprite,46,100,'Refresco en lata (355ml)',1
+Sprite sin azucar,46,100,'Refresco en lata (355ml)',1
+Fanta,46,100,'Refresco en lata (355ml)',1
+Ciel Agua Mineral,46,100,'Agua Mineral en Lata (355ml)',1
+Ciel Agua Embotellada,46,100,'Agua Mineral en Lata (355ml)',1
+Agua de coco Apio y Limon,70,100,'Agua del dia',1
+Cerveza Artesanal Mediterránea,90,100,'Cerveza Artesanal Mediterránea estilo light (355 ml)',3
+Cerveza Artesanal Sana Fe,90,100,'Cerveza Artesanal Santa fe estilo vienna (355 ml)',3
+Cerveza Artesanal Mil Culpas,90,100,'Cerveza Artesanal Mil Culpas estilo Munich helles (355 ml)',3
+XX Lager,72,100,'Cerveza  (355 ml)',3
+Amstel Ultra,80,100,'Cerveza (355 ml)',3
+Bohemia Oscura,80,100,'Cerveza (355 ml)',3
+Cerveza Artesanal Luna Llena,90,100,'Cerveza Artesanal estilo Stout (355 ml)',3
+Jugos Naturales,89,100,'100% Natural y recien preparado (500ml)',4
+Copa de Yogurth Energétic,151,100,'Mescla de frutas (Melón, Sandia, Manzana verde, Durazno, Platano, Piña y Fresa)',4
+Orden de Frutas,99,100,'Fruta de temporada, elige tu favorita (120 grs)',4
+Batido de Frutas,124,100,'100% Natural con Moras, Avena,  y Bebida de Almendra (500 ml)',4
+Batido de Matcha,99,100,'Con bebida de almendras, avena y fruta del monje (500 ml)',4
+Pavo Navideño,265,100,'Pechuga de pavo horneada(110gr) con salsa de vino al jerez, preparado de carne Angus con frutos secos(60gr) acompañada de pure de papa',5
+Romeritos con Camarón,275,100,'100gr Con mole artesanal Mazahua, nopales, y papas Toks',5
+Pierna Adobada,249,100,'De cerdo (120gr) con adobo de chiles rojos y cítricos, acompañada de puré de papa',5
+Caldo de camarón,105,100,'En caldo de camarón y pescado al guajillo con chile de árbol, con tortilla dorada',5
+Pierna en Salsa de Piña con Arandanos,249,100,'De cerdo(120g), acmopañada de pure de papa,5
+Chocolatin,44,100,'Con relleno de chocolate, horenado,6
+
+Consome de pollo,120,100,'Con arroz y pechuga de pollo',9
+Club Sandwich,225,100,'Con pechuga de, pollo, tocino jamón y queso americano'

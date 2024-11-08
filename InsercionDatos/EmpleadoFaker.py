@@ -1,5 +1,5 @@
-import psycopg2
 import random
+from conexion import connect_to_db
 import os
 from faker import Faker
 from GenerarRFC import generar_rfc
@@ -17,14 +17,6 @@ class MexicanIDProvider(BaseProvider):
 fake = Faker('es_MX')  # Establece la localización en español para Faker
 fake.add_provider(MexicanIDProvider)
 
-# Conexión a la base de datos
-def connect_to_db():
-    return psycopg2.connect(
-        host="localhost",
-        dbname="prueba_proyecto",
-        user="postgres",
-        password="1234"
-    )
 
 def limpiar_pantalla():
     if os.name == 'nt':
@@ -45,7 +37,7 @@ def insert_persona_empleado_data(cursor):
                 apellido_paterno = fake.last_name()
                 apellido_materno = fake.last_name()
                 telefono = fake.phone_number()
-                direccion = [f"{fake.street_name()} {fake.building_number()}", fake.state(), "México", fake.postcode()]
+                direccion = [f"{fake.street_name()} {fake.building_number()}", fake.state(), "Mexico", fake.postcode()]
 
                 fecha_nac_aleatoria = generar_fecha_aleatoria()
                 rfc = fake.rfc(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria)
@@ -57,7 +49,7 @@ def insert_persona_empleado_data(cursor):
                 id_horario = 1
                     
                 query = """
-                INSERT INTO prueba_bd.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)
+                INSERT INTO restaurante.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)
                 VALUES (%s, %s, %s, %s, ROW(%s, %s, %s, %s), %s, %s, %s, CURRENT_DATE, %s, %s, %s);
                 """
                     

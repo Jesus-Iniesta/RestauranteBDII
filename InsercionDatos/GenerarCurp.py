@@ -20,6 +20,7 @@ def generar_curp(nombre,apellido_paterno,apellido_materno,fecha_nacimiento,estad
     sexo = ['M','H']
     #Quitar acentos y poner mayúsculas
     def limpiar_texto(texto):
+        texto = texto.lower()
         texto = re.sub(r'[ÁÀÄÂ]', 'A', texto)
         texto = re.sub(r'[ÉÈËÊ]', 'E', texto)
         texto = re.sub(r'[ÍÌÏÎ]', 'I', texto)

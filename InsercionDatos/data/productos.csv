@@ -38,8 +38,61 @@ Croissant Almendra,44,100,'Consientete con un pan recien horneado',6
 Panque de Naranja con Almendra,125,100,'De nuestro horno,delicioso panque con ralladura de naranja y almendras',6
 Panque de Nata con Nuez sin azucar,149,100,'De nuestro horno, panque de nata con nuez reducido en azucar',6
 Bisquets con Mermelada Santa Rosa,125,100,'Dos piezas recien horneados,acompañados con mermelada de fresa Santa Rosa',6
-Bisquets Integrales con Mermelada Santa,125,200','Dos piezas de bisquets integrales recien horneados,acompañados con mermelada de fresa Santa Rosa',6
+Bisquets Integrales con Mermelada Santa,125,100','Dos piezas de bisquets integrales recien horneados,acompañados con mermelada de fresa Santa Rosa',6
+Bisquets con Chispas de Chocolate,125,100,'Dos piezas de bisquets con chispas de chocolate recien horneados, acompañados con mermelada Santa rosa',6
+Croissant Nutella,46,100,'Consientete con un pan recien horneado',6
+Panque de Limon con Chia,149,100,'De nuestro horno, delicioso panque de limon con chia reducido en azucar',6
+Hot Cakes,167,100,'Naturales con mantequilla y jarabe de maple',6
+Tostado Frances,167,100,'Barras de pan brioche,acompañafos con jarabe de maple y fresa',6
+Paquete Enfrijoladas Veracruzanas,205,100,'Rellenas de huevo a la mexicana, servidas con chorizo (30g)<queso panela aguacate y chile pasilla dorado (3 piezas) Acompañadas de un Café Americano de 12 onzas',7
+Paquete Molletes,209,100,'Molletes gratinados con jamon tocino rajas y chorizo, acompañados de un cafe americano de 12 oz',7
+Paquete Las navideñas,251,100,'Tortitas en minibolillos con frijoles refritos y aguacate, una pierna de cerdo adobada y otra pechuga de pavo con preparado c¿de carne angus con frutos y salsa de vino al jerez acompañadas de papas fritas y chiles',7
+Paquete Baguette de Pollo Crispy,295,100,'De pechuga de pollo crocante, con aderezo roquefort en pan rustico al parmesano acompañado con papas fritas y chiles en escabeche',7
+Chilaquiles Mayas,203,100,'Preparados con salsa de achiote y chile habanero, pechuga de pollo queso panela y frijoles refritos',8
+Huevos al Albañil con Arrachera,209,100,'Revueltos con salsa verde al cilantro acompañados con arrachera frijoles refritos y chiles toreados',8
+Los tarascos,175,100,'Fritos sobre tortilla de maiz con jamon, salsa verde y queso',8
+Huevos,173,100,'Revueltos sobre salsa pasilla, acompañados con pechuga de pollo asada frijoles refritos y chorizo',8
+Huevos Fritos,161,100,'Dos huevos acompañados con jamon y servidos con chilaquiles verdes o frijoles refritos',8
+Huevos Fritos con jamon,161,100,'Dos huevos acompañados con jamon y con chilaquiles verdes o frijoles refritos',8
+Huevos Fritos con tocino,161,100,'Dos huevos acompañados con tocino y con chilaquiles verdes o frijoles refritos',8
+Huevos Revueltos,161,100,'Dos huevos servidos con chilaquiles verdes o frijoles refritos',8
+Huevos Revueltos con jamon,161,100,'Dos huevos revueltos acompañados con jamon y con chilaquiles verdes o frijoles refritos',8
+Huevos Revueltos con tocino,161,100,'Dos huevos revueltos acompañados con tocino y con chilaquiles verdes o frijoles refritos',8
+Huevos Rancheros,161,100,'Dos huevos acompañados con frijoles refritos y aguacate',8
+Huevos a la mexicana,161,100,'Dos huevos acompañados con frijoles refritos',8
+Omelette Claras y espinacas,181,100,'Servidas con brocoli, zanahoria y champiñones acompañadas con jitomates y finas hierbas',8
+Norteño,195,100,'Revueltos con machaca en salsa norteña, frijoles al gratin y tortillas de harina',8
+Sabrosita,249,100,'Arrachera a la parrilla acompañada de chilaquiles en salsa roja',8
+Omelette con huitlacoche,189,100,'Omelette de huevo relleno de champiñones y huitlacoche, acompañado con chilaquiles en salsa roja',8
+Omelette del Huerto,187,100,'De huevo con chile poblano, relleno de champiñones calabaza papa y granos de elote acompañado de chilaqules verdes al gratin,8
+Caldo Tlalpeño,135,100,'Con pechuga de pollo,queso manchego aguacate y arroz',9
+Especial tortilla,129,100,'La tradicional con toque de la casa',9
+Consome Ranchero,125,100,'Con arroz pechuga de pollo acompañado con chile serrano, cebolla cilantro aguacate y chicharron',9
+Consome de Pollo,120,100,'Con arroz y pechuga de pollo',9
+Arroz con mole,99,100,'Servido con mole artesanal de la comunidad Mazahua',9
+Sopa de Fideo,99,100,'Sopa de pasta en caldillo de jitomate',9
+Sopa de Verduras,115,100,'Con caldo de jitomate y albahaca fresca con champiñon calabaza y apio',9
+Orden de Verduras a la parrilla,179,100,'Brocoli, champiñones papa cambray calabacitas zanahoria elotes ejotes de limon y sal de grano',9
+Plato de Frutas con queso cottage,179,100,'Papaya melon chino toronja snadia y fresas con queso cottage',9
+Fideo seco al Achiote,115,100,'Con chicharron, queso panela y aguacate',9
+Ensalada Mediterránea,181,100,Con pechuga de pollo queso de cabra, lechuga espinaca y arugula jitomate zanahoria y almendra',9
+Papas fritas,99,100,'Papas fritas',10,
+Tacos de milanesa al Gratin,225,100,'Tacos de milanesa de res acompañados con frijoles refritos, guacamole y salsa verde asada con habanero',10
+Tacos de pollo,195,100,'Tacos de pollo acompañados con guacamole , salsa verde al cilantro y frijoles refritos',10
+Guacamole con chicharron,105,100,'Guacamole con chicharron y esquites, acompañado con totopos y chile serrano',10
+Turca de Aracherra,259,100,'con champiñones pimientos y queso, acompañada con papas fritas',10
+Enchiladas,219,100,'Rellenas de pechugas de pollo y bañadas con salsa especial al gratin',11
+Molletes Naturales,165,100,'Tradicionales molletes gratinados',11
+Enchiladas de mole artesanales,225,100,'Rellenas con pechuga de pollo bañadas en mole artesanal de la comunidad mazahua',11
+Enchiladas de Milpa,190,100,'Rellenas de huitlacoche, nopal y esquites con salsa marinara al gratin',11
+Molletes,185,100,'Molletes gratinados con jamon, tocino rajas y chorizo,'11
+Chilaquiles Mayas,203,100,'Preparados con salsa de achiote y chile habanero, pechuga de pollo queso panela y frijoles refritos',12
+Chilaquiles verdes,164,100,'Tradicionales y cruijentes acompañados son salsa verde y frijoles refritos',12
+Chilaquiles Rojos,164,100,'Tradicionales y cruijentes acompañados son salsa verde y frijoles refritos',12
+Chilaquiles con Salsa verde,164,100,'Tradicionales y cruijentes acompañados son salsa verde y frijoles refritos',12
 
 
-Consome de pollo,120,100,'Con arroz y pechuga de pollo',9
-Club Sandwich,225,100,'Con pechuga de, pollo, tocino jamón y queso americano'
+
+
+
+

@@ -2,7 +2,6 @@ from faker import Faker
 import csv
 from datetime import timedelta
 import os
-from EmpleadoFaker import limpiar_pantalla
 from conexion import connect_to_db
 
 fake = Faker()
@@ -25,13 +24,13 @@ def insert_data_almacen(cursor,almacen):
         INSERT INTO restaurante.almacen(nombre,fecha_caducidad,stock)
         VALUES(%s,%s,%s)
         """
+        stock_int = int(stock)
         fecha_caducidad = fake.date_between(start_date="+1y",end_date="+5y")
-        cursor.execute(query, (nombre,fecha_caducidad,stock))
-        print(f"Inserción: {i}",end='\r')
+        cursor.execute(query, (nombre,fecha_caducidad,stock_int))
+        print(f"Inserción ALMACEN: {i+1}",end='\r')
         i += 1
 def main():
     almacen = load_csv_almacen('almacen.csv')
-    limpiar_pantalla()
     conn = connect_to_db()
     cursor = conn.cursor()
     try:

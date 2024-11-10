@@ -3,7 +3,7 @@ Café Americano,49,100,'Café americano 100% organico y de comercio justo',2
 Chocolate Caliente Sierra Morena,78,100,'Elaborado con chocolate sierra Morena de comunidades artesanales',2
 Frappé Capuchino,89,100,'Consientete con su delicioso sabor (400)ml',1
 Frappé Moka,89,100,'Consientete con su delicioso sabor (400)ml',1
-Chocolate Tradicional Frio,73,100,'Chocolate con leche fria (355ml),1
+Chocolate Tradicional Frio,73,100,'Chocolate con leche fria (355ml)',1 
 Coca cola,46,100,'Refresco en lata (355ml)',1
 Coca cola sin azucar,46,100,'Refresco en lata (355ml)',1
 Coca cola,46,100,'Refresco en lata (355ml)',1
@@ -30,7 +30,7 @@ Pavo Navideño,265,100,'Pechuga de pavo horneada(110gr) con salsa de vino al jer
 Romeritos con Camarón,275,100,'100gr Con mole artesanal Mazahua, nopales, y papas Toks',5
 Pierna Adobada,249,100,'De cerdo (120gr) con adobo de chiles rojos y cítricos, acompañada de puré de papa',5
 Caldo de camarón,105,100,'En caldo de camarón y pescado al guajillo con chile de árbol, con tortilla dorada',5
-Pierna en Salsa de Piña con Arandanos,249,100,'De cerdo(120g), acmopañada de pure de papa,5
+Pierna en Salsa de Piña con Arandanos,249,100,'De cerdo(120g), acmopañada de pure de papa',5
 Chocolatin,44,100,'Con relleno de chocolate, horenado',6
 Concha de vainilla,44,100,'Tradicional sabor a vainilla,horneado diariamente',6
 Concha de chocolate,44,100,'Tradicional sabor a chocolate,horneado diariamente',6
@@ -44,9 +44,9 @@ Croissant Nutella,46,100,'Consientete con un pan recien horneado',6
 Panque de Limon con Chia,149,100,'De nuestro horno, delicioso panque de limon con chia reducido en azucar',6
 Hot Cakes,167,100,'Naturales con mantequilla y jarabe de maple',6
 Tostado Frances,167,100,'Barras de pan brioche,acompañafos con jarabe de maple y fresa',6
-Paquete Enfrijoladas Veracruzanas,205,100,'Rellenas de huevo a la mexicana, servidas con chorizo (30g)<queso panela aguacate y chile pasilla dorado (3 piezas) Acompañadas de un Café Americano de 12 onzas',7
+Paquete Enfrijoladas Veracruzanas,205,100,'Rellenas de huevo a la mexicana, servidas con chorizo (30g)queso panela aguacate y chile pasilla dorado (3 piezas) Acompañadas de un Café Americano de 12 onzas',7
 Paquete Molletes,209,100,'Molletes gratinados con jamon tocino rajas y chorizo, acompañados de un cafe americano de 12 oz',7
-Paquete Las navideñas,251,100,'Tortitas en minibolillos con frijoles refritos y aguacate, una pierna de cerdo adobada y otra pechuga de pavo con preparado c¿de carne angus con frutos y salsa de vino al jerez acompañadas de papas fritas y chiles',7
+Paquete Las navideñas,251,100,'Tortitas en minibolillos con frijoles refritos y aguacate, una pierna de cerdo adobada y otra pechuga de pavo con preparado de carne angus con frutos y salsa de vino al jerez acompañadas de papas fritas y chiles',7
 Paquete Baguette de Pollo Crispy,295,100,'De pechuga de pollo crocante, con aderezo roquefort en pan rustico al parmesano acompañado con papas fritas y chiles en escabeche',7
 Chilaquiles Mayas,203,100,'Preparados con salsa de achiote y chile habanero, pechuga de pollo queso panela y frijoles refritos',8
 Huevos al Albañil con Arrachera,209,100,'Revueltos con salsa verde al cilantro acompañados con arrachera frijoles refritos y chiles toreados',8
@@ -64,7 +64,7 @@ Omelette Claras y espinacas,181,100,'Servidas con brocoli, zanahoria y champiño
 Norteño,195,100,'Revueltos con machaca en salsa norteña, frijoles al gratin y tortillas de harina',8
 Sabrosita,249,100,'Arrachera a la parrilla acompañada de chilaquiles en salsa roja',8
 Omelette con huitlacoche,189,100,'Omelette de huevo relleno de champiñones y huitlacoche, acompañado con chilaquiles en salsa roja',8
-Omelette del Huerto,187,100,'De huevo con chile poblano, relleno de champiñones calabaza papa y granos de elote acompañado de chilaqules verdes al gratin,8
+Omelette del Huerto,187,100,'De huevo con chile poblano, relleno de champiñones calabaza papa y granos de elote acompañado de chilaqules verdes al gratin',8
 Caldo Tlalpeño,135,100,'Con pechuga de pollo,queso manchego aguacate y arroz',9
 Especial tortilla,129,100,'La tradicional con toque de la casa',9
 Consome Ranchero,125,100,'Con arroz pechuga de pollo acompañado con chile serrano, cebolla cilantro aguacate y chicharron',9
@@ -75,8 +75,8 @@ Sopa de Verduras,115,100,'Con caldo de jitomate y albahaca fresca con champiñon
 Orden de Verduras a la parrilla,179,100,'Brocoli, champiñones papa cambray calabacitas zanahoria elotes ejotes de limon y sal de grano',9
 Plato de Frutas con queso cottage,179,100,'Papaya melon chino toronja snadia y fresas con queso cottage',9
 Fideo seco al Achiote,115,100,'Con chicharron, queso panela y aguacate',9
-Ensalada Mediterránea,181,100,Con pechuga de pollo queso de cabra, lechuga espinaca y arugula jitomate zanahoria y almendra',9
-Papas fritas,99,100,'Papas fritas',10,
+Ensalada Mediterránea,181,100,'Con pechuga de pollo queso de cabra, lechuga espinaca y arugula jitomate zanahoria y almendra',9
+Papas fritas,99,100,'Papas fritas',10
 Tacos de milanesa al Gratin,225,100,'Tacos de milanesa de res acompañados con frijoles refritos, guacamole y salsa verde asada con habanero',10
 Tacos de pollo,195,100,'Tacos de pollo acompañados con guacamole , salsa verde al cilantro y frijoles refritos',10
 Guacamole con chicharron,105,100,'Guacamole con chicharron y esquites, acompañado con totopos y chile serrano',10
@@ -85,7 +85,7 @@ Enchiladas,219,100,'Rellenas de pechugas de pollo y bañadas con salsa especial 
 Molletes Naturales,165,100,'Tradicionales molletes gratinados',11
 Enchiladas de mole artesanales,225,100,'Rellenas con pechuga de pollo bañadas en mole artesanal de la comunidad mazahua',11
 Enchiladas de Milpa,190,100,'Rellenas de huitlacoche, nopal y esquites con salsa marinara al gratin',11
-Molletes,185,100,'Molletes gratinados con jamon, tocino rajas y chorizo,'11
+Molletes,185,100,'Molletes gratinados con jamon, tocino rajas y chorizo',11
 Chilaquiles Mayas,203,100,'Preparados con salsa de achiote y chile habanero, pechuga de pollo queso panela y frijoles refritos',12
 Chilaquiles verdes,164,100,'Tradicionales y cruijentes acompañados son salsa verde y frijoles refritos',12
 Chilaquiles Rojos,164,100,'Tradicionales y cruijentes acompañados son salsa verde y frijoles refritos',12
@@ -114,7 +114,7 @@ Vaso Liga de la justicia,125,100,'Vaso coleccionable de la liga de la justicia (
 Papas Constelación,83,100,'Divertidas papas constelación (180 gr)',15
 Filete Crispy,159,100,'Filetes de pechuga de pollo (90gr) con papas y bastones de verdura con chamoy',15
 Taquitos de Aracherra,173,100,'Taquitos de arrachera (3 pzas) (100gr) con tortilla de harina acompañados con papas',15
-Mini club Sandwich,157,100,'Mini club de pechuga de pollo (30gr) con tocino, jamón y queso americano, acompañado con papas',15
+Mini club Sandwich,157,100,'Mini club de pechuga de pollo (30gr) con tocino, jamón y queso americano acompañado con papas',15
 Mini pizza,155,100,'Mini pizza pepperoni o Hawaiana',15
 Milanesa infantil,169,100,'De pechuga de pollo (80gr) crocante con pepperoni y salchicha, con papas a la francesa o tallarines a la crema',15
 Rebanada de Big Chocolate Cake,149,100,'Icónico pastel elaborado de chocolate turin (rebanada para compartir)',16

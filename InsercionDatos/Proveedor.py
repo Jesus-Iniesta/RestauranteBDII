@@ -1,11 +1,9 @@
-from EmpleadoFaker import limpiar_pantalla
 from faker import Faker
 from conexion import connect_to_db
 
 fake = Faker("es_MX")
 
 def insert_proveedor_data(cursor):
-    limpiar_pantalla()
     for i in range(20_000):
         nombre_proveedor = fake.company()
         telefono_proveedor = fake.phone_number()

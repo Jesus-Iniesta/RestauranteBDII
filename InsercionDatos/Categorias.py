@@ -1,7 +1,6 @@
 import csv
 import os
 from conexion import connect_to_db
-from EmpleadoFaker import limpiar_pantalla
 
 #Separacion para categorias
 def load_csv_categorias(filename):
@@ -31,7 +30,6 @@ def main():
     conn = connect_to_db()
     cursor = conn.cursor()
     try:
-        limpiar_pantalla()
         insert_data_categorias(cursor,total_categorias)
         conn.commit()
         print("\nInserción categorias terminada")

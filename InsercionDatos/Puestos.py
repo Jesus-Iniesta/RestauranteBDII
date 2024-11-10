@@ -1,6 +1,5 @@
 import csv
 import os
-from EmpleadoFaker import limpiar_pantalla
 from conexion import connect_to_db
 
 
@@ -23,11 +22,10 @@ def insert_data_almacen(cursor,puestos):
         VALUES(%s,%s)
         """
         cursor.execute(query, (titulo,descripcion))
-        print(f"Inserción: {i}",end='\r')
+        print(f"Inserción: {i+1}",end='\r')
         i += 1
 def main():
     puestos = load_csv_puestos('puestos.csv')
-    limpiar_pantalla()
     conn = connect_to_db()
     cursor = conn.cursor()
     try:

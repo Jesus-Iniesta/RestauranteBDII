@@ -26,42 +26,32 @@ def limpiar_pantalla():
 
 # Generar datos de persona con Faker y función para insertar en la base de datos
 def insert_persona_empleado_data(cursor):
-    opcion = True
-    while(opcion):
-        limpiar_pantalla()
-        print("Escribe el limite de inseciones a realizar como limite 1,000,000 donde: \n1=10,000 y 100 = 1,000,000")
-        cantidad = int(input())*10000
-        if cantidad <= 1_000_000:
-            for i in range(cantidad):
-                nombre = fake.first_name()
-                apellido_paterno = fake.last_name()
-                apellido_materno = fake.last_name()
-                telefono = fake.phone_number()
-                direccion = [f"{fake.street_name()} {fake.building_number()}", fake.state(), "Mexico", fake.postcode()]
+    for i in range(100_000):
+        nombre = fake.first_name()
+        apellido_paterno = fake.last_name()
+        apellido_materno = fake.last_name()
+        telefono = fake.phone_number()
+        direccion = [f"{fake.street_name()} {fake.building_number()}", fake.state(), "Mexico", fake.postcode()]
 
-                fecha_nac_aleatoria = generar_fecha_aleatoria()
-                rfc = fake.rfc(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria)
-                curp = fake.curp(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria, direccion[2])
-                    
-                id_puesto = random.randint(1,20)
-                salario =   salario = random.randrange(1200,10_000)
-                id_restaurante = random.randint(1,5000)
-                id_horario = random.randint(1,15)
-                    
-                query = """
-                INSERT INTO restaurante.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)
-                VALUES (%s, %s, %s, %s, ROW(%s, %s, %s, %s), %s, %s, %s, CURRENT_DATE, %s, %s, %s);
-                """
-                    
-                cursor.execute(query, (nombre, apellido_paterno, apellido_materno, telefono, 
-                                        direccion[0], direccion[1], direccion[2], direccion[3],
-                                        rfc, curp, salario, id_restaurante, id_horario, id_puesto))
-                print(f"Inserción: {(i+1):,}", end='\r')
-        control = input("Deseas continuar? 's' para seguir 'n' para deterner y hacer commit")
-        if control.lower() == 's':
-            continue
-        if control.lower() == 'n':
-            opcion = False
+        fecha_nac_aleatoria = generar_fecha_aleatoria()
+        rfc = fake.rfc(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria)
+        curp = fake.curp(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria, direccion[2])
+            
+        id_puesto = random.randint(1,20)
+        salario =   salario = random.randrange(1200,10_000)
+        id_restaurante = random.randint(1,5000)
+        id_horario = random.randint(1,14)
+            
+        query = """
+        INSERT INTO restaurante.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)
+        VALUES (%s, %s, %s, %s, ROW(%s, %s, %s, %s), %s, %s, %s, CURRENT_DATE, %s, %s, %s);
+        """
+            
+        cursor.execute(query, (nombre, apellido_paterno, apellido_materno, telefono, 
+                                direccion[0], direccion[1], direccion[2], direccion[3],
+                                rfc, curp, salario, id_restaurante, id_horario, id_puesto))
+        print(f"Inserción EMPLEADOS: {(i+1):,}", end='\r')
+            
 
 # Programa principal
 def main():

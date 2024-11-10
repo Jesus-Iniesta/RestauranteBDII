@@ -1,12 +1,11 @@
 from faker import Faker
 from conexion import connect_to_db
-from EmpleadoFaker import limpiar_pantalla
+
 
 fake = Faker('es_MX')  # Establece la localización en español para Faker
 
 
 def insert_restaurante_data(cursor):
-    limpiar_pantalla()
     for i in range(5000):  # Ajusta la cantidad de registros que deseas generar
         nombre_restaurante = f"Restaurante {fake.company()}"
         telefono = fake.phone_number()

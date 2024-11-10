@@ -1,6 +1,5 @@
 import csv
 import os
-from EmpleadoFaker import limpiar_pantalla
 import random
 from conexion import connect_to_db
 
@@ -38,9 +37,6 @@ def insert_data_products(cursor,productos):
     
 def main():
     total_productos = load_csv_productos('productos.csv')
-    limpiar_pantalla()
-    for i in total_productos:
-        print(i)
     conn = connect_to_db()
     cursor = conn.cursor()
     try:

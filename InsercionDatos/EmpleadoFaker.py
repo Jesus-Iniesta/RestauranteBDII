@@ -43,10 +43,10 @@ def insert_persona_empleado_data(cursor):
                 rfc = fake.rfc(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria)
                 curp = fake.curp(nombre, apellido_paterno, apellido_materno, fecha_nac_aleatoria, direccion[2])
                     
-                id_puesto = 1
-                salario =  3500
-                id_restaurante = 1
-                id_horario = 1
+                id_puesto = random.randint(1,20)
+                salario =   salario = random.randrange(1200,10_000)
+                id_restaurante = random.randint(1,5000)
+                id_horario = random.randint(1,15)
                     
                 query = """
                 INSERT INTO restaurante.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)
@@ -71,7 +71,7 @@ def main():
     try:
         insert_persona_empleado_data(cursor)
         conn.commit()
-        print("Inserción terminada")
+        print("\nInserción empleados terminada")
     except Exception as e:
         print("Error:", e)
         conn.rollback()

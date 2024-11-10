@@ -22,7 +22,7 @@ def insert_data_categorias(cursor,categorias):
         VALUES (%s,%s)
         """
         cursor.execute(query, (categoria, descripcion))
-        print(f"Inserción: {i}",end='\r')
+        print(f"Inserción CATEGORIAS: {i+1}",end='\r')
         i += 1
 def main():
     total_categorias = load_csv_categorias('categoria.csv')
@@ -31,9 +31,10 @@ def main():
     conn = connect_to_db()
     cursor = conn.cursor()
     try:
+        limpiar_pantalla()
         insert_data_categorias(cursor,total_categorias)
         conn.commit()
-        print("\nInserción terminada")
+        print("\nInserción categorias terminada")
     except Exception as e:
         print("Error:", e)
         conn.rollback()

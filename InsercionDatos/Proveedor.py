@@ -12,12 +12,12 @@ def insert_proveedor_data(cursor):
         direccion = [f"{fake.street_name()} {fake.building_number()}", fake.city(), "México", fake.postcode()]
         
         query = """
-        INSERT INTO prueba_bd.proveedor (nombre,telefono,direccion)
+        INSERT INTO restaurante.proveedor (nombre,telefono,direccion)
         VALUES (%s,%s,ROW(%s,%s,%s,%s))
         """
         cursor.execute(query, (nombre_proveedor,telefono_proveedor,
                                direccion[0], direccion[1], direccion[2], direccion[3]))
-        print(f"Inserción de restaurante: {i+1}", end='\r')
+        print(f"Inserción de PROVEEDOR: {i+1}", end='\r')
 
 def main():
     conn = connect_to_db()
@@ -26,7 +26,7 @@ def main():
     try:
         insert_proveedor_data(cursor)
         conn.commit()
-        print("\nInserción terminada")
+        print("\nInserción proveedores terminada")
     except Exception as e:
         print("Error:", e)
         conn.rollback()

@@ -1,18 +1,19 @@
 from faker import Faker
 from conexion import connect_to_db
 from EmpleadoFaker import limpiar_pantalla
+
 fake = Faker('es_MX')  # Establece la localización en español para Faker
 
 
 def insert_restaurante_data(cursor):
     limpiar_pantalla()
-    for i in range(1000):  # Ajusta la cantidad de registros que deseas generar
+    for i in range(5000):  # Ajusta la cantidad de registros que deseas generar
         nombre_restaurante = f"Restaurante {fake.company()}"
         telefono = fake.phone_number()
         direccion = [f"{fake.street_name()} {fake.building_number()}", fake.city(), "Mexico", fake.postcode()]
 
         query = """
-        INSERT INTO prueba_bd.restaurante (nombre, telefono, direccion)
+        INSERT INTO restaurante.restaurante (nombre, telefono, direccion)
         VALUES (%s, %s, ROW(%s, %s, %s, %s));
         """
         
@@ -26,7 +27,7 @@ def main():
     try:
         insert_restaurante_data(cursor)
         conn.commit()
-        print("\nInserción terminada")
+        print("\nInserción restaurante terminada")
     except Exception as e:
         print("Error:", e)
         conn.rollback()

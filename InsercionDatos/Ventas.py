@@ -60,7 +60,7 @@ def insert_ventas_domicilio(cursor):
 
 # Función para insertar una venta y un pedido "Restaurante"
 def insert_ventas_restaurante(cursor):
-    for i in range(500_000):
+    for i in range(1_000_000):
         query_cliente = """
         INSERT INTO restaurante.cliente_temp (id_cliente_temp) VALUES (DEFAULT) RETURNING id_cliente_temp;
         """

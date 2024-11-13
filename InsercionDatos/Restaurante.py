@@ -6,7 +6,7 @@ fake = Faker('es_MX')  # Establece la localización en español para Faker
 
 
 def insert_restaurante_data(cursor):
-    for i in range(5000):  # Ajusta la cantidad de registros que deseas generar
+    for i in range(206):  # Ajusta la cantidad de registros que deseas generar
         nombre_restaurante = f"Restaurante {fake.company()}"
         telefono = fake.phone_number()
         direccion = [f"{fake.street_name()} {fake.building_number()}", fake.city(), "Mexico", fake.postcode()]

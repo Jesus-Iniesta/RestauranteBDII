@@ -14,7 +14,7 @@ def load_csv_puestos(filename):
                 categorias.append([row[0].strip(), row[1].strip()])  # Agrega como tupla y elimina espacios en blanco
     return categorias
 #Insertar datos en almacen
-def insert_data_almacen(cursor,puestos):
+def insert_data_puesto(cursor,puestos):
     i = 0
     for titulo,descripcion in puestos:
         query = """
@@ -29,7 +29,7 @@ def main():
     conn = connect_to_db()
     cursor = conn.cursor()
     try:
-        insert_data_almacen(cursor,puestos)
+        insert_data_puesto(cursor,puestos)
         conn.commit()
         print("\nInserción puesto terminada")
     except Exception as e:

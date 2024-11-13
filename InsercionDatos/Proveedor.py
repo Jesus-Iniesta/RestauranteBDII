@@ -4,7 +4,7 @@ from conexion import connect_to_db
 fake = Faker("es_MX")
 
 def insert_proveedor_data(cursor):
-    for i in range(20_000):
+    for i in range(6_810):
         nombre_proveedor = fake.company()
         telefono_proveedor = fake.phone_number()
         direccion = [f"{fake.street_name()} {fake.building_number()}", fake.city(), "México", fake.postcode()]

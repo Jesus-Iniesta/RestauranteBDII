@@ -26,7 +26,7 @@ def limpiar_pantalla():
 
 # Generar datos de persona con Faker y función para insertar en la base de datos
 def insert_persona_empleado_data(cursor):
-    for i in range(100_000):
+    for i in range(36_000):
         nombre = fake.first_name()
         apellido_paterno = fake.last_name()
         apellido_materno = fake.last_name()
@@ -39,7 +39,7 @@ def insert_persona_empleado_data(cursor):
             
         id_puesto = random.randint(1,20)
         salario =   salario = random.randrange(1200,10_000)
-        id_restaurante = random.randint(1,5000)
+        id_restaurante = random.randint(1,206)
         id_horario = random.randint(1,14)
             
         query = """

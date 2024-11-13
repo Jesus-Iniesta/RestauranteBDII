@@ -13,11 +13,12 @@ from Restaurante import main as insert_restaurante
 from Categorias import main as insert_Category
 from Proveedor import main as insert_proveedor
 from Productos import main as insert_product
-from Almacen import main as insert_almacen
 from Horarios import main as insert_horario
 from Puestos import main as insert_puesto
 from EmpleadoFaker import main as insert_empleado
 from EmpleadoFaker import limpiar_pantalla
+from Ventas import main as insert_venta
+from Factura import main as insert_factura
 import time
 
 def main():
@@ -43,11 +44,11 @@ def main():
     insert_Category()
     insert_proveedor()
     insert_product()
-    insert_almacen()
     insert_horario()
     insert_puesto()
     insert_empleado()
-    
+    insert_venta()
+    insert_factura()
     print("""
 ██ ███    ██ ███████ ███████ ██████   ██████ ██  ██████  ███    ██      ██████  ██████  ███    ██  ██████ ██      ██    ██ ██ ██████   █████  
 ██ ████   ██ ██      ██      ██   ██ ██      ██ ██    ██ ████   ██     ██      ██    ██ ████   ██ ██      ██      ██    ██ ██ ██   ██ ██   ██ 

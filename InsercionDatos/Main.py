@@ -38,17 +38,17 @@ def main():
 ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═════╝ ╚══════╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝    
           """)
     
-    time.sleep(3)
+    time.sleep(2)
     limpiar_pantalla()
-    insert_restaurante()
-    insert_Category()
-    insert_proveedor()
-    insert_product()
-    insert_horario()
-    insert_puesto()
-    insert_empleado()
+    #insert_restaurante()
+    #insert_Category()
+    #insert_proveedor()
+    #insert_product()
+    #insert_horario()
+    #insert_puesto()
+    #insert_empleado()
     insert_venta()
-    insert_factura()
+    #insert_factura()
     print("""
 ██ ███    ██ ███████ ███████ ██████   ██████ ██  ██████  ███    ██      ██████  ██████  ███    ██  ██████ ██      ██    ██ ██ ██████   █████  
 ██ ████   ██ ██      ██      ██   ██ ██      ██ ██    ██ ████   ██     ██      ██    ██ ████   ██ ██      ██      ██    ██ ██ ██   ██ ██   ██ 

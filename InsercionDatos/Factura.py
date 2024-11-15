@@ -5,9 +5,9 @@ from GenerarRFC import generar_rfc
 from GenerarFechaNac import generar_fecha_aleatoria
 
 def insert_data_factura(cursor):
-    for i in range(20_000):
+    for i in range(10_000):
         id_cliente = i
-        query_nombre = "SELECT nombre, apellido_paterno,apellido_materno FROM restaurante.cliente where id_cliente = %s"
+        query_nombre = "SELECT nombre FROM restaurante.cliente where id_cliente = %s"
         cursor.execute(query_nombre,(id_cliente,))
         nombre = cursor.fetchone()[0]
         
@@ -48,11 +48,9 @@ def main():
     cursor = conn.cursor()
     
     try:
-        
-        
         insert_data_factura(cursor)
         conn.commit()
-        print("\nInserción FACTURAS  completada.")
+        print("\nInserción FACTURAS completada.")
     except Exception as e:
         print("Error:", e)
         conn.rollback()

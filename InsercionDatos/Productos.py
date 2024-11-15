@@ -26,7 +26,7 @@ def insert_data_products(cursor,productos):
             precio_doble = float(precio)
             stock_int = int(stock)
             id_cat_int = int(id_cat)  # Conversión de id_cat a entero
-            id_proveedor = random.randint(1, 10_000)
+            id_proveedor = random.randint(1, 6810)
 
             cursor.execute(query, (nombre, precio_doble, stock_int, description, id_cat_int, id_proveedor))
             print(f"Inserción PRODUCTO: {i+1}", end='\r')

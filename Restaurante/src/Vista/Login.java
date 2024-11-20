@@ -1,5 +1,9 @@
 package Vista;
 
+import Util.Conexion;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -19,6 +23,10 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Login");
     }
+    private void limpiarCampos(){
+        txtUser.setText("");
+        txtPassword.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +43,7 @@ public class Login extends javax.swing.JFrame {
         password = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        BtnConectar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -74,9 +82,14 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setBackground(new java.awt.Color(204, 204, 204));
         txtPassword.setForeground(new java.awt.Color(0, 0, 0));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Iniciar");
+        BtnConectar.setBackground(new java.awt.Color(0, 153, 204));
+        BtnConectar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BtnConectar.setText("Iniciar");
+        BtnConectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnConectarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -116,7 +129,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(196, 196, 196)
@@ -147,7 +160,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
@@ -179,6 +192,23 @@ public class Login extends javax.swing.JFrame {
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
+
+    private void BtnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConectarActionPerformed
+        String usuario = txtUser.getText();
+        String password = new String(txtPassword.getPassword());
+        Conexion conect = new Conexion();
+        Connection connection = conect.conectar(usuario, password);
+        if (connection != null){
+            JOptionPane.showMessageDialog(null, "Conexión exitosa","Éxito",JOptionPane.INFORMATION_MESSAGE);
+            //Sistema restaurante = new Sistema();
+            //restaurante.setVisible(true);
+            //this.setVisible(false);
+            conect.cerrarConexion();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al conectar,Vuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_BtnConectarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,7 +246,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BtnConectar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -37,4 +37,8 @@ public class Conexion {
             }
         }
     }
+    
+    public Connection obtenerConexionActiva(){
+        return connect;
+    }
 }

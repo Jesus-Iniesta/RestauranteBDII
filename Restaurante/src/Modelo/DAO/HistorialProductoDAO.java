@@ -14,16 +14,16 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import Modelo.Entidades.*;
+import Util.Conexion;
 
 public class HistorialProductoDAO {
 
-    private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/db";
-        String username = "usr";
-        String password = "psswd";
-        return DriverManager.getConnection(url, username, password);
-    }
 
+        private Conexion conexion;
+        
+    private Connection getConnection() throws SQLException {
+        return conexion.obtenerConexionActiva();
+    }
 
     // Insertar un nuevo historial de producto
     public boolean insertarHistorialProducto(HistorialProducto historialProducto) {

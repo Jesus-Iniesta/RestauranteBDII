@@ -12,14 +12,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
+import Util.Conexion;
 
 public class VentaDAO {
 
+
+        private Conexion conexion;
+        
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/db";
-        String username = "usr";
-        String password = "psswd";
-        return DriverManager.getConnection(url, username, password);
+        return conexion.obtenerConexionActiva();
     }
     public Venta crearVenta(Venta venta) {
         String query = "INSERT INTO venta (IVA, cliente, fecha_venta, descuento, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_venta";

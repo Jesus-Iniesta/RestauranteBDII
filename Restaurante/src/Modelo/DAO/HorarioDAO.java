@@ -14,14 +14,15 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import Modelo.Entidades.*;
+import Util.Conexion;
 
 public class HorarioDAO {
 
+
+        private Conexion conexion;
+        
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/db";
-        String username = "usr";
-        String password = "psswd";
-        return DriverManager.getConnection(url, username, password);
+        return conexion.obtenerConexionActiva();
     }
 
 

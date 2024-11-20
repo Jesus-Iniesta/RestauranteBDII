@@ -12,16 +12,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
+import Util.Conexion;
 
 public class FacturaDAO {
 
-    private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/db";
-        String username = "usr";
-        String password = "psswd";
-        return DriverManager.getConnection(url, username, password);
-    }
 
+        private Conexion conexion;
+        
+    private Connection getConnection() throws SQLException {
+        return conexion.obtenerConexionActiva();
+    }
     public Factura crearFactura(Factura factura) {
         String query = "INSERT INTO factura (rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_factura";
 

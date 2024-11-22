@@ -19,6 +19,8 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
+    public Categoria() {
+    }
     // Getters y setters
     public int getIdCat() {
         return idCat;

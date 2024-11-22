@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo.Entidades;
 
 /**
@@ -27,6 +23,10 @@ public class Proveedor {
     public Proveedor(String nombre) {
         this.nombre = nombre;
     }
+
+    public Proveedor() {
+    }
+    
     // Getters y setters
     public int getIdProveedor() {
         return idProveedor;

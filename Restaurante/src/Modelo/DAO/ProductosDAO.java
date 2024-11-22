@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo.DAO;
 
 /**
@@ -19,28 +16,68 @@ public class ProductosDAO {
 
 
         private Conexion conexion;
-        
+        private Connection conn;
     private Connection getConnection() throws SQLException {
         return conexion.obtenerConexionActiva();
     }
 
+    public ProductosDAO(Connection conn) {
+        this.conn = conn;
+    }
+    
 
+    // Método para obtener el ID de una categoría por su nombre
+    public Categoria obtenerIdCategoria(Categoria categoria){
+        String query = "SELECT id_cat FROM restaurante.categoria WHERE categorias = ?";
+        try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
+            stmt.setString(1,categoria.getCategorias() );
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                categoria.setIdCat(rs.getInt("id_cat"));
+                
+            } 
+            return categoria; 
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    // Método para obtener el ID de un proveedor por su nombre 
+    public Proveedor obtenerIdProveedor(Proveedor nombreProveedor){
+        String query = "SELECT id_proveedor FROM restaurante.proveedor WHERE nombre = ?";
+        try(PreparedStatement stmt = this.conn.prepareStatement(query)){
+            stmt.setString(1, nombreProveedor.getNombre());
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                nombreProveedor.setIdProveedor(rs.getInt("id_proveedor"));
+            }
+            return nombreProveedor;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public Productos crearProductos(Productos productos) {
-        String query = "INSERT INTO productos (nombre, precio, stock, id_proveedor) VALUES (?, ?, ?, ?) RETURNING id_productos";
+        String query = "INSERT INTO restaurante.productos(nombre, precio, stock,descripcion, id_cat,id_proveedor) VALUES (?, ?, ?, ?, ?, ?) RETURNING id_producto";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer parámetros de la consulta
             stmt.setString(1, productos.getNombre());
             stmt.setBigDecimal(2, productos.getPrecio());
             stmt.setInt(3, productos.getStock());
-            stmt.setInt(4, productos.getIdProveedor());
+            stmt.setString(4, productos.getDescripcion());
+            stmt.setInt(5, productos.getIdCat());
+            stmt.setInt(6, productos.getIdProveedor());
 
             // Ejecutar la consulta y obtener el id_productos generado
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                productos.setIdProductos(rs.getInt("id_productos"));
+                productos.setIdProductos(rs.getInt("id_producto"));
             }
 
             return productos;

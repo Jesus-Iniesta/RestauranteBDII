@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo.Entidades;
 
 /**
@@ -13,9 +9,11 @@ import java.math.BigDecimal;
 public class Productos {
     private int idProductos;
     private String nombre;
+    private String descripcion;
     private BigDecimal precio;
     private int stock;
     private int idProveedor;  // Clave foránea que hace referencia a 'proveedor'
+    private int idCat; //Clave foránea que hace referencia a 'Categoria'
 
     // Constructor
     public Productos(int idProductos, String nombre, BigDecimal precio, int stock, int idProveedor) {
@@ -73,6 +71,22 @@ public class Productos {
 
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getIdCat() {
+        return idCat;
+    }
+
+    public void setIdCat(int idCat) {
+        this.idCat = idCat;
     }
 
     @Override

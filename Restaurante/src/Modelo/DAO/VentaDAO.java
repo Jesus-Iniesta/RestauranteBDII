@@ -16,17 +16,18 @@ import Util.Conexion;
 
 public class VentaDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public VentaDAO(Connection conn) {
+        this.conn = conn;
     }
+    
     public Venta crearVenta(Venta venta) {
         String query = "INSERT INTO venta (IVA, cliente, fecha_venta, descuento, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_venta";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer parámetros de la consulta
             stmt.setDouble(1, venta.getIva());
@@ -51,8 +52,8 @@ public class VentaDAO {
     public Venta obtenerVentaPorId(int idVenta, Date fechaVenta) {
         String query = "SELECT id_venta, IVA, cliente, fecha_venta, descuento, id_cliente FROM venta WHERE id_venta = ? AND fecha_venta = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idVenta);
             stmt.setDate(2, fechaVenta);
@@ -72,8 +73,8 @@ public class VentaDAO {
         String query = "SELECT id_venta, IVA, cliente, fecha_venta, descuento, id_cliente FROM venta";
         List<Venta> ventas = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -88,8 +89,8 @@ public class VentaDAO {
     public boolean actualizarVenta(Venta venta) {
         String query = "UPDATE venta SET IVA = ?, cliente = ?, fecha_venta = ?, descuento = ?, id_cliente = ? WHERE id_venta = ? AND fecha_venta = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setDouble(1, venta.getIva());
             stmt.setString(2, venta.getCliente());
@@ -110,8 +111,8 @@ public class VentaDAO {
     public boolean eliminarVenta(int idVenta, Date fechaVenta) {
         String query = "DELETE FROM venta WHERE id_venta = ? AND fecha_venta = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idVenta);
             stmt.setDate(2, fechaVenta);

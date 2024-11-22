@@ -13,29 +13,29 @@ import Util.Conexion;
 
 public class RestauranteDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public RestauranteDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public Restaurante crearRestaurante(Restaurante restaurante) {
         String query = "INSERT INTO restaurante (nombre, telefono, direccion) " +
                        "VALUES (?, ?, ?::direccion) RETURNING id_restaurante";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, restaurante.getNombre());
             stmt.setString(2, restaurante.getTelefono());
 
-            // Serializar la dirección como un tipo compuesto en PostgreSQL
+            // Serializar la dirección como un tipo compuesto
             String direccionSQL = restaurante.getDireccion().getCalle() + ", " +
                                   restaurante.getDireccion().getColonia() + ", " +
                                   restaurante.getDireccion().getPais() + ", " +
                                   restaurante.getDireccion().getCp();
-            stmt.setString(3, direccionSQL);  // Asumiendo que Direccion está serializado como texto
+            stmt.setString(3, direccionSQL);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -53,8 +53,8 @@ public class RestauranteDAO {
         String query = "SELECT id_restaurante, nombre, telefono, direccion " +
                        "FROM restaurante WHERE id_restaurante = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idRestaurante);
             ResultSet rs = stmt.executeQuery();
@@ -71,8 +71,8 @@ public class RestauranteDAO {
         String query = "SELECT id_restaurante, nombre, telefono, direccion FROM restaurante";
         List<Restaurante> restaurantes = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -88,8 +88,8 @@ public class RestauranteDAO {
         String query = "UPDATE restaurante SET nombre = ?, telefono = ?, direccion = ?::direccion " +
                        "WHERE id_restaurante = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, restaurante.getNombre());
             stmt.setString(2, restaurante.getTelefono());
@@ -113,8 +113,8 @@ public class RestauranteDAO {
     public boolean eliminarRestaurante(int idRestaurante) {
         String query = "DELETE FROM restaurante WHERE id_restaurante = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idRestaurante);
             return stmt.executeUpdate() > 0;
@@ -130,9 +130,9 @@ public class RestauranteDAO {
         String nombre = rs.getString("nombre");
         String telefono = rs.getString("telefono");
 
-        // Extraer y mapear la dirección (en este caso, asumimos que está en formato texto)
+        // Extraer y mapear la dirección
         String direccionString = rs.getString("direccion");
-        String[] direccionParts = direccionString.split(",");  // Esto depende de cómo almacenes los datos
+        String[] direccionParts = direccionString.split(",");
 
         Direccion direccion = new Direccion(direccionParts[0].trim(), direccionParts[1].trim(),
                                              direccionParts[2].trim(), direccionParts[3].trim());

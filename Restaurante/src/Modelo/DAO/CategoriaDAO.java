@@ -16,16 +16,18 @@ import Util.Conexion;
 
 public class CategoriaDAO {
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+
+    private Connection conn;
+
+    //Constructora que obtiene la conexion a la base de datos
+    public CategoriaDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public int insertarCategoria(Categoria categoria) {
         String sql = "INSERT INTO categoria (categorias, descripcion) VALUES (?, ?) RETURNING id_cat";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setString(1, categoria.getCategorias());
             stmt.setString(2, categoria.getDescripcion());
 
@@ -41,8 +43,8 @@ public class CategoriaDAO {
 
     public Categoria obtenerCategoriaPorId(int idCat) {
         String sql = "SELECT * FROM categoria WHERE id_cat = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idCat);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -61,8 +63,8 @@ public class CategoriaDAO {
     public List<Categoria> obtenerTodasLasCategorias() {
         List<Categoria> categorias = new ArrayList<>();
         String sql = "SELECT * FROM categoria";
-        try (Connection connection = getConnection();
-             Statement stmt = connection.createStatement()) {
+        try (
+             Statement stmt = this.conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 categorias.add(new Categoria(
@@ -79,8 +81,8 @@ public class CategoriaDAO {
 
     public boolean actualizarCategoria(Categoria categoria) {
         String sql = "UPDATE categoria SET categorias = ?, descripcion = ? WHERE id_cat = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setString(1, categoria.getCategorias());
             stmt.setString(2, categoria.getDescripcion());
             stmt.setInt(3, categoria.getIdCat());
@@ -95,8 +97,8 @@ public class CategoriaDAO {
 
     public boolean eliminarCategoria(int idCat) {
         String sql = "DELETE FROM categoria WHERE id_cat = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idCat);
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;

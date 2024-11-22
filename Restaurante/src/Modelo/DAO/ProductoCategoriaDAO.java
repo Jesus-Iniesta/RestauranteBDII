@@ -11,29 +11,25 @@ package Modelo.DAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import Modelo.Entidades.*;
 import Util.Conexion;
 
-public class HistorialProductoDAO {
+public class ProductoCategoriaDAO {
 
     private Connection conn;
 
     //Constructora que obtiene la conexion a la base de datos
-    public HistorialProductoDAO(Connection conn) {
+    public ProductoCategoriaDAO(Connection conn) {
         this.conn = conn;
     }
 
-    // Insertar un nuevo historial de producto
-    public boolean insertarHistorialProducto(HistorialProducto historialProducto) {
-        String sql = "INSERT INTO historial_producto (id_producto, nombre_producto, fecha_compra, precio) VALUES (?, ?, ?, ?)";
+    // Insertar un nuevo vínculo entre producto y categoría
+    public boolean insertarProductoCategoria(ProductoCategoria productoCategoria) {
+        String sql = "INSERT INTO producto_categoria (id_producto, id_cat) VALUES (?, ?)";
         try (
              PreparedStatement stmt = this.conn.prepareStatement(sql)) {
-            stmt.setInt(1, historialProducto.getIdProducto());
-            stmt.setString(2, historialProducto.getNombreProducto());
-            stmt.setDate(3, Date.valueOf(historialProducto.getFechaCompra()));
-            stmt.setBigDecimal(4, historialProducto.getPrecio());
+            stmt.setInt(1, productoCategoria.getIdProducto());
+            stmt.setInt(2, productoCategoria.getIdCat());
 
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;
@@ -43,19 +39,18 @@ public class HistorialProductoDAO {
         return false;
     }
 
-    // Obtener un historial de producto por id_producto
-    public HistorialProducto obtenerHistorialPorIdProducto(int idProducto) {
-        String sql = "SELECT * FROM historial_producto WHERE id_producto = ?";
+    // Obtener un vínculo entre producto y categoría por los dos IDs
+    public ProductoCategoria obtenerProductoCategoria(int idProducto, int idCat) {
+        String sql = "SELECT * FROM producto_categoria WHERE id_producto = ? AND id_cat = ?";
         try (
              PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idProducto);
+            stmt.setInt(2, idCat);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new HistorialProducto(
+                return new ProductoCategoria(
                         rs.getInt("id_producto"),
-                        rs.getString("nombre_producto"),
-                        rs.getDate("fecha_compra").toLocalDate(),
-                        rs.getBigDecimal("precio")
+                        rs.getInt("id_cat")
                 );
             }
         } catch (SQLException e) {
@@ -64,33 +59,33 @@ public class HistorialProductoDAO {
         return null;
     }
 
-    // Obtener todos los historiales de productos
-    public List<HistorialProducto> obtenerTodosLosHistoriales() {
-        List<HistorialProducto> historialProductos = new ArrayList<>();
-        String sql = "SELECT * FROM historial_producto";
+    // Obtener todos los vínculos entre productos y categorías
+    public List<ProductoCategoria> obtenerTodasLasProductoCategoria() {
+        List<ProductoCategoria> productoCategorias = new ArrayList<>();
+        String sql = "SELECT * FROM producto_categoria";
         try (
              Statement stmt = this.conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                historialProductos.add(new HistorialProducto(
+                productoCategorias.add(new ProductoCategoria(
                         rs.getInt("id_producto"),
-                        rs.getString("nombre_producto"),
-                        rs.getDate("fecha_compra").toLocalDate(),
-                        rs.getBigDecimal("precio")
+                        rs.getInt("id_cat")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return historialProductos;
+        return productoCategorias;
     }
 
-    // Eliminar un historial de producto
-    public boolean eliminarHistorialProducto(int idProducto) {
-        String sql = "DELETE FROM historial_producto WHERE id_producto = ?";
+    // Eliminar un vínculo entre producto y categoría
+    public boolean eliminarProductoCategoria(int idProducto, int idCat) {
+        String sql = "DELETE FROM producto_categoria WHERE id_producto = ? AND id_cat = ?";
         try (
              PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idProducto);
+            stmt.setInt(2, idCat);
+
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;
         } catch (SQLException e) {

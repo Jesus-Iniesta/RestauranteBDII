@@ -16,18 +16,18 @@ import Util.Conexion;
 
 public class PuestoDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public PuestoDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public Puesto crearPuesto(Puesto puesto) {
         String query = "INSERT INTO puesto (titulo_puesto, descripcion, id_empleado) VALUES (?, ?, ?) RETURNING id_puesto";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, puesto.getTituloPuesto());
             stmt.setString(2, puesto.getDescripcion());
@@ -49,8 +49,8 @@ public class PuestoDAO {
     public Puesto obtenerPuestoPorId(int idPuesto) {
         String query = "SELECT id_puesto, titulo_puesto, descripcion, id_empleado FROM puesto WHERE id_puesto = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPuesto);
             ResultSet rs = stmt.executeQuery();
@@ -68,8 +68,8 @@ public class PuestoDAO {
         String query = "SELECT id_puesto, titulo_puesto, descripcion, id_empleado FROM puesto";
         List<Puesto> puestos = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -84,8 +84,8 @@ public class PuestoDAO {
     public boolean actualizarPuesto(Puesto puesto) {
         String query = "UPDATE puesto SET titulo_puesto = ?, descripcion = ?, id_empleado = ? WHERE id_puesto = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, puesto.getTituloPuesto());
             stmt.setString(2, puesto.getDescripcion());
@@ -103,8 +103,8 @@ public class PuestoDAO {
     public boolean eliminarPuesto(int idPuesto) {
         String query = "DELETE FROM puesto WHERE id_puesto = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPuesto);
             return stmt.executeUpdate() > 0;

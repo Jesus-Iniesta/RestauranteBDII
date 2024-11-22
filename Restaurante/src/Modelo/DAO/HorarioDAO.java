@@ -18,11 +18,11 @@ import Util.Conexion;
 
 public class HorarioDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public HorarioDAO(Connection conn) {
+        this.conn = conn;
     }
 
 
@@ -30,8 +30,8 @@ public class HorarioDAO {
         String query = "INSERT INTO horario (dia, hora_inicio, hora_fin) " +
                        "VALUES (?, ?, ?) RETURNING id_horario";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setDate(1, Date.valueOf(horario.getDia()));  // Convertir LocalDate a Date
             stmt.setTimestamp(2, Timestamp.valueOf(horario.getHoraInicio()));  // Convertir LocalDateTime a Timestamp
@@ -52,8 +52,8 @@ public class HorarioDAO {
     public Horario obtenerHorarioPorId(int idHorario) {
         String query = "SELECT id_horario, dia, hora_inicio, hora_fin FROM horario WHERE id_horario = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idHorario);
             ResultSet rs = stmt.executeQuery();
@@ -70,8 +70,8 @@ public class HorarioDAO {
         String query = "SELECT id_horario, dia, hora_inicio, hora_fin FROM horario";
         List<Horario> horarios = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -86,8 +86,8 @@ public class HorarioDAO {
     public boolean actualizarHorario(Horario horario) {
         String query = "UPDATE horario SET dia = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setDate(1, Date.valueOf(horario.getDia()));
             stmt.setTimestamp(2, Timestamp.valueOf(horario.getHoraInicio()));
@@ -105,8 +105,8 @@ public class HorarioDAO {
     public boolean eliminarHorario(int idHorario) {
         String query = "DELETE FROM horario WHERE id_horario = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idHorario);
             return stmt.executeUpdate() > 0;

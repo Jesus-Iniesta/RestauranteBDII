@@ -17,18 +17,18 @@ import Util.Conexion;
 
 public class HistorialEmpleadoDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public HistorialEmpleadoDAO(Connection conn) {
+        this.conn = conn;
     }
 
     // Insertar un nuevo historial de empleado
     public boolean insertarHistorialEmpleado(HistorialEmpleado historialEmpleado) {
         String sql = "INSERT INTO historial_empleado (fecha_inicioPuesto, fecha_finPuesto, id_puesto) VALUES (?, ?, ?) RETURNING id_empleado";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setDate(1, Date.valueOf(historialEmpleado.getFechaInicioPuesto()));
             stmt.setDate(2, Date.valueOf(historialEmpleado.getFechaFinPuesto()));
             stmt.setInt(3, historialEmpleado.getIdPuesto());
@@ -47,8 +47,8 @@ public class HistorialEmpleadoDAO {
     // Obtener historial de empleado por ID
     public HistorialEmpleado obtenerHistorialPorIdEmpleado(int idEmpleado) {
         String sql = "SELECT * FROM historial_empleado WHERE id_empleado = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idEmpleado);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -69,8 +69,8 @@ public class HistorialEmpleadoDAO {
     public List<HistorialEmpleado> obtenerTodosLosHistoriales() {
         List<HistorialEmpleado> historialEmpleados = new ArrayList<>();
         String sql = "SELECT * FROM historial_empleado";
-        try (Connection connection = getConnection();
-             Statement stmt = connection.createStatement()) {
+        try (
+             Statement stmt = this.conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 historialEmpleados.add(new HistorialEmpleado(
@@ -89,8 +89,8 @@ public class HistorialEmpleadoDAO {
     // Eliminar historial de empleado por ID
     public boolean eliminarHistorialEmpleado(int idEmpleado) {
         String sql = "DELETE FROM historial_empleado WHERE id_empleado = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idEmpleado);
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;

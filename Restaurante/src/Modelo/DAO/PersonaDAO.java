@@ -17,11 +17,11 @@ import Util.Conexion;
 
 public class PersonaDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public PersonaDAO(Connection conn) {
+        this.conn = conn;
     }
 
 
@@ -29,8 +29,8 @@ public class PersonaDAO {
         String query = "INSERT INTO persona (nombre, apellido_paterno, apellido_materno, telefono, direccion) " +
                        "VALUES (?, ?, ?, ?, ?::direccion) RETURNING id_persona";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, persona.getNombre());
             stmt.setString(2, persona.getApellidoPaterno());
@@ -60,8 +60,8 @@ public class PersonaDAO {
         String query = "SELECT id_persona, nombre, apellido_paterno, apellido_materno, telefono, direccion " +
                        "FROM persona WHERE id_persona = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPersona);
             ResultSet rs = stmt.executeQuery();
@@ -78,8 +78,8 @@ public class PersonaDAO {
         String query = "SELECT id_persona, nombre, apellido_paterno, apellido_materno, telefono, direccion FROM persona";
         List<Persona> personas = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -95,8 +95,8 @@ public class PersonaDAO {
         String query = "UPDATE persona SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, telefono = ?, direccion = ?::direccion " +
                        "WHERE id_persona = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, persona.getNombre());
             stmt.setString(2, persona.getApellidoPaterno());
@@ -108,7 +108,7 @@ public class PersonaDAO {
                                   persona.getDireccion().getColonia() + ", " +
                                   persona.getDireccion().getPais() + ", " +
                                   persona.getDireccion().getCp();
-            stmt.setString(5, direccionSQL);  // Aquí asumimos que Direccion está serializada como texto
+            stmt.setString(5, direccionSQL); 
             stmt.setInt(6, persona.getIdPersona());
 
             return stmt.executeUpdate() > 0;
@@ -122,8 +122,8 @@ public class PersonaDAO {
     public boolean eliminarPersona(int idPersona) {
         String query = "DELETE FROM persona WHERE id_persona = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPersona);
             return stmt.executeUpdate() > 0;
@@ -141,9 +141,9 @@ public class PersonaDAO {
         String apellidoMaterno = rs.getString("apellido_materno");
         String telefono = rs.getString("telefono");
 
-        // Extraer y mapear la dirección (en este caso, supondremos que está en formato texto)
+        // Extraer y mapear la dirección 
         String direccionString = rs.getString("direccion");
-        String[] direccionParts = direccionString.split(","); // Esto depende de cómo almacenes los datos
+        String[] direccionParts = direccionString.split(",");
 
         Direccion direccion = new Direccion(direccionParts[0].trim(), direccionParts[1].trim(),
                                              direccionParts[2].trim(), direccionParts[3].trim());

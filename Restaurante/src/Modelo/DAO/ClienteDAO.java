@@ -16,17 +16,19 @@ import Util.Conexion;
 
 public class ClienteDAO {
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+
+    private Connection conn;
+
+    //Constructora que obtiene la conexion a la base de datos
+    public ClienteDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public Cliente crearCliente(Cliente cliente) {
         String query = "INSERT INTO cliente (correo) VALUES (?) RETURNING id_cliente";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, cliente.getCorreo());
 
@@ -49,8 +51,8 @@ public class ClienteDAO {
                        "JOIN persona p ON p.id_persona = c.id_cliente " +
                        "WHERE c.id_cliente = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idCliente);
             ResultSet rs = stmt.executeQuery();
@@ -70,8 +72,8 @@ public class ClienteDAO {
                        "JOIN persona p ON p.id_persona = c.id_cliente";
         List<Cliente> clientes = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -86,8 +88,8 @@ public class ClienteDAO {
     public boolean actualizarCliente(Cliente cliente) {
         String query = "UPDATE cliente SET correo = ? WHERE id_cliente = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, cliente.getCorreo());
             stmt.setInt(2, cliente.getIdPersona());
@@ -103,8 +105,8 @@ public class ClienteDAO {
     public boolean eliminarCliente(int idCliente) {
         String query = "DELETE FROM cliente WHERE id_cliente = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idCliente);
             return stmt.executeUpdate() > 0;
@@ -123,7 +125,7 @@ public class ClienteDAO {
         String telefono = rs.getString("telefono");
         
         String direccionString = rs.getString("direccion");
-        String[] direccionParts = direccionString.split(","); // Esto depende de cómo almacenes los datos
+        String[] direccionParts = direccionString.split(",");
 
         Direccion direccion = new Direccion(direccionParts[0].trim(), direccionParts[1].trim(),
                                              direccionParts[2].trim(), direccionParts[3].trim());

@@ -16,17 +16,19 @@ import Util.Conexion;
 
 public class DetalleAlmacenDAO {
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+
+    private Connection conn;
+
+    //Constructora que obtiene la conexion a la base de datos
+    public DetalleAlmacenDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public DetalleAlmacen crearDetalleAlmacen(DetalleAlmacen detalleAlmacen) {
         String query = "INSERT INTO detalle_almacen (id_almacen, id_producto, cantidad_utilizada) VALUES (?, ?, ?) RETURNING id_detalle";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer los parámetros de la consulta
             stmt.setInt(1, detalleAlmacen.getIdAlmacen());
@@ -50,8 +52,8 @@ public class DetalleAlmacenDAO {
     public DetalleAlmacen obtenerDetalleAlmacenPorId(int idDetalle) {
         String query = "SELECT id_detalle, id_almacen, id_producto, cantidad_utilizada FROM detalle_almacen WHERE id_detalle = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idDetalle);
             ResultSet rs = stmt.executeQuery();
@@ -69,8 +71,8 @@ public class DetalleAlmacenDAO {
         String query = "SELECT id_detalle, id_almacen, id_producto, cantidad_utilizada FROM detalle_almacen WHERE id_almacen = ?";
         List<DetalleAlmacen> detalles = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idAlmacen);
             ResultSet rs = stmt.executeQuery();
@@ -87,8 +89,8 @@ public class DetalleAlmacenDAO {
     public boolean actualizarDetalleAlmacen(DetalleAlmacen detalleAlmacen) {
         String query = "UPDATE detalle_almacen SET id_almacen = ?, id_producto = ?, cantidad_utilizada = ? WHERE id_detalle = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, detalleAlmacen.getIdAlmacen());
             stmt.setInt(2, detalleAlmacen.getIdProducto());
@@ -106,8 +108,8 @@ public class DetalleAlmacenDAO {
     public boolean eliminarDetalleAlmacen(int idDetalle) {
         String query = "DELETE FROM detalle_almacen WHERE id_detalle = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idDetalle);
             return stmt.executeUpdate() > 0;

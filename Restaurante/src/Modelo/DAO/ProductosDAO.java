@@ -14,13 +14,9 @@ import Util.Conexion;
 
 public class ProductosDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        private Connection conn;
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
-    }
-
+    //Constructora que obtiene la conexion a la base de datos
     public ProductosDAO(Connection conn) {
         this.conn = conn;
     }
@@ -91,8 +87,8 @@ public class ProductosDAO {
     public Productos obtenerProductosPorId(int idProductos) {
         String query = "SELECT id_productos, nombre, precio, stock, id_proveedor FROM productoss WHERE id_productos = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idProductos);
             ResultSet rs = stmt.executeQuery();
@@ -110,8 +106,8 @@ public class ProductosDAO {
         String query = "SELECT id_productos, nombre, precio, stock, id_proveedor FROM productos";
         List<Productos> productoss = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -126,8 +122,8 @@ public class ProductosDAO {
     public boolean actualizarProductos(Productos productos) {
         String query = "UPDATE productos SET nombre = ?, precio = ?, stock = ?, id_proveedor = ? WHERE id_productos = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, productos.getNombre());
             stmt.setBigDecimal(2, productos.getPrecio());
@@ -146,8 +142,8 @@ public class ProductosDAO {
     public boolean eliminarProductos(int idProductos) {
         String query = "DELETE FROM productoss WHERE id_productos = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idProductos);
             return stmt.executeUpdate() > 0;

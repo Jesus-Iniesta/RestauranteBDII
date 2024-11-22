@@ -16,24 +16,23 @@ import Util.Conexion;
 
 public class ProveedorDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public ProveedorDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public Proveedor crearProveedor(Proveedor proveedor) {
         String query = "INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?, ?, ?) RETURNING id_proveedor";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer los parámetros de la consulta
             stmt.setString(1, proveedor.getNombre());
             stmt.setString(2, proveedor.getTelefono());
-            // Aquí deberíamos convertir la dirección a un formato adecuado si es necesario
-            stmt.setString(3, proveedor.getDireccion().toString());  // Suponiendo que Dirección se almacena como String
+            stmt.setString(3, proveedor.getDireccion().toString());  
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -51,8 +50,8 @@ public class ProveedorDAO {
     public Proveedor obtenerProveedorPorId(int idProveedor) {
         String query = "SELECT id_proveedor, nombre, telefono, direccion FROM proveedor WHERE id_proveedor = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idProveedor);
             ResultSet rs = stmt.executeQuery();
@@ -70,8 +69,8 @@ public class ProveedorDAO {
         String query = "SELECT id_proveedor, nombre, telefono, direccion FROM proveedor";
         List<Proveedor> proveedores = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -86,12 +85,11 @@ public class ProveedorDAO {
     public boolean actualizarProveedor(Proveedor proveedor) {
         String query = "UPDATE proveedor SET nombre = ?, telefono = ?, direccion = ? WHERE id_proveedor = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, proveedor.getNombre());
             stmt.setString(2, proveedor.getTelefono());
-            // Aquí también debemos convertir la dirección a un formato adecuado
             stmt.setString(3, proveedor.getDireccion().toString());
             stmt.setInt(4, proveedor.getIdProveedor());
 
@@ -106,8 +104,8 @@ public class ProveedorDAO {
     public boolean eliminarProveedor(int idProveedor) {
         String query = "DELETE FROM proveedor WHERE id_proveedor = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idProveedor);
             return stmt.executeUpdate() > 0;
@@ -126,7 +124,7 @@ public class ProveedorDAO {
         
         
         String direccionString = rs.getString("direccion");
-        String[] direccionParts = direccionString.split(","); // Esto depende de cómo almacenes los datos
+        String[] direccionParts = direccionString.split(",");
 
         Direccion direccion = new Direccion(direccionParts[0].trim(), direccionParts[1].trim(),
                                              direccionParts[2].trim(), direccionParts[3].trim());

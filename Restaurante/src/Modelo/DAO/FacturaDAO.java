@@ -17,16 +17,18 @@ import Util.Conexion;
 public class FacturaDAO {
 
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    private Connection conn;
+
+    //Constructora que obtiene la conexion a la base de datos
+    public FacturaDAO(Connection conn) {
+        this.conn = conn;
     }
+    
     public Factura crearFactura(Factura factura) {
         String query = "INSERT INTO factura (rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_factura";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer parámetros de la consulta
             stmt.setString(1, factura.getRfcCliente());
@@ -51,8 +53,8 @@ public class FacturaDAO {
     public Factura obtenerFacturaPorId(int idFactura) {
         String query = "SELECT id_factura, rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente FROM factura WHERE id_factura = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idFactura);
             ResultSet rs = stmt.executeQuery();
@@ -70,8 +72,8 @@ public class FacturaDAO {
         String query = "SELECT id_factura, rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente FROM factura";
         List<Factura> facturas = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -86,8 +88,8 @@ public class FacturaDAO {
     public boolean actualizarFactura(Factura factura) {
         String query = "UPDATE factura SET rfc_cliente = ?, telefono_cliente = ?, nombre_cliente = ?, fecha_expedicion = ?, id_cliente = ? WHERE id_factura = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, factura.getRfcCliente());
             stmt.setString(2, factura.getTelefonoCliente());
@@ -107,8 +109,8 @@ public class FacturaDAO {
     public boolean eliminarFactura(int idFactura) {
         String query = "DELETE FROM factura WHERE id_factura = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idFactura);
             return stmt.executeUpdate() > 0;

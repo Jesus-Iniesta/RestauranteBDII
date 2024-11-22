@@ -16,17 +16,19 @@ import Util.Conexion;
 
 public class AlmacenDAO {
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+
+    private Connection conn;
+
+    //Constructora que obtiene la conexion a la base de datos
+    public AlmacenDAO(Connection conn) {
+        this.conn = conn;
     }
 
     public Almacen crearAlmacen(Almacen almacen) {
         String query = "INSERT INTO almacen (nombre, fecha_caducidad, stock) VALUES (?, ?, ?) RETURNING id_almacen";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer los parámetros de la consulta
             stmt.setString(1, almacen.getNombre());
@@ -50,8 +52,8 @@ public class AlmacenDAO {
     public Almacen obtenerAlmacenPorId(int idAlmacen) {
         String query = "SELECT id_almacen, nombre, fecha_caducidad, stock FROM almacen WHERE id_almacen = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idAlmacen);
             ResultSet rs = stmt.executeQuery();
@@ -69,8 +71,8 @@ public class AlmacenDAO {
         String query = "SELECT id_almacen, nombre, fecha_caducidad, stock FROM almacen";
         List<Almacen> almacenes = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -85,8 +87,8 @@ public class AlmacenDAO {
     public boolean actualizarAlmacen(Almacen almacen) {
         String query = "UPDATE almacen SET nombre = ?, fecha_caducidad = ?, stock = ? WHERE id_almacen = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, almacen.getNombre());
             stmt.setDate(2, almacen.getFechaCaducidad());
@@ -104,8 +106,8 @@ public class AlmacenDAO {
     public boolean eliminarAlmacen(int idAlmacen) {
         String query = "DELETE FROM almacen WHERE id_almacen = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idAlmacen);
             return stmt.executeUpdate() > 0;

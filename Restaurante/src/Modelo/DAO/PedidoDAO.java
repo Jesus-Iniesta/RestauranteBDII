@@ -16,19 +16,19 @@ import Util.Conexion;
 
 public class PedidoDAO {
 
+    private Connection conn;
 
-        private Conexion conexion;
-        
-    private Connection getConnection() throws SQLException {
-        return conexion.obtenerConexionActiva();
+    //Constructora que obtiene la conexion a la base de datos
+    public PedidoDAO(Connection conn) {
+        this.conn = conn;
     }
     
     public Pedido crearPedido(Pedido pedido) {
         String query = "INSERT INTO pedidos (precio, cantidad, tipo, productos, metodo_pago, id_venta, id_producto, fecha_venta) " +
                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_pedido";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer los parámetros de la consulta
             stmt.setDouble(1, pedido.getPrecio());
@@ -58,8 +58,8 @@ public class PedidoDAO {
         String query = "SELECT id_pedido, precio, cantidad, tipo, productos, metodo_pago, id_venta, id_producto, fecha_venta " +
                        "FROM pedidos WHERE id_pedido = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPedido);
             ResultSet rs = stmt.executeQuery();
@@ -78,8 +78,8 @@ public class PedidoDAO {
                        "FROM pedidos WHERE id_venta = ? AND fecha_venta = ?";
         List<Pedido> pedidos = new ArrayList<>();
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idVenta);
             stmt.setDate(2, fechaVenta);
@@ -98,8 +98,8 @@ public class PedidoDAO {
         String query = "UPDATE pedidos SET precio = ?, cantidad = ?, tipo = ?, productos = ?, metodo_pago = ?, " +
                        "id_venta = ?, id_producto = ?, fecha_venta = ? WHERE id_pedido = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setDouble(1, pedido.getPrecio());
             stmt.setInt(2, pedido.getCantidad());
@@ -122,8 +122,8 @@ public class PedidoDAO {
     public boolean eliminarPedido(int idPedido) {
         String query = "DELETE FROM pedidos WHERE id_pedido = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setInt(1, idPedido);
             return stmt.executeUpdate() > 0;

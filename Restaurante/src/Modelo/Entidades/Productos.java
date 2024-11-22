@@ -26,6 +26,14 @@ public class Productos {
         this.idProveedor = idProveedor;
     }
 
+    public Productos(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Productos() {
+    }
+    
+
     // Getters y setters
     public int getIdProductos() {
         return idProductos;

@@ -38,7 +38,15 @@ public class Conexion {
         }
     }
     
-    public Connection obtenerConexionActiva(){
-        return connect;
+    public Connection obtenerConexionActiva() {
+    try {
+        if (connect == null || connect.isClosed()) {
+            throw new SQLException("La conexión no está activa.");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener conexión activa: " + e.getMessage());
+        return null;
     }
+    return connect;
+}
 }

@@ -200,10 +200,9 @@ public class Login extends javax.swing.JFrame {
         Connection connection = conect.conectar(usuario, password);
         if (connection != null){
             JOptionPane.showMessageDialog(null, "Conexión exitosa","Éxito",JOptionPane.INFORMATION_MESSAGE);
-            //Sistema restaurante = new Sistema();
-            //restaurante.setVisible(true);
-            //this.setVisible(false);
-            conect.cerrarConexion();
+            Sistema restaurante = new Sistema(connection);
+            restaurante.setVisible(true);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Error al conectar,Vuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
             limpiarCampos();

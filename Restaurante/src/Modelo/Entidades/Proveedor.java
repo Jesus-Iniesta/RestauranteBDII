@@ -24,6 +24,9 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
+    public Proveedor(String nombre) {
+        this.nombre = nombre;
+    }
     // Getters y setters
     public int getIdProveedor() {
         return idProveedor;

@@ -492,7 +492,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                 .addComponent(MetodoDePago)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE)))))
+                                .addComponent(jComboMetodoDePago, 0, 153, Short.MAX_VALUE)))))
                 .addGap(53, 53, 53)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -618,7 +618,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(TelefonoClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(TFTelefonoClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 17, Short.MAX_VALUE))
+                        .addGap(0, 35, Short.MAX_VALUE))
                     .addGroup(PanelClienteLayout.createSequentialGroup()
                         .addGroup(PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelClienteLayout.createSequentialGroup()
@@ -654,7 +654,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(TFApMaternoClnt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         PanelClienteLayout.setVerticalGroup(
             PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -767,7 +767,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(BtnEliminarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         PanelProvedorLayout.setVerticalGroup(
             PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -852,7 +852,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(CBMetododePagoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelPedidoLayout.createSequentialGroup()
@@ -1142,7 +1142,7 @@ public class Sistema extends javax.swing.JFrame {
         PanelVentaLayout.setHorizontalGroup(
             PanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentaLayout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1056, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
@@ -1191,7 +1191,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         PanelHistorialLayout.setVerticalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1292,7 +1292,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1459,7 +1459,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 5, Short.MAX_VALUE))
+                                .addGap(0, 41, Short.MAX_VALUE))
                             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1611,7 +1611,35 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnActualizarPrvdActionPerformed
 
     private void BtnGuardarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarPrvdActionPerformed
-        // TODO add your handling code here:
+                                  
+        try {
+            // Extraer datos de los campos
+            String nombre = TFNombrePrvd.getText();
+            String direccion = TFDireccionPrvd.getText();
+            String telefono = TFTelefonoPrvd.getText();
+
+            // Llamar al controlador para insertar el proveedor
+            Connection conn = conexion;
+            ProveedorDAO control = new ProveedorDAO(conn);
+            
+            Proveedor prvd = new Proveedor();
+            prvd.setNombre(nombre);
+            prvd.setDireccion(direccion);
+            prvd.setTelefono(telefono);
+            
+            boolean exito = control.crearProveedor(prvd);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Proveedor insertado correctamente");
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al insertar proveedor");
+                cargarTabla();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_BtnGuardarPrvdActionPerformed
 
     private void BtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarSesionActionPerformed
@@ -1766,7 +1794,6 @@ public class Sistema extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }//GEN-LAST:event_BtnEliminarPrdActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

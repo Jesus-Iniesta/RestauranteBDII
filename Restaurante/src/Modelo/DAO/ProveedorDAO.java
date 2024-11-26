@@ -24,7 +24,7 @@ public class ProveedorDAO {
         this.conn = conn;
     }
 
-    public Proveedor crearProveedor(Proveedor proveedor) {
+    public boolean crearProveedor(Proveedor proveedor) {
         String query = "INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?, ?, ?) RETURNING id_proveedor";
 
         try (
@@ -40,8 +40,49 @@ public class ProveedorDAO {
                 proveedor.setIdProveedor(rs.getInt("id_proveedor"));
             }
 
-            return proveedor;
+            return true;
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Proveedor obtenerProveedorPorId(int idProveedor) {
+        String query = "SELECT nombre FROM restaurante.proveedor WHERE id_proveedor = ?";
+        Proveedor proveedor = new Proveedor();
+            
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+
+            stmt.setInt(1, idProveedor);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                proveedor.setNombre(rs.getString("nombre"));
+            }
+            return proveedor;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
+    public Proveedor obtenerProveedorIdPorNombre(String nombreProveedor) {
+        String query = "SELECT id_proveedor FROM restaurante.proveedor WHERE nombre = ?";
+        Proveedor proveedor = new Proveedor();
+            
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+
+            stmt.setString(1, nombreProveedor);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                proveedor.setIdProveedor(rs.getInt("id_proveedor"));
+            }
+            return proveedor;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,7 +107,7 @@ public class ProveedorDAO {
         }
         return null;
     }
-
+    
     public List<Proveedor> obtenerTodosLosProveedores() {
         String query = "SELECT id_proveedor, nombre, telefono, direccion FROM proveedor";
         List<Proveedor> proveedores = new ArrayList<>();
@@ -117,6 +158,7 @@ public class ProveedorDAO {
         }
         return false;
     }
+    
     public void obtenerTodosLosProveedor(DefaultTableModel modeloTabla) {
          String query = "SELECT id_proveedor, nombre,direccion,telefono FROM restaurante.proveedor";
         try(

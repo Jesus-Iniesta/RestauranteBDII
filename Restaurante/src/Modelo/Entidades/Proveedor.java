@@ -59,6 +59,16 @@ public class Proveedor {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+    
+    public void setDireccion(String direccionString) {
+        
+        String[] direccionParts = direccionString.split(",");
+
+        Direccion direccion = new Direccion(direccionParts[0].trim(), direccionParts[1].trim(),
+                                             direccionParts[2].trim(), direccionParts[3].trim());
+        
+        this.direccion = direccion;
+    }
 
     @Override
     public String toString() {

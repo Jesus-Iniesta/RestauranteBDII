@@ -16,12 +16,15 @@ public class Productos {
     private int idCat; //Clave foránea que hace referencia a 'Categoria'
 
     // Constructor
-    public Productos(int idProductos, String nombre, BigDecimal precio, int stock, int idProveedor) {
+
+    public Productos(int idProductos, String nombre, BigDecimal precio, int stock, String descripcion, int idCat,int idProveedor) {
         this.idProductos = idProductos;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.idProveedor = idProveedor;
+        this.idCat = idCat;
     }
 
     public Productos(String nombre) {

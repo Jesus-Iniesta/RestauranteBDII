@@ -19,6 +19,11 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
+    public Categoria(String categorias) {
+        this.categorias = categorias;
+    }
+    
+
     public Categoria() {
     }
     // Getters y setters

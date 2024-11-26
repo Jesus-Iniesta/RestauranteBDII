@@ -7,10 +7,8 @@ package Modelo.DAO;
  */
 import java.sql.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import Modelo.Entidades.*;
-import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class ProductosDAO {
 
@@ -70,7 +68,7 @@ public class ProductosDAO {
             stmt.setInt(5, productos.getIdCat());
             stmt.setInt(6, productos.getIdProveedor());
 
-            // Ejecutar la consulta y obtener el id_productos generado
+            // Ejecutar la consulta y obtener el id_producto generado
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 productos.setIdProductos(rs.getInt("id_producto"));
@@ -85,7 +83,7 @@ public class ProductosDAO {
     }
 
     public Productos obtenerProductosPorId(int idProductos) {
-        String query = "SELECT id_productos, nombre, precio, stock, id_proveedor FROM productoss WHERE id_productos = ?";
+        String query = "SELECT id_producto, nombre, precio, stock,descripcion, id_cat,id_proveedor FROM restaurante.productos WHERE id_producto = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -102,25 +100,30 @@ public class ProductosDAO {
         return null;
     }
 
-    public List<Productos> obtenerTodosLosProductoss() {
-        String query = "SELECT id_productos, nombre, precio, stock, id_proveedor FROM productos";
-        List<Productos> productoss = new ArrayList<>();
-
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                productoss.add(mapRowToProductos(rs));
+    public void obtenerTodosLosProductos(DefaultTableModel modeloTabla) {
+         String query = "SELECT id_producto, nombre, precio, stock, id_proveedor FROM restaurante.productos";
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
         }
-        return productoss;
     }
 
-    public boolean actualizarProductos(Productos productos) {
-        String query = "UPDATE productos SET nombre = ?, precio = ?, stock = ?, id_proveedor = ? WHERE id_productos = ?";
+    public Productos actualizarProductos(Productos productos) {
+        String query = "UPDATE productos SET nombre = ?, precio = ?, stock = ?,descripcion = ?,id_cat = ?, id_proveedor = ? WHERE id_producto = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -128,19 +131,21 @@ public class ProductosDAO {
             stmt.setString(1, productos.getNombre());
             stmt.setBigDecimal(2, productos.getPrecio());
             stmt.setInt(3, productos.getStock());
-            stmt.setInt(4, productos.getIdProveedor());
-            stmt.setInt(5, productos.getIdProductos());
+            stmt.setString(4, productos.getDescripcion());
+            stmt.setInt(5, productos.getIdCat());
+            stmt.setInt(6, productos.getIdProveedor());
+            stmt.setInt(7, productos.getIdProductos());
 
-            return stmt.executeUpdate() > 0;
+            return productos;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean eliminarProductos(int idProductos) {
-        String query = "DELETE FROM productoss WHERE id_productos = ?";
+        String query = "DELETE FROM productoss WHERE id_producto = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -156,13 +161,15 @@ public class ProductosDAO {
 
     // Mapea un ResultSet a un objeto Productos
     private Productos mapRowToProductos(ResultSet rs) throws SQLException {
-        int idProductos = rs.getInt("id_productos");
+        int idProductos = rs.getInt("id_producto");
         String nombre = rs.getString("nombre");
         BigDecimal precio = rs.getBigDecimal("precio");
         int stock = rs.getInt("stock");
+        String descripcion = rs.getString("descripcion");
+        int idCategoria = rs.getInt("id_cat");
         int idProveedor = rs.getInt("id_proveedor");
 
-        return new Productos(idProductos, nombre, precio, stock, idProveedor);
+        return new Productos(idProductos,nombre,precio,stock,descripcion,idCategoria,idProveedor);
     }
 }
 

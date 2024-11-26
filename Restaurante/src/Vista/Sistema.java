@@ -4,6 +4,7 @@ import Modelo.Control.ListadoCategorias;
 import Modelo.Control.ListadoProductos;
 import Modelo.Control.ListadoProveedores;
 import Modelo.Control.ProductoControlador;
+import Modelo.DAO.*;
 import Modelo.Entidades.Categoria;
 import Modelo.Entidades.Productos;
 import Modelo.Entidades.Proveedor;
@@ -13,6 +14,7 @@ import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,12 +26,26 @@ public class Sistema extends javax.swing.JFrame {
     public Sistema() {
         initComponents();
     }
+    
     public Sistema(Connection conexion){ //constructor para recibir conexión activa
         this.conexion = conexion;
         initComponents();
         cargarComboProducto(JcomboProductos);
         cargarComboProveedor(JcomboProveedor);
         cargarComboCategorias(JComboCategorias);
+        cargarTabla();
+    }
+    public void cargarTabla(){
+        DefaultTableModel modeloTabla = (DefaultTableModel)TablaProducto.getModel();
+        modeloTabla.setRowCount(0);
+        
+        int [] anchos = {5,150,100,70,70};
+        for(int i = 0; i<TablaProducto.getColumnCount();i++){
+            TablaProducto.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+        
+        ProductosDAO tabla = new ProductosDAO(conexion);
+        tabla.obtenerTodosLosProductos(modeloTabla);
     }
 
     /**
@@ -127,7 +143,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         JcomboProveedor = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        TablaPorducto = new javax.swing.JTable();
+        TablaProducto = new javax.swing.JTable();
         btnGuardarProducto = new javax.swing.JButton();
         BtnActualizarPrd = new javax.swing.JButton();
         BtnEliminarPrd = new javax.swing.JButton();
@@ -320,12 +336,12 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(Historial)
                 .addGap(12, 12, 12)
                 .addComponent(Factura)
-                .addGap(125, 125, 125)
+                .addGap(53, 53, 53)
                 .addComponent(BtnCerrarSesion)
                 .addGap(95, 95, 95))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 140, 530));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 140, 580));
 
         ImagenPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoooestaa.png"))); // NOI18N
         getContentPane().add(ImagenPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1340, 150));
@@ -904,7 +920,7 @@ public class Sistema extends javax.swing.JFrame {
 
         JcomboProveedor.setEditable(true);
 
-        TablaPorducto.setModel(new javax.swing.table.DefaultTableModel(
+        TablaProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -912,13 +928,18 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "Nombre", "Precio", "Stock", "Provedor"
             }
         ));
-        jScrollPane4.setViewportView(TablaPorducto);
-        if (TablaPorducto.getColumnModel().getColumnCount() > 0) {
-            TablaPorducto.getColumnModel().getColumn(0).setPreferredWidth(50);
-            TablaPorducto.getColumnModel().getColumn(1).setPreferredWidth(100);
-            TablaPorducto.getColumnModel().getColumn(2).setPreferredWidth(50);
-            TablaPorducto.getColumnModel().getColumn(3).setPreferredWidth(40);
-            TablaPorducto.getColumnModel().getColumn(4).setPreferredWidth(60);
+        TablaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaProductoMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TablaProducto);
+        if (TablaProducto.getColumnModel().getColumnCount() > 0) {
+            TablaProducto.getColumnModel().getColumn(0).setPreferredWidth(50);
+            TablaProducto.getColumnModel().getColumn(1).setPreferredWidth(100);
+            TablaProducto.getColumnModel().getColumn(2).setPreferredWidth(50);
+            TablaProducto.getColumnModel().getColumn(3).setPreferredWidth(40);
+            TablaProducto.getColumnModel().getColumn(4).setPreferredWidth(60);
         }
 
         btnGuardarProducto.setText("Guardar");
@@ -929,6 +950,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         BtnActualizarPrd.setText("Actualizar");
+        BtnActualizarPrd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarPrdActionPerformed(evt);
+            }
+        });
 
         BtnEliminarPrd.setText("Eliminar");
 
@@ -941,6 +967,12 @@ public class Sistema extends javax.swing.JFrame {
 
         BtnCategoriaPrd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         BtnCategoriaPrd.setText("Categoria");
+
+        JComboCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboCategoriasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelProductoLayout = new javax.swing.GroupLayout(PanelProducto);
         PanelProducto.setLayout(PanelProductoLayout);
@@ -1015,7 +1047,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ProvedorPrd)
                             .addComponent(JcomboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarProducto)
                             .addComponent(BtnActualizarPrd))
@@ -1109,7 +1141,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane9)
                     .addComponent(jScrollPane10))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         PanelGeneral.addTab("Hist", PanelHistorial);
@@ -1389,7 +1421,7 @@ public class Sistema extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1614,6 +1646,30 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboMetodoDePagoActionPerformed
 
+    private void JComboCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboCategoriasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JComboCategoriasActionPerformed
+
+    private void BtnActualizarPrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarPrdActionPerformed
+        
+    }//GEN-LAST:event_BtnActualizarPrdActionPerformed
+
+    private void TablaProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductoMouseClicked
+        int fila = TablaProducto.getSelectedRow();
+        int id = Integer.parseInt(TablaProducto.getValueAt(fila, 0).toString());
+        Productos consulta = new ProductosDAO(conexion).obtenerProductosPorId(id);
+        Proveedor proveedor = new Proveedor();
+        Categoria cats = new Categoria();
+        CategoriaDAO cat = new CategoriaDAO(conexion);
+        ProveedorDAO prov = new ProveedorDAO(conexion);
+        txtNombreProducto.setText(consulta.getNombre());
+        txtPrecio.setText(String.valueOf(consulta.getPrecio()));
+        jSpinnStock.setValue(consulta.getStock());
+        AreaDesc.setText(consulta.getDescripcion());
+        JComboCategorias.setSelectedItem(cat.obtenerCategoriaPorId(consulta.getIdCat(),cats));
+        JcomboProveedor.setSelectedItem(prov.obtenerProveedorPorId(consulta.getIdProveedor(),proveedor));
+    }//GEN-LAST:event_TablaProductoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1741,7 +1797,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTable TablaNV;
     private javax.swing.JTable TablaPedido;
-    private javax.swing.JTable TablaPorducto;
+    private javax.swing.JTable TablaProducto;
     private javax.swing.JTable TablaProvedor;
     private javax.swing.JTable TablaVenta;
     private javax.swing.JLabel TelefonoClnt;
@@ -1862,7 +1918,7 @@ public class Sistema extends javax.swing.JFrame {
                 lista_cat.AgregarCategorias(cat);
                 combo.addElement(cat.getCategorias());
             }
-            System.out.println("Exito Cayegorias");
+            System.out.println("Exito Categorias");
         } catch(Exception e){
             System.out.println("Error al consultar combo: "+e);
         }

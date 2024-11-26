@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo.DAO;
 
 /**
@@ -12,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
-import Util.Conexion;
 
 public class CategoriaDAO {
 
@@ -41,19 +37,17 @@ public class CategoriaDAO {
         return -1;
     }
 
-    public Categoria obtenerCategoriaPorId(int idCat) {
-        String sql = "SELECT * FROM categoria WHERE id_cat = ?";
+    public String obtenerCategoriaPorId(int idCat,Categoria categorias) {
+        String sql = "SELECT categorias FROM restaurante.categoria WHERE id_cat = ?";
         try (
              PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setInt(1, idCat);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Categoria(
-                        rs.getInt("id_cat"),
-                        rs.getString("categorias"),
-                        rs.getString("descripcion")
-                );
+                 categorias.setCategorias(rs.getString("categorias"));
             }
+            return categorias.getCategorias();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

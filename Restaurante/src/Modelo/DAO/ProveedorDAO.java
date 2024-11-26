@@ -47,9 +47,9 @@ public class ProveedorDAO {
         return null;
     }
 
-    public Proveedor obtenerProveedorPorId(int idProveedor) {
-        String query = "SELECT id_proveedor, nombre, telefono, direccion FROM proveedor WHERE id_proveedor = ?";
-
+    public String obtenerProveedorPorId(int idProveedor, Proveedor proveedor) {
+        String query = "SELECT nombre FROM restaurante.proveedor WHERE id_proveedor = ?";
+        
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
@@ -57,8 +57,9 @@ public class ProveedorDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return mapRowToProveedor(rs);
+                proveedor.setNombre(rs.getString("nombre"));
             }
+            return proveedor.getNombre();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,8 +122,6 @@ public class ProveedorDAO {
         int idProveedor = rs.getInt("id_proveedor");
         String nombre = rs.getString("nombre");
         String telefono = rs.getString("telefono");
-        
-        
         String direccionString = rs.getString("direccion");
         String[] direccionParts = direccionString.split(",");
 

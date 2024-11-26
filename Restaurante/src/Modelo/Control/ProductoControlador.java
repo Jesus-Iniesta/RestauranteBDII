@@ -85,6 +85,7 @@ public class ProductoControlador {
 
             // Crear el objeto Producto
             Productos producto = new Productos();
+            producto.setIdProductos(id_producto);
             producto.setIdCat(id_producto);
             producto.setNombre(nombre);
             producto.setPrecio(precio);

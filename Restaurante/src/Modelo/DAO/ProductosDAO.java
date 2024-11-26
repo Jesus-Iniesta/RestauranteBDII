@@ -8,6 +8,7 @@ package Modelo.DAO;
 import java.sql.*;
 import java.math.BigDecimal;
 import Modelo.Entidades.*;
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 
 public class ProductosDAO {
@@ -123,7 +124,7 @@ public class ProductosDAO {
     }
 
     public Productos actualizarProductos(Productos productos) {
-        String query = "UPDATE productos SET nombre = ?, precio = ?, stock = ?,descripcion = ?,id_cat = ?, id_proveedor = ? WHERE id_producto = ?";
+        String query = "UPDATE restaurante.productos SET nombre = ?, precio = ?, stock = ?,descripcion = ?,id_cat = ?, id_proveedor = ? WHERE id_producto = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -135,7 +136,7 @@ public class ProductosDAO {
             stmt.setInt(5, productos.getIdCat());
             stmt.setInt(6, productos.getIdProveedor());
             stmt.setInt(7, productos.getIdProductos());
-
+            stmt.executeUpdate();
             return productos;
 
         } catch (SQLException e) {
@@ -145,19 +146,45 @@ public class ProductosDAO {
     }
 
     public boolean eliminarProductos(int idProductos) {
-        String query = "DELETE FROM productoss WHERE id_producto = ?";
+    String deleteHistorialQuery = "DELETE FROM restaurante.historial_producto WHERE id_producto = ?";
+    String deleteProductoQuery = "DELETE FROM restaurante.productos WHERE id_producto = ?";
+    
+    try {
+        // Desactivar auto-commit para manejar transacciones
+        conn.setAutoCommit(false);
 
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
-
-            stmt.setInt(1, idProductos);
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        // Eliminar referencias en historial_producto
+        try (PreparedStatement stmtHistorial = conn.prepareStatement(deleteHistorialQuery)) {
+            stmtHistorial.setInt(1, idProductos);
+            stmtHistorial.executeUpdate();
         }
-        return false;
+
+        // Eliminar el producto
+        try (PreparedStatement stmtProducto = conn.prepareStatement(deleteProductoQuery)) {
+            stmtProducto.setInt(1, idProductos);
+            int rowsAffected = stmtProducto.executeUpdate();
+
+            // Confirmar transacción
+            conn.commit();
+            return rowsAffected > 0;
+        }
+
+    } catch (SQLException e) {
+        try {
+            conn.rollback(); // Revertir cambios en caso de error
+        } catch (SQLException rollbackEx) {
+            rollbackEx.printStackTrace();
+        }
+        e.printStackTrace();
+    } finally {
+        try {
+            conn.setAutoCommit(true); // Restaurar auto-commit
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+    return false;
+}
 
     // Mapea un ResultSet a un objeto Productos
     private Productos mapRowToProductos(ResultSet rs) throws SQLException {

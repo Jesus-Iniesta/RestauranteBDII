@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class ProveedorDAO {
 
@@ -115,6 +116,27 @@ public class ProveedorDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    public void obtenerTodosLosProveedor(DefaultTableModel modeloTabla) {
+         String query = "SELECT id_proveedor, nombre,direccion,telefono FROM restaurante.proveedor";
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
+        }
     }
 
     // Mapea un ResultSet a un objeto Proveedor

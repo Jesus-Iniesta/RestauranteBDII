@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class ProveedorDAO {
 
     private Connection conn;
+    private Direccion direccion;
 
     //Constructora que obtiene la conexion a la base de datos
     public ProveedorDAO(Connection conn) {
@@ -30,6 +31,8 @@ public class ProveedorDAO {
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
+            this.direccion = direccion;
+            
             // Establecer los parámetros de la consulta
             stmt.setString(1, proveedor.getNombre());
             stmt.setString(2, proveedor.getTelefono());
@@ -69,6 +72,43 @@ public class ProveedorDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    
+
+    public boolean crearProveedor(String nombre, String telefono, String calle, String colonia, String pais, String cp) {
+        String query = "INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?, ?, ?) RETURNING id_proveedor";
+
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+
+            Proveedor proveedor = new Proveedor();
+            proveedor.setNombre(nombre);
+            proveedor.setTelefono(telefono);
+            
+            // Establecer los parámetros de la consulta
+            stmt.setString(1, proveedor.getNombre());
+            stmt.setString(2, proveedor.getTelefono());
+            
+            this.direccion = new Direccion(calle,colonia,pais,cp);
+            proveedor.setDireccion(this.direccion);
+            
+            String direccionSQL = proveedor.getDireccion().getCalle() + ", " +
+                                  proveedor.getDireccion().getColonia() + ", " +
+                                  proveedor.getDireccion().getPais() + ", " +
+                                  proveedor.getDireccion().getCp();
+            stmt.setString(3, direccionSQL); 
+            
+            //stmt.setString(3, proveedor.getDireccion().toString());  
+
+            ResultSet rs = stmt.executeQuery();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
     
@@ -140,6 +180,47 @@ public class ProveedorDAO {
             stmt.setInt(4, proveedor.getIdProveedor());
 
             return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    
+
+    public boolean actualizarProveedor(int idProveedor, String nombre, String telefono, String calle, String colonia, String pais, String cp) {
+        
+        String query = "UPDATE proveedor SET nombre = ?, telefono = ?, direccion = ? WHERE id_proveedor = ?";
+
+        try (
+             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+
+            Proveedor proveedor = new Proveedor();
+            proveedor.setNombre(nombre);
+            proveedor.setTelefono(telefono);
+            
+            // Establecer los parámetros de la consulta
+            stmt.setString(1, proveedor.getNombre());
+            stmt.setString(2, proveedor.getTelefono());
+            
+            this.direccion = new Direccion(calle,colonia,pais,cp);
+            proveedor.setDireccion(this.direccion);
+            
+            String direccionSQL = proveedor.getDireccion().getCalle() + ", " +
+                                  proveedor.getDireccion().getColonia() + ", " +
+                                  proveedor.getDireccion().getPais() + ", " +
+                                  proveedor.getDireccion().getCp();
+            stmt.setString(3, direccionSQL); 
+            
+            proveedor.setIdProveedor(idProveedor);
+            
+            stmt.setInt(4, proveedor.getIdProveedor());
+            
+
+            ResultSet rs = stmt.executeQuery();
+
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();

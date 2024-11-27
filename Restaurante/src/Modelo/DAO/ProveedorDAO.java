@@ -55,7 +55,7 @@ public class ProveedorDAO {
     }
 
     public Proveedor obtenerProveedorPorId(int idProveedor) {
-        String query = "SELECT nombre FROM restaurante.proveedor WHERE id_proveedor = ?";
+        String query = "SELECT nombre,direccion,telefono FROM restaurante.proveedor WHERE id_proveedor = ?";
         Proveedor proveedor = new Proveedor();
             
         try (
@@ -66,6 +66,8 @@ public class ProveedorDAO {
 
             if (rs.next()) {
                 proveedor.setNombre(rs.getString("nombre"));
+                proveedor.setDireccion(rs.getString("direccion"));
+                proveedor.setTelefono(rs.getString("telefono"));
             }
             return proveedor;
         } catch (SQLException e) {
@@ -73,45 +75,7 @@ public class ProveedorDAO {
         }
         return null;
     }
-    
-    
-
-    public boolean crearProveedor(String nombre, String telefono, String calle, String colonia, String pais, String cp) {
-        String query = "INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?, ?, ?) RETURNING id_proveedor";
-
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
-
-            Proveedor proveedor = new Proveedor();
-            proveedor.setNombre(nombre);
-            proveedor.setTelefono(telefono);
-            
-            // Establecer los parámetros de la consulta
-            stmt.setString(1, proveedor.getNombre());
-            stmt.setString(2, proveedor.getTelefono());
-            
-            this.direccion = new Direccion(calle,colonia,pais,cp);
-            proveedor.setDireccion(this.direccion);
-            
-            String direccionSQL = proveedor.getDireccion().getCalle() + ", " +
-                                  proveedor.getDireccion().getColonia() + ", " +
-                                  proveedor.getDireccion().getPais() + ", " +
-                                  proveedor.getDireccion().getCp();
-            stmt.setString(3, direccionSQL); 
-            
-            //stmt.setString(3, proveedor.getDireccion().toString());  
-
-            ResultSet rs = stmt.executeQuery();
-
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    
-    
+     
     public Proveedor obtenerProveedorIdPorNombre(String nombreProveedor) {
         String query = "SELECT id_proveedor FROM restaurante.proveedor WHERE nombre = ?";
         Proveedor proveedor = new Proveedor();
@@ -168,17 +132,25 @@ public class ProveedorDAO {
         return proveedores;
     }
 
-    public boolean actualizarProveedor(Proveedor proveedor) {
-        String query = "UPDATE proveedor SET nombre = ?, telefono = ?, direccion = ? WHERE id_proveedor = ?";
+    public boolean actualizarProveedor(Proveedor proveedor,int id_proveedor) {
+        String query = "UPDATE restaurante.proveedor SET nombre = ?, telefono = ?, direccion = ROW(?, ?, ?, ?) WHERE id_proveedor = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
+            // Asignar valores a los placeholders (?)
             stmt.setString(1, proveedor.getNombre());
             stmt.setString(2, proveedor.getTelefono());
-            stmt.setString(3, proveedor.getDireccion().toString());
-            stmt.setInt(4, proveedor.getIdProveedor());
 
+            // Descomponer la dirección y asignar sus atributos
+            Direccion direccion = proveedor.getDireccion();
+            stmt.setString(3, direccion.getCalle());
+            stmt.setString(4, direccion.getColonia());
+            stmt.setString(5, direccion.getPais());
+            stmt.setString(6, direccion.getCp());
+            // Asignar el ID del proveedor
+            stmt.setInt(7, id_proveedor); // Este es el último placeholder de la consulta
+            // Ejecutar el UPDATE y retornar si se afectó al menos una fila
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {

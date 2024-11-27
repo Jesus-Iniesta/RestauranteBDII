@@ -112,6 +112,10 @@ public class Sistema extends javax.swing.JFrame {
         btnAñadirProductos = new javax.swing.JButton();
         MetodoDePago = new javax.swing.JLabel();
         jComboMetodoDePago = new javax.swing.JComboBox<>();
+        MetodoDePago1 = new javax.swing.JLabel();
+        txtPrecioUVenta = new javax.swing.JTextField();
+        MetodoDePago2 = new javax.swing.JLabel();
+        txtTotalVenta = new javax.swing.JTextField();
         PanelCliente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaClientes = new javax.swing.JTable();
@@ -149,6 +153,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPaisProv = new javax.swing.JTextField();
         txtCodigoPProv = new javax.swing.JTextField();
         txtColoniaProveedor = new javax.swing.JTextField();
+        BtnLimpiarProveedor = new javax.swing.JButton();
         PanelPedido = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         TablaPedido = new javax.swing.JTable();
@@ -406,7 +411,7 @@ public class Sistema extends javax.swing.JFrame {
             TablaNV.getColumnModel().getColumn(5).setPreferredWidth(25);
         }
 
-        BtnGuardarNV.setText("Guardar");
+        BtnGuardarNV.setText("Pagar");
         BtnGuardarNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnGuardarNVActionPerformed(evt);
@@ -420,7 +425,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        BtnActualizarNV.setText("Actualizar");
+        BtnActualizarNV.setText("Editar");
         BtnActualizarNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnActualizarNVActionPerformed(evt);
@@ -464,24 +469,27 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        MetodoDePago1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        MetodoDePago1.setText("Total");
+
+        txtPrecioUVenta.setEditable(false);
+        txtPrecioUVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioUVentaActionPerformed(evt);
+            }
+        });
+
+        MetodoDePago2.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        MetodoDePago2.setText("Precio");
+
+        txtTotalVenta.setEditable(false);
+
         javax.swing.GroupLayout PanelNuevaVentaLayout = new javax.swing.GroupLayout(PanelNuevaVenta);
         PanelNuevaVenta.setLayout(PanelNuevaVentaLayout);
         PanelNuevaVentaLayout.setHorizontalGroup(
             PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAñadirProductos)
-                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BtnActualizarNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BtnGuardarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(39, 39, 39)
-                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(BtnEliminarNV, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                                    .addComponent(BtnLimpiarNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -498,19 +506,48 @@ public class Sistema extends javax.swing.JFrame {
                                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                         .addComponent(JcomboCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(JcomboProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(JcomboProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(53, 53, 53))
+                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAñadirProductos)
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addComponent(MetodoDePago)
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnActualizarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BtnGuardarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnLimpiarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BtnEliminarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addComponent(MetodoDePago2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE)))))
-                .addGap(53, 53, 53)
+                                .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(MetodoDePago)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE))
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(MetodoDePago1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(57, 57, 57)))))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
         PanelNuevaVentaLayout.setVerticalGroup(
             PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -528,16 +565,25 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(btnAñadirProductos)
                         .addGap(18, 18, 18)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MetodoDePago2)
+                            .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetodoDePago)
                             .addComponent(jComboMetodoDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                        .addGap(26, 26, 26)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnGuardarNV)
-                            .addComponent(BtnEliminarNV))
-                        .addGap(18, 18, 18)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnActualizarNV)
-                            .addComponent(BtnLimpiarNV)))
+                            .addComponent(MetodoDePago1)
+                            .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnActualizarNV, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BtnEliminarNV)
+                                    .addComponent(BtnGuardarNV))
+                                .addGap(38, 38, 38)
+                                .addComponent(BtnLimpiarNV))))
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -779,6 +825,13 @@ public class Sistema extends javax.swing.JFrame {
         DireccionPrvd3.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         DireccionPrvd3.setText("Codigo Postal");
 
+        BtnLimpiarProveedor.setText("Limpiar");
+        BtnLimpiarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarProveedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelProvedorLayout = new javax.swing.GroupLayout(PanelProvedor);
         PanelProvedor.setLayout(PanelProvedorLayout);
         PanelProvedorLayout.setHorizontalGroup(
@@ -798,7 +851,10 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(txtNombreProv, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtTelefonoProv, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtPaisProv, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(BtnGuardarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelProvedorLayout.createSequentialGroup()
+                            .addComponent(BtnGuardarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnLimpiarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(PanelProvedorLayout.createSequentialGroup()
                             .addComponent(BtnEliminarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -847,7 +903,9 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(TelefonoPrvd)
                             .addComponent(txtTelefonoProv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
-                        .addComponent(BtnGuardarPrvd)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnGuardarPrvd)
+                            .addComponent(BtnLimpiarProveedor))
                         .addGap(18, 18, 18)
                         .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnEliminarPrvd)
@@ -1674,7 +1732,33 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnNuevoPddActionPerformed
 
     private void BtnActualizarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarPrvdActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Extraer datos de los campos
+            int fila = TablaProvedor.getSelectedRow();
+            int idProveedor = Integer.parseInt(TablaProvedor.getValueAt(fila, 0).toString());
+            String nombre = txtNombreProv.getText();
+            String direccion = txtCalleProvedor.getText()+","+txtColoniaProveedor.getText()+
+                    ","+txtPaisProv.getText()+","+txtCodigoPProv.getText();
+            String telefono = txtTelefonoProv.getText();
+
+            // Llamar al controlador para insertar el proveedor
+            Connection conn = conexion;
+            ProveedorDAO control = new ProveedorDAO(conn);
+            
+            Proveedor prvd = new Proveedor();
+            prvd.setNombre(nombre);
+            prvd.setDireccion(direccion);
+            prvd.setTelefono(telefono);
+            boolean exito = control.actualizarProveedor(prvd,idProveedor);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Proveedor Actualizado correctamente");
+                cargarTablaProveedor();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al Actualizar proveedor");
+                cargarTablaProveedor();
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_BtnActualizarPrvdActionPerformed
 
     private void BtnGuardarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarPrvdActionPerformed
@@ -1829,9 +1913,7 @@ public class Sistema extends javax.swing.JFrame {
         }catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-            
-            
+        }                        
     }//GEN-LAST:event_BtnActualizarPrdActionPerformed
 
     private void TablaProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductoMouseClicked
@@ -1879,9 +1961,23 @@ public class Sistema extends javax.swing.JFrame {
         txtNombreProv.setText(consulta.getNombre());
         txtCalleProvedor.setText(consulta.getDireccion().getCalle());
         txtColoniaProveedor.setText(consulta.getDireccion().getColonia());
+        txtPaisProv.setText(consulta.getDireccion().getPais());
         txtCodigoPProv.setText(consulta.getDireccion().getCp());
         txtTelefonoProv.setText(consulta.getTelefono());
     }//GEN-LAST:event_TablaProvedorMouseClicked
+
+    private void BtnLimpiarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarProveedorActionPerformed
+        txtNombreProv.setText("");
+        txtCalleProvedor.setText("");
+        txtColoniaProveedor.setText("");
+        txtPaisProv.setText("");
+        txtCodigoPProv.setText("");
+        txtTelefonoProv.setText("");
+    }//GEN-LAST:event_BtnLimpiarProveedorActionPerformed
+
+    private void txtPrecioUVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioUVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioUVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1944,6 +2040,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton BtnGuardarNV;
     private javax.swing.JButton BtnGuardarPrvd;
     private javax.swing.JButton BtnLimpiarNV;
+    private javax.swing.JButton BtnLimpiarProveedor;
     private javax.swing.JButton BtnNuevoFct;
     private javax.swing.JButton BtnNuevoPdd;
     private javax.swing.JComboBox<String> CBMetododePagoPdd;
@@ -1973,6 +2070,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JcomboProveedor;
     private javax.swing.JComboBox<String> JcomboPuesto;
     private javax.swing.JLabel MetodoDePago;
+    private javax.swing.JLabel MetodoDePago1;
+    private javax.swing.JLabel MetodoDePago2;
     private javax.swing.JLabel MetododePagoPdd;
     private javax.swing.JLabel NombreClnt;
     private javax.swing.JLabel NombreFct;
@@ -2070,10 +2169,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreProv;
     private javax.swing.JTextField txtPaisProv;
     private javax.swing.JTextField txtPrecioProd;
+    private javax.swing.JTextField txtPrecioUVenta;
     private javax.swing.JTextField txtRFCEmp;
     private javax.swing.JTextField txtSalarioEmp;
     private javax.swing.JTextField txtTelEmp;
     private javax.swing.JTextField txtTelefonoProv;
+    private javax.swing.JTextField txtTotalVenta;
     // End of variables declaration//GEN-END:variables
 
     private void cargarComboProducto(JComboBox c) {

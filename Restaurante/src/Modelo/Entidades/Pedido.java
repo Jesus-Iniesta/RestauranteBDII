@@ -12,28 +12,25 @@ import java.sql.Date;
 
 public class Pedido {
     private int idPedido;
-    private double precio;
-    private int cantidad;
+    private int[] cantidad;
     private String tipo;
-    private String productos;
     private String metodoPago;
     private int idVenta;
-    private int idProducto;
+    private int[] idProducto;
     private Date fechaVenta;
 
     // Constructor
-    public Pedido(int idPedido, double precio, int cantidad, String tipo, String productos, String metodoPago, 
-                  int idVenta, int idProducto, Date fechaVenta) {
+
+    public Pedido(int idPedido, int[] cantidad, String tipo, String metodoPago, int idVenta, int[] idProducto, Date fechaVenta) {
         this.idPedido = idPedido;
-        this.precio = precio;
         this.cantidad = cantidad;
         this.tipo = tipo;
-        this.productos = productos;
         this.metodoPago = metodoPago;
         this.idVenta = idVenta;
         this.idProducto = idProducto;
         this.fechaVenta = fechaVenta;
     }
+    
 
     // Getters y setters
     public int getIdPedido() {
@@ -43,22 +40,7 @@ public class Pedido {
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+    
 
     public String getTipo() {
         return tipo;
@@ -66,14 +48,6 @@ public class Pedido {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public String getProductos() {
-        return productos;
-    }
-
-    public void setProductos(String productos) {
-        this.productos = productos;
     }
 
     public String getMetodoPago() {
@@ -92,14 +66,6 @@ public class Pedido {
         this.idVenta = idVenta;
     }
 
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
-
     public Date getFechaVenta() {
         return fechaVenta;
     }
@@ -108,10 +74,27 @@ public class Pedido {
         this.fechaVenta = fechaVenta;
     }
 
+    public int[] getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int[] cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int[] getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int[] idProducto) {
+        this.idProducto = idProducto;
+    }
+    
+
     @Override
     public String toString() {
-        return "Pedido [idPedido=" + idPedido + ", precio=" + precio + ", cantidad=" + cantidad + ", tipo=" + tipo +
-               ", productos=" + productos + ", metodoPago=" + metodoPago + ", idVenta=" + idVenta + 
+        return "Pedido [idPedido=" + idPedido +  ", cantidad=" + cantidad + ", tipo=" + tipo +
+                ", metodoPago=" + metodoPago + ", idVenta=" + idVenta + 
                ", idProducto=" + idProducto + ", fechaVenta=" + fechaVenta + "]";
     }
 }

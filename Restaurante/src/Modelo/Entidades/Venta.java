@@ -13,16 +13,14 @@ import java.sql.Date;
 public class Venta {
     private int idVenta;
     private double iva;
-    private String cliente;
     private Date fechaVenta;
     private double descuento;
     private int idCliente;  // Clave foránea que hace referencia a 'cliente'
-
     // Constructor
-    public Venta(int idVenta, double iva, String cliente, Date fechaVenta, double descuento, int idCliente) {
+    
+    public Venta(int idVenta, double iva, Date fechaVenta, double descuento, int idCliente) {
         this.idVenta = idVenta;
         this.iva = iva;
-        this.cliente = cliente;
         this.fechaVenta = fechaVenta;
         this.descuento = descuento;
         this.idCliente = idCliente;
@@ -32,7 +30,7 @@ public class Venta {
     public int getIdVenta() {
         return idVenta;
     }
-
+  
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
     }
@@ -43,14 +41,6 @@ public class Venta {
 
     public void setIva(double iva) {
         this.iva = iva;
-    }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
     }
 
     public Date getFechaVenta() {
@@ -79,7 +69,7 @@ public class Venta {
 
     @Override
     public String toString() {
-        return "Venta [idVenta=" + idVenta + ", iva=" + iva + ", cliente=" + cliente +
+        return "Venta [idVenta=" + idVenta + ", iva=" + iva  +
                 ", fechaVenta=" + fechaVenta + ", descuento=" + descuento + ", idCliente=" + idCliente + "]";
     }
 }

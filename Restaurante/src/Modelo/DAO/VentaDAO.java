@@ -12,7 +12,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
-import Util.Conexion;
 
 public class VentaDAO {
 
@@ -22,31 +21,68 @@ public class VentaDAO {
     public VentaDAO(Connection conn) {
         this.conn = conn;
     }
-    
-    public Venta crearVenta(Venta venta) {
-        String query = "INSERT INTO venta (IVA, cliente, fecha_venta, descuento, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_venta";
+    // Método auxiliar para convertir int[] a Integer[]
+    private Integer[] convertToIntegerArray(int[] array) {
+        return java.util.Arrays.stream(array).boxed().toArray(Integer[]::new);
+    }
 
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+    public boolean actualizarVenta(double iva, double descuento, String tipo, String metodoPago, int[] idsProductos, int[] cantidades) {
+        String query1 = "INSERT INTO restaurante.cliente_temp DEFAULT VALUES RETURNING id_cliente_temp";
+        String query2 = "INSERT INTO restaurante.venta (iva, fecha_venta, descuento, no_cliente_temp) VALUES (?, CURRENT_DATE, ?, ?) RETURNING id_venta, fecha_venta";
+        String query3 = "SELECT id_producto, stock FROM restaurante.productos WHERE id_producto = ANY (?) AND stock >= ANY (?)";
+        String query4 = "INSERT INTO restaurante.pedidos (cantidad, tipo, metodo_pago, id_venta, id_producto, fecha_venta) VALUES (?, ?, ?, ?, ?, CURRENT_DATE) RETURNING id_pedido";
+        String query5 = "UPDATE restaurante.productos SET stock = stock - cantidades.cantidad FROM (SELECT unnest(?) AS id_producto, unnest(?) AS cantidad) AS cantidades WHERE restaurante.productos.id_producto = cantidades.id_producto";
 
-            // Establecer parámetros de la consulta
-            stmt.setDouble(1, venta.getIva());
-            stmt.setString(2, venta.getCliente());
-            stmt.setDate(3, venta.getFechaVenta());
-            stmt.setDouble(4, venta.getDescuento());
-            stmt.setInt(5, venta.getIdCliente());
+        try (PreparedStatement stmt1 = this.conn.prepareStatement(query1);
+             PreparedStatement stmt2 = this.conn.prepareStatement(query2);
+             PreparedStatement stmt3 = this.conn.prepareStatement(query3);
+             PreparedStatement stmt4 = this.conn.prepareStatement(query4);
+             PreparedStatement stmt5 = this.conn.prepareStatement(query5)) {
 
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                venta.setIdVenta(rs.getInt("id_venta"));
+            // Paso 1: Insertar en cliente_temp
+            ResultSet rs1 = stmt1.executeQuery();
+            if (!rs1.next()) return false;
+            int idClienteTemp = rs1.getInt("id_cliente_temp");
+
+            // Paso 2: Insertar en venta
+            stmt2.setDouble(1, iva);
+            stmt2.setDouble(2, descuento);
+            stmt2.setInt(3, idClienteTemp);
+            ResultSet rs2 = stmt2.executeQuery();
+            if (!rs2.next()) return false;
+            int idVenta = rs2.getInt("id_venta");
+
+            // Convertir int[] a Integer[]
+            Integer[] idsProductosWrapper = convertToIntegerArray(idsProductos);
+            Integer[] cantidadesWrapper = convertToIntegerArray(cantidades);
+
+            // Paso 3: Validar stock
+            stmt3.setArray(1, this.conn.createArrayOf("INTEGER", idsProductosWrapper));
+            stmt3.setArray(2, this.conn.createArrayOf("INTEGER", cantidadesWrapper));
+            ResultSet rs3 = stmt3.executeQuery();
+            while (rs3.next()) {
+                int stock = rs3.getInt("stock");
+                if (stock < rs3.getInt("cantidad")) return false; // Insuficiente stock
             }
 
-            return venta;
+            // Paso 4: Insertar en pedidos
+            stmt4.setArray(1, this.conn.createArrayOf("INTEGER", cantidadesWrapper));
+            stmt4.setString(2, tipo);
+            stmt4.setString(3, metodoPago);
+            stmt4.setInt(4, idVenta);
+            stmt4.setArray(5, this.conn.createArrayOf("INTEGER", idsProductosWrapper));
+            ResultSet rs4 = stmt4.executeQuery();
+            if (!rs4.next()) return false;
+
+            // Paso 5: Actualizar stock
+            stmt5.setArray(1, this.conn.createArrayOf("INTEGER", idsProductosWrapper));
+            stmt5.setArray(2, this.conn.createArrayOf("INTEGER", cantidadesWrapper));
+            return stmt5.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     public Venta obtenerVentaPorId(int idVenta, Date fechaVenta) {
@@ -93,7 +129,6 @@ public class VentaDAO {
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setDouble(1, venta.getIva());
-            stmt.setString(2, venta.getCliente());
             stmt.setDate(3, venta.getFechaVenta());
             stmt.setDouble(4, venta.getDescuento());
             stmt.setInt(5, venta.getIdCliente());
@@ -129,12 +164,12 @@ public class VentaDAO {
     private Venta mapRowToVenta(ResultSet rs) throws SQLException {
         int idVenta = rs.getInt("id_venta");
         double iva = rs.getDouble("IVA");
-        String cliente = rs.getString("cliente");
+        
         Date fechaVenta = rs.getDate("fecha_venta");
         double descuento = rs.getDouble("descuento");
         int idCliente = rs.getInt("id_cliente");
 
-        return new Venta(idVenta, iva, cliente, fechaVenta, descuento, idCliente);
+        return new Venta(idVenta, iva,  fechaVenta, descuento, idCliente);
     }
 }
 

@@ -132,13 +132,21 @@ public class Sistema extends javax.swing.JFrame {
         DireccionPrvd = new javax.swing.JLabel();
         TelefonoPrvd = new javax.swing.JLabel();
         TFNombrePrvd = new javax.swing.JTextField();
-        TFDireccionPrvd = new javax.swing.JTextField();
         TFTelefonoPrvd = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaProvedor = new javax.swing.JTable();
         BtnGuardarPrvd = new javax.swing.JButton();
         BtnActualizarPrvd = new javax.swing.JButton();
         BtnEliminarPrvd = new javax.swing.JButton();
+        TFDireccionCallePrvd = new javax.swing.JTextField();
+        DireccionPrvd1 = new javax.swing.JLabel();
+        DireccionPrvd2 = new javax.swing.JLabel();
+        TFDireccionColoniaPrvd = new javax.swing.JTextField();
+        DireccionPrvd3 = new javax.swing.JLabel();
+        TFDireccionPaisPrvd = new javax.swing.JTextField();
+        DireccionPrvd4 = new javax.swing.JLabel();
+        TFDireccionCPPrvd = new javax.swing.JTextField();
+        BtnLimpiarPrvd = new javax.swing.JButton();
         PanelPedido = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         TablaPedido = new javax.swing.JTable();
@@ -492,7 +500,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                 .addComponent(MetodoDePago)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboMetodoDePago, 0, 153, Short.MAX_VALUE)))))
+                                .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE)))))
                 .addGap(53, 53, 53)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -618,7 +626,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(TelefonoClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(TFTelefonoClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 35, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addGroup(PanelClienteLayout.createSequentialGroup()
                         .addGroup(PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelClienteLayout.createSequentialGroup()
@@ -654,7 +662,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(TFApMaternoClnt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         PanelClienteLayout.setVerticalGroup(
             PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -742,32 +750,81 @@ public class Sistema extends javax.swing.JFrame {
 
         BtnEliminarPrvd.setText("Eliminar");
 
+        DireccionPrvd1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        DireccionPrvd1.setText("Calle");
+
+        DireccionPrvd2.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        DireccionPrvd2.setText("Colonia");
+
+        DireccionPrvd3.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        DireccionPrvd3.setText("Pais");
+
+        DireccionPrvd4.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        DireccionPrvd4.setText("CP");
+
+        BtnLimpiarPrvd.setText("Limpiar");
+        BtnLimpiarPrvd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarPrvdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelProvedorLayout = new javax.swing.GroupLayout(PanelProvedor);
         PanelProvedor.setLayout(PanelProvedorLayout);
         PanelProvedorLayout.setHorizontalGroup(
             PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelProvedorLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
                 .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(PanelProvedorLayout.createSequentialGroup()
-                            .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(NombrePrvd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(DireccionPrvd, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(TelefonoPrvd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TFDireccionPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TFNombrePrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TFTelefonoPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(PanelProvedorLayout.createSequentialGroup()
-                            .addComponent(BtnGuardarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnActualizarPrvd)))
-                    .addComponent(BtnEliminarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                .addComponent(DireccionPrvd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(97, 97, 97))
+                            .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                                .addComponent(NombrePrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(TFNombrePrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(TFDireccionCallePrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                                .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(DireccionPrvd2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                                    .addComponent(DireccionPrvd3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(TFDireccionPaisPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(TFDireccionColoniaPrvd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                        .addComponent(DireccionPrvd4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(TFDireccionCPPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE))
+                            .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnGuardarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TelefonoPrvd)
+                                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                        .addGap(89, 89, 89)
+                                        .addComponent(TFTelefonoPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                                        .addComponent(BtnEliminarPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(41, 41, 41)
+                                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(BtnActualizarPrvd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(BtnLimpiarPrvd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE))))
+                    .addGroup(PanelProvedorLayout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(DireccionPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         PanelProvedorLayout.setVerticalGroup(
             PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,23 +836,39 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(TFNombrePrvd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NombrePrvd))
                         .addGap(18, 18, 18)
-                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TFDireccionPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DireccionPrvd))
+                        .addComponent(DireccionPrvd)
                         .addGap(18, 18, 18)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TFDireccionCallePrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DireccionPrvd1))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TFDireccionColoniaPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DireccionPrvd2))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TFDireccionPaisPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DireccionPrvd3))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TFDireccionCPPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DireccionPrvd4))
+                        .addGap(41, 41, 41)
                         .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TelefonoPrvd)
                             .addComponent(TFTelefonoPrvd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60)
+                        .addGap(54, 54, 54)
                         .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnGuardarPrvd)
                             .addComponent(BtnActualizarPrvd))
                         .addGap(27, 27, 27)
-                        .addComponent(BtnEliminarPrvd))
+                        .addGroup(PanelProvedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnEliminarPrvd)
+                            .addComponent(BtnLimpiarPrvd)))
                     .addGroup(PanelProvedorLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         PanelGeneral.addTab("Prov", PanelProvedor);
@@ -852,7 +925,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(CBMetododePagoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelPedidoLayout.createSequentialGroup()
@@ -1142,7 +1215,7 @@ public class Sistema extends javax.swing.JFrame {
         PanelVentaLayout.setHorizontalGroup(
             PanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVentaLayout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1056, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
@@ -1191,7 +1264,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         PanelHistorialLayout.setVerticalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1292,7 +1365,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1459,7 +1532,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 41, Short.MAX_VALUE))
+                                .addGap(0, 5, Short.MAX_VALUE))
                             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1607,7 +1680,34 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnNuevoPddActionPerformed
 
     private void BtnActualizarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarPrvdActionPerformed
-        // TODO add your handling code here:
+        try{
+            // Extraer datos de los campos
+            int fila = TablaProvedor.getSelectedRow();
+            int idProveedor = Integer.parseInt(TablaProvedor.getValueAt(fila, 0).toString());
+            
+            
+            // Extraer datos de los campos
+            String nombre = TFNombrePrvd.getText();
+            String telefono = TFTelefonoPrvd.getText();
+            
+            // Datos de direccion
+            String calle = TFDireccionCallePrvd.getText();
+            String colonia = TFDireccionColoniaPrvd.getText();
+            String pais = TFDireccionPaisPrvd.getText();
+            String cp = TFDireccionCPPrvd.getText();
+            
+            ProveedorDAO control = new ProveedorDAO(conexion);
+            boolean exito = control.actualizarProveedor(idProveedor,nombre,telefono,calle,colonia,pais,cp);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Producto Actualizado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al Acualizar producto");
+            }
+            cargarTabla();
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_BtnActualizarPrvdActionPerformed
 
     private void BtnGuardarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarPrvdActionPerformed
@@ -1615,8 +1715,13 @@ public class Sistema extends javax.swing.JFrame {
         try {
             // Extraer datos de los campos
             String nombre = TFNombrePrvd.getText();
-            String direccion = TFDireccionPrvd.getText();
             String telefono = TFTelefonoPrvd.getText();
+            
+            // Datos de direccion
+            String calle = TFDireccionCallePrvd.getText();
+            String colonia = TFDireccionColoniaPrvd.getText();
+            String pais = TFDireccionPaisPrvd.getText();
+            String cp = TFDireccionCPPrvd.getText();
 
             // Llamar al controlador para insertar el proveedor
             Connection conn = conexion;
@@ -1624,10 +1729,9 @@ public class Sistema extends javax.swing.JFrame {
             
             Proveedor prvd = new Proveedor();
             prvd.setNombre(nombre);
-            prvd.setDireccion(direccion);
             prvd.setTelefono(telefono);
             
-            boolean exito = control.crearProveedor(prvd);
+            boolean exito = control.crearProveedor(nombre,telefono,calle,colonia,pais,cp);
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Proveedor insertado correctamente");
                 cargarTabla();
@@ -1800,6 +1904,19 @@ public class Sistema extends javax.swing.JFrame {
         limpiarTablaProductos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void BtnLimpiarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarPrvdActionPerformed
+        
+            // Limpiar datos de los campos
+            TFNombrePrvd.setText("");
+            TFTelefonoPrvd.setText("");
+            
+            // Datos de direccion
+            TFDireccionCallePrvd.setText("");
+            TFDireccionColoniaPrvd.setText("");
+            TFDireccionPaisPrvd.setText("");
+            TFDireccionCPPrvd.setText("");
+    }//GEN-LAST:event_BtnLimpiarPrvdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1861,6 +1978,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton BtnGuardarNV;
     private javax.swing.JButton BtnGuardarPrvd;
     private javax.swing.JButton BtnLimpiarNV;
+    private javax.swing.JButton BtnLimpiarPrvd;
     private javax.swing.JButton BtnNuevoFct;
     private javax.swing.JButton BtnNuevoPdd;
     private javax.swing.JComboBox<String> CBMetododePagoPdd;
@@ -1872,6 +1990,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel DIreccionClnt;
     private javax.swing.JLabel DescuentoNV;
     private javax.swing.JLabel DireccionPrvd;
+    private javax.swing.JLabel DireccionPrvd1;
+    private javax.swing.JLabel DireccionPrvd2;
+    private javax.swing.JLabel DireccionPrvd3;
+    private javax.swing.JLabel DireccionPrvd4;
     private javax.swing.JLabel EmisorFct;
     private javax.swing.JButton Empleado;
     private javax.swing.JButton Factura;
@@ -1915,8 +2037,11 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField TFApPaternoClnt;
     private javax.swing.JTextField TFCantidadPdd;
     private javax.swing.JTextField TFCorreoClnt;
+    private javax.swing.JTextField TFDireccionCPPrvd;
+    private javax.swing.JTextField TFDireccionCallePrvd;
     private javax.swing.JTextField TFDireccionClnt;
-    private javax.swing.JTextField TFDireccionPrvd;
+    private javax.swing.JTextField TFDireccionColoniaPrvd;
+    private javax.swing.JTextField TFDireccionPaisPrvd;
     private javax.swing.JTextField TFIDFct;
     private javax.swing.JTextField TFNombreClnt;
     private javax.swing.JTextField TFNombrePrvd;

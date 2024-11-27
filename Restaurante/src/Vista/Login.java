@@ -198,8 +198,7 @@ public class Login extends javax.swing.JFrame {
         String password = new String(txtPassword.getPassword());
         Conexion conect = new Conexion();
         Connection connection = conect.conectar(usuario, password);
-        if (connection != null){
-            JOptionPane.showMessageDialog(null, "Conexión exitosa","Éxito",JOptionPane.INFORMATION_MESSAGE);
+        if (connection != null){ 
             Sistema restaurante = new Sistema(connection);
             restaurante.setVisible(true);
             this.setVisible(false);

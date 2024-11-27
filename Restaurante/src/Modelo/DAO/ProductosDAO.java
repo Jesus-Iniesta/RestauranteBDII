@@ -102,7 +102,7 @@ public class ProductosDAO {
     }
 
     public void obtenerTodosLosProductos(DefaultTableModel modeloTabla) {
-         String query = "SELECT id_producto, nombre, precio, stock, id_proveedor FROM restaurante.productos";
+         String query = "SELECT id_producto, nombre, precio, stock, id_proveedor FROM restaurante.productos ORDER BY id_producto ASC";
         try(
              PreparedStatement stmt = this.conn.prepareStatement(query)){
             ResultSet rs = stmt.executeQuery();

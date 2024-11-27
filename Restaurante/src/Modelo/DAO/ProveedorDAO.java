@@ -25,7 +25,7 @@ public class ProveedorDAO {
     }
 
     public boolean crearProveedor(Proveedor proveedor) {
-        String query = "INSERT INTO proveedor (nombre, telefono, direccion) VALUES (?, ?, ?) RETURNING id_proveedor";
+        String query = "INSERT INTO restaurante.proveedor (nombre, telefono, direccion) VALUES (?, ?, ROW(?,?,?,?)) RETURNING id_proveedor";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -33,7 +33,10 @@ public class ProveedorDAO {
             // Establecer los parámetros de la consulta
             stmt.setString(1, proveedor.getNombre());
             stmt.setString(2, proveedor.getTelefono());
-            stmt.setString(3, proveedor.getDireccion().toString());  
+            stmt.setString(3, proveedor.getDireccion().getCalle());  
+            stmt.setString(4, proveedor.getDireccion().getColonia());
+            stmt.setString(5, proveedor.getDireccion().getPais());
+            stmt.setString(6, proveedor.getDireccion().getCp());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -160,7 +163,7 @@ public class ProveedorDAO {
     }
     
     public void obtenerTodosLosProveedor(DefaultTableModel modeloTabla) {
-         String query = "SELECT id_proveedor, nombre,direccion,telefono FROM restaurante.proveedor";
+         String query = "SELECT id_proveedor, nombre,direccion,telefono FROM restaurante.proveedor ORDER BY id_proveedor ASC";
         try(
              PreparedStatement stmt = this.conn.prepareStatement(query)){
             ResultSet rs = stmt.executeQuery();

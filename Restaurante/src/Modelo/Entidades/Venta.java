@@ -26,6 +26,14 @@ public class Venta {
         this.idCliente = idCliente;
     }
 
+    public Venta() {
+    }
+
+    public Venta(double descuento) {
+        this.descuento = descuento;
+    }
+    
+
     // Getters y setters
     public int getIdVenta() {
         return idVenta;

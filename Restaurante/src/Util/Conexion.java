@@ -13,7 +13,7 @@ public class Conexion {
     private Connection connect;
     
     public Connection conectar(String usuario,String contraseña) {
-         String url = "jdbc:postgresql://100.88.248.149:5432/Restaurante";
+         String url = "jdbc:postgresql://100.88.248.149:5432/Restaurante?useUnicode=true&characterEncoding=UTF-8";
          try{
              connect = DriverManager.getConnection(url, usuario, contraseña);
              System.out.println("Conexión exitosa");

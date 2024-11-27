@@ -12,6 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VentaDAO {
 
@@ -26,7 +28,7 @@ public class VentaDAO {
         return java.util.Arrays.stream(array).boxed().toArray(Integer[]::new);
     }
 
-    public boolean actualizarVenta(double iva, double descuento, String tipo, String metodoPago, int[] idsProductos, int[] cantidades) {
+    public boolean crearVenta(double iva, double descuento, String tipo, String metodoPago, int[] idsProductos, int[] cantidades) {
         String query1 = "INSERT INTO restaurante.cliente_temp DEFAULT VALUES RETURNING id_cliente_temp";
         String query2 = "INSERT INTO restaurante.venta (iva, fecha_venta, descuento, no_cliente_temp) VALUES (?, CURRENT_DATE, ?, ?) RETURNING id_venta, fecha_venta";
         String query3 = "SELECT id_producto, stock FROM restaurante.productos WHERE id_producto = ANY (?) AND stock >= ANY (?)";
@@ -60,9 +62,21 @@ public class VentaDAO {
             stmt3.setArray(1, this.conn.createArrayOf("INTEGER", idsProductosWrapper));
             stmt3.setArray(2, this.conn.createArrayOf("INTEGER", cantidadesWrapper));
             ResultSet rs3 = stmt3.executeQuery();
+
+            Map<Integer, Integer> idToCantidadMap = new HashMap<>();
+            for (int i = 0; i < idsProductos.length; i++) {
+                idToCantidadMap.put(idsProductos[i], cantidades[i]);
+            }
+
             while (rs3.next()) {
+                int idProducto = rs3.getInt("id_producto");
                 int stock = rs3.getInt("stock");
-                if (stock < rs3.getInt("cantidad")) return false; // Insuficiente stock
+                int cantidad = idToCantidadMap.getOrDefault(idProducto, 0);
+
+                if (stock < cantidad) {
+                    System.err.println("Stock insuficiente para producto con ID " + idProducto);
+                    return false; // Insuficiente stock
+                }
             }
 
             // Paso 4: Insertar en pedidos

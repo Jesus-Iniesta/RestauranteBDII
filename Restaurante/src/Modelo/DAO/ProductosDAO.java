@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class ProductosDAO {
 
     private Connection conn;
-
+    
     //Constructora que obtiene la conexion a la base de datos
     public ProductosDAO(Connection conn) {
         this.conn = conn;
@@ -54,6 +54,32 @@ public class ProductosDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    // Método para obtener el ID de un producto por su nombre
+        public int obtenerIdProductoNombre(Productos nombre) {
+            String query = "SELECT id_producto FROM restaurante.productos WHERE nombre = ?";
+            int id_producto = 0; // Inicializar con un valor predeterminado
+
+            try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
+                // Establecer el valor del parámetro en la consulta
+                stmt.setString(1, nombre.getNombre());
+
+                // Ejecutar la consulta
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        // Obtener el id_producto de la base de datos
+                        id_producto = rs.getInt("id_producto");
+
+                        // Actualizar la instancia de Productos si es necesario
+                        nombre.setIdProductos(id_producto);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Devolver el id_producto (0 si no se encontró)
+            return id_producto;
     }
     
     public Productos crearProductos(Productos productos) {

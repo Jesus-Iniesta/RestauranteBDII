@@ -1,19 +1,24 @@
 package Vista;
 
+import Modelo.Control.CarritoDeCompras;
 import Modelo.Control.ListadoCategorias;
 import Modelo.Control.ListadoProductos;
 import Modelo.Control.ListadoProveedores;
 import Modelo.Control.ProductoControlador;
 import Modelo.DAO.*;
-import Modelo.Entidades.Categoria;
-import Modelo.Entidades.Productos;
-import Modelo.Entidades.Proveedor;
+import Modelo.Entidades.*;
 import Util.Conexion;
+import java.awt.FlowLayout;
+import java.awt.TextField;
 import java.math.BigDecimal;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,8 +26,10 @@ import javax.swing.table.DefaultTableModel;
  * @author karen
  */
 public class Sistema extends javax.swing.JFrame {
-
+    
     private Connection conexion;
+    private CarritoDeCompras carrito;
+    private Venta venta;
     public Sistema() {
         initComponents();
     }
@@ -35,6 +42,8 @@ public class Sistema extends javax.swing.JFrame {
         cargarComboCategorias(JComboCategorias);
         cargarTabla();
         cargarTablaProveedor();
+        this.carrito = new CarritoDeCompras();
+        this.venta = new Venta();
     }
     public void cargarTabla(){
         DefaultTableModel modeloTabla = (DefaultTableModel)TablaProducto.getModel();
@@ -73,6 +82,26 @@ public class Sistema extends javax.swing.JFrame {
         JComboCategorias.setSelectedIndex(0);
         JcomboProveedor.setSelectedIndex(0);
     }
+    public static void mostrarMensaje(JFrame parent, String mensaje, int duracion) {
+        // Crear un JDialog para el mensaje
+        JDialog dialog = new JDialog(parent, "Información", true);
+        dialog.setLayout(new FlowLayout());
+        dialog.setSize(300, 100);
+        dialog.setLocationRelativeTo(parent);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        
+        // Agregar el mensaje al JDialog
+        JLabel label = new JLabel(mensaje);
+        dialog.add(label);
+
+        // Crear un temporizador para cerrar el diálogo después de 'duracion' milisegundos
+        Timer timer = new Timer(duracion, e -> dialog.dispose());
+        timer.setRepeats(false);
+        timer.start();
+
+        // Mostrar el JDialog
+        dialog.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,7 +130,7 @@ public class Sistema extends javax.swing.JFrame {
         CantidadNV = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaNV = new javax.swing.JTable();
-        BtnGuardarNV = new javax.swing.JButton();
+        BtnPagarVenta = new javax.swing.JButton();
         BtnEliminarNV = new javax.swing.JButton();
         BtnActualizarNV = new javax.swing.JButton();
         BtnLimpiarNV = new javax.swing.JButton();
@@ -116,6 +145,7 @@ public class Sistema extends javax.swing.JFrame {
         txtPrecioUVenta = new javax.swing.JTextField();
         MetodoDePago2 = new javax.swing.JLabel();
         txtTotalVenta = new javax.swing.JTextField();
+        btnConsultarCarrito = new javax.swing.JButton();
         PanelCliente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaClientes = new javax.swing.JTable();
@@ -411,10 +441,10 @@ public class Sistema extends javax.swing.JFrame {
             TablaNV.getColumnModel().getColumn(5).setPreferredWidth(25);
         }
 
-        BtnGuardarNV.setText("Pagar");
-        BtnGuardarNV.addActionListener(new java.awt.event.ActionListener() {
+        BtnPagarVenta.setText("Pagar");
+        BtnPagarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarNVActionPerformed(evt);
+                BtnPagarVentaActionPerformed(evt);
             }
         });
 
@@ -451,6 +481,11 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        JcomboProductos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                JcomboProductosItemStateChanged(evt);
+            }
+        });
         JcomboProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JcomboProductosActionPerformed(evt);
@@ -458,6 +493,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnAñadirProductos.setText("Añadir");
+        btnAñadirProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirProductosActionPerformed(evt);
+            }
+        });
 
         MetodoDePago.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         MetodoDePago.setText("Metodo de pago");
@@ -483,6 +523,18 @@ public class Sistema extends javax.swing.JFrame {
         MetodoDePago2.setText("Precio");
 
         txtTotalVenta.setEditable(false);
+        txtTotalVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalVentaActionPerformed(evt);
+            }
+        });
+
+        btnConsultarCarrito.setText("Carrito");
+        btnConsultarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelNuevaVentaLayout = new javax.swing.GroupLayout(PanelNuevaVenta);
         PanelNuevaVenta.setLayout(PanelNuevaVentaLayout);
@@ -515,7 +567,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnActualizarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BtnGuardarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(BtnPagarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(29, 29, 29)
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnLimpiarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,11 +576,6 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addComponent(MetodoDePago2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
@@ -540,7 +587,15 @@ public class Sistema extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(57, 57, 57)))))
+                                .addGap(57, 57, 57))
+                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnConsultarCarrito)
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(MetodoDePago2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -562,7 +617,9 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(CantidadNV)
                             .addComponent(JcomboCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btnAñadirProductos)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAñadirProductos)
+                            .addComponent(btnConsultarCarrito))
                         .addGap(18, 18, 18)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetodoDePago2)
@@ -581,7 +638,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(BtnEliminarNV)
-                                    .addComponent(BtnGuardarNV))
+                                    .addComponent(BtnPagarVenta))
                                 .addGap(38, 38, 38)
                                 .addComponent(BtnLimpiarNV))))
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
@@ -1791,7 +1848,7 @@ public class Sistema extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }        // TODO add your handling code here:
+        }        
     }//GEN-LAST:event_BtnGuardarPrvdActionPerformed
 
     private void BtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarSesionActionPerformed
@@ -1855,9 +1912,31 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton33ActionPerformed
 
-    private void BtnGuardarNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarNVActionPerformed
+    private void BtnPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarVentaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnGuardarNVActionPerformed
+        int[] idsProductos = carrito.getIdsProductos().stream().mapToInt(Integer::intValue).toArray();
+        int[] cantidades = carrito.getCantidades().stream().mapToInt(Integer::intValue).toArray();
+        double iva = 0.16;
+        double descuento = (JcomboDescuento.getSelectedItem().toString() == "0%") ? 0.0 : (JcomboDescuento.getSelectedItem().toString() == "5%") ? 0.05 : 
+                (JcomboDescuento.getSelectedItem().toString() == "10%") ? 0.10 : (JcomboDescuento.getSelectedItem().toString() == "15%") ? 0.15 : (JcomboDescuento.getSelectedItem().toString() == "20%") ? 0.20 : 0.30;
+        String tipo_venta = "En restaurante";
+        String metodoPago = jComboMetodoDePago.getSelectedItem().toString();
+        VentaDAO nuevaVenta = new VentaDAO(conexion);
+        try {
+            boolean exito =  nuevaVenta.crearVenta(iva, descuento, tipo_venta, metodoPago, idsProductos, cantidades);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Venta realizada correctamente");
+                cargarTabla();
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al realizar venta");
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_BtnPagarVentaActionPerformed
 
     private void BtnEliminarNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarNVActionPerformed
         // TODO add your handling code here:
@@ -1979,6 +2058,57 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioUVentaActionPerformed
 
+    private void btnAñadirProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductosActionPerformed
+
+        PedidoDAO productos = new PedidoDAO(conexion);
+        ProductosDAO idProd = new ProductosDAO(conexion);
+        Productos nombreProducto = new Productos();
+        String producto = JcomboProductos.getSelectedItem().toString();
+        nombreProducto.setNombre(producto);
+        int cantidad = Integer.parseInt(JcomboCantidad.getSelectedItem().toString());
+        int id_producto = idProd.obtenerIdProductoNombre(nombreProducto);
+        
+        
+        double subtotalDesc = productos.calcularPrecioTotal(producto, cantidad);
+        carrito.setSubTotal(productos.calcularPrecioTotal(producto, cantidad));
+        txtPrecioUVenta.setText(String.valueOf(subtotalDesc));
+        
+        
+        double total = carrito.calcularTotal(subtotalDesc);
+        txtTotalVenta.setText(String.valueOf(total));
+        this.carrito.agregarProducto(id_producto, cantidad);
+        this.carrito.mostrarCarrito();
+        // Crear una ventana principal para probar el mensaje temporal
+        JFrame frame = new JFrame("Aviso");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200, 100);
+        frame.setLayout(new FlowLayout());
+        mostrarMensaje(frame, "Producto Añadido", 1500);
+    }//GEN-LAST:event_btnAñadirProductosActionPerformed
+
+    private void btnConsultarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCarritoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarCarritoActionPerformed
+
+    private void txtTotalVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalVentaActionPerformed
+
+    private void JcomboProductosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JcomboProductosItemStateChanged
+        /*PedidoDAO productos = new PedidoDAO(conexion);
+        ProductosDAO idProd = new ProductosDAO(conexion);
+        Productos nombreProducto = new Productos();
+        String producto = JcomboProductos.getSelectedItem().toString();
+        nombreProducto.setNombre(producto);
+        int cantidad = Integer.parseInt(JcomboCantidad.getSelectedItem().toString());
+        int id_producto = idProd.obtenerIdProductoNombre(nombreProducto);
+        double descuento = (JcomboDescuento.getSelectedItem().toString() == "0%") ? 0.0 : (JcomboDescuento.getSelectedItem().toString() == "5%") ? 0.05 : 
+                (JcomboDescuento.getSelectedItem().toString() == "10%") ? 0.10 : (JcomboDescuento.getSelectedItem().toString() == "15%") ? 0.15 : (JcomboDescuento.getSelectedItem().toString() == "20%") ? 0.20 : 0.30;
+        
+        double subtotal = productos.calcularPrecioTotal(producto, cantidad,descuento);
+        txtPrecioUVenta.setText(String.valueOf(subtotal));*/
+    }//GEN-LAST:event_JcomboProductosItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2037,12 +2167,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton BtnEliminarPrd;
     private javax.swing.JButton BtnEliminarPrvd;
     private javax.swing.JButton BtnGuardarClnt;
-    private javax.swing.JButton BtnGuardarNV;
     private javax.swing.JButton BtnGuardarPrvd;
     private javax.swing.JButton BtnLimpiarNV;
     private javax.swing.JButton BtnLimpiarProveedor;
     private javax.swing.JButton BtnNuevoFct;
     private javax.swing.JButton BtnNuevoPdd;
+    private javax.swing.JButton BtnPagarVenta;
     private javax.swing.JComboBox<String> CBMetododePagoPdd;
     private javax.swing.JComboBox<String> CBProductosPdd;
     private javax.swing.JLabel CantidadNV;
@@ -2120,6 +2250,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField TxtFRFCFct;
     private javax.swing.JButton Ventas;
     private javax.swing.JButton btnAñadirProductos;
+    private javax.swing.JButton btnConsultarCarrito;
     private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton jButton29;
@@ -2187,7 +2318,7 @@ public class Sistema extends javax.swing.JFrame {
                 throw new SQLException("Conexión no inicializada.");
             }
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre FROM restaurante.productos");
+            ResultSet rs = st.executeQuery("SELECT nombre FROM restaurante.productos order by id_producto ASC");
             while(rs.next()){
                 Productos prod = new Productos();
                 prod.setNombre(rs.getString(1));
@@ -2210,7 +2341,7 @@ public class Sistema extends javax.swing.JFrame {
                 throw new SQLException("Conexión no inicializada.");
             }
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre FROM restaurante.proveedor");
+            ResultSet rs = st.executeQuery("SELECT nombre FROM restaurante.proveedor ORDER BY id_proveedor ASC");
             while(rs.next()){
                 Proveedor prov = new Proveedor();
                 prov.setNombre(rs.getString(1));
@@ -2233,7 +2364,7 @@ public class Sistema extends javax.swing.JFrame {
                 throw new SQLException("Conexión no inicializada.");
             }
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT categorias FROM restaurante.categoria");
+            ResultSet rs = st.executeQuery("SELECT categorias FROM restaurante.categoria ORDER BY id_cat ASC");
             while(rs.next()){
                 Categoria cat = new Categoria();
                 cat.setCategorias(rs.getString(1));

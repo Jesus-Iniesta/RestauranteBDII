@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import java.math.BigDecimal;
 
 public class PedidoDAO {
 
@@ -22,37 +23,55 @@ public class PedidoDAO {
     public PedidoDAO(Connection conn) {
         this.conn = conn;
     }
-    
-    public Pedido crearPedido(Pedido pedido) {
-        String query = "INSERT INTO pedidos (precio, cantidad, tipo, productos, metodo_pago, id_venta, id_producto, fecha_venta) " +
-                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id_pedido";
+    public double calcularPrecioTotalDescuento(String nombreProducto, int cantidad,double descuento) {
+        String query = "SELECT precio FROM restaurante.productos WHERE nombre = ?";
+        double precioUnitario = 0.0;
 
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
-
-            // Establecer los parámetros de la consulta
-            //stmt.setDouble(1, pedido.getPrecio());
-            //stmt.setInt(2, pedido.getCantidad());
-            stmt.setString(3, pedido.getTipo());
-            //stmt.setString(4, pedido.getProductos());
-            stmt.setString(5, pedido.getMetodoPago());
-            stmt.setInt(6, pedido.getIdVenta());
-            //stmt.setInt(7, pedido.getIdProducto());
-            stmt.setDate(8, pedido.getFechaVenta());
-
-            // Ejecutar la consulta y obtener el id_pedido generado
+        try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
+            stmt.setString(1, nombreProducto);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                pedido.setIdPedido(rs.getInt("id_pedido"));
-            }
 
-            return pedido;
+            if (rs.next()) {
+                precioUnitario = rs.getDouble("precio");
+            } else {
+                System.out.println("Producto no encontrado.");
+                return 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return null;
+
+        // Calcular el precio total
+        double subtotal = precioUnitario * cantidad;
+        return subtotal - (precioUnitario*descuento);
     }
+    public double calcularPrecioTotal(String nombreProducto, int cantidad) {
+        String query = "SELECT precio FROM restaurante.productos WHERE nombre = ?";
+        double precioUnitario = 0.0;
+
+        try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
+            stmt.setString(1, nombreProducto);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                precioUnitario = rs.getDouble("precio");
+            } else {
+                System.out.println("Producto no encontrado.");
+                return 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        // Calcular el precio total
+        double subtotal = precioUnitario * cantidad;
+        return subtotal;
+    }
+    
 
     public Pedido obtenerPedidoPorId(int idPedido) {
         String query = "SELECT id_pedido, precio, cantidad, tipo, productos, metodo_pago, id_venta, id_producto, fecha_venta " +
@@ -72,32 +91,10 @@ public class PedidoDAO {
         }
         return null;
     }
+    
 
 
-    public boolean actualizarPedido(Pedido pedido) {
-        String query = "UPDATE pedidos SET precio = ?, cantidad = ?, tipo = ?, productos = ?, metodo_pago = ?, " +
-                       "id_venta = ?, id_producto = ?, fecha_venta = ? WHERE id_pedido = ?";
-
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
-
-            //stmt.setDouble(1, pedido.getPrecio());
-           // stmt.setInt(2, pedido.getCantidad());
-            stmt.setString(3, pedido.getTipo());
-            //stmt.setString(4, pedido.getProductos());
-            stmt.setString(5, pedido.getMetodoPago());
-            stmt.setInt(6, pedido.getIdVenta());
-           // stmt.setInt(7, pedido.getIdProducto());
-            stmt.setDate(8, pedido.getFechaVenta());
-            stmt.setInt(9, pedido.getIdPedido());
-
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+    
 
     public boolean eliminarPedido(int idPedido) {
         String query = "DELETE FROM pedidos WHERE id_pedido = ?";

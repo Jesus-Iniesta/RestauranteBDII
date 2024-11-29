@@ -463,6 +463,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         BtnLimpiarNV.setText("Limpiar");
+        BtnLimpiarNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarNVActionPerformed(evt);
+            }
+        });
 
         JcomboDescuento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0%", "5%", "10%", "15%", "20%", "30%" }));
         JcomboDescuento.addActionListener(new java.awt.event.ActionListener() {
@@ -542,14 +547,10 @@ public class Sistema extends javax.swing.JFrame {
             PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNuevaVentaLayout.createSequentialGroup()
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addComponent(DescuentoNV)
-                                .addGap(18, 18, 18)
-                                .addComponent(JcomboDescuento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CantidadNV)
                                     .addComponent(Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -558,13 +559,40 @@ public class Sistema extends javax.swing.JFrame {
                                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                                         .addComponent(JcomboCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(JcomboProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(JcomboProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(DescuentoNV)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(JcomboDescuento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(MetodoDePago)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE)))))
                         .addGap(53, 53, 53))
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAñadirProductos)
                             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                        .addComponent(MetodoDePago1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                            .addComponent(MetodoDePago2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                            .addGap(17, 17, 17)
+                                            .addComponent(btnAñadirProductos)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnConsultarCarrito)))))
+                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnActualizarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BtnPagarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -572,30 +600,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(BtnLimpiarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BtnEliminarNV, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                        .addComponent(MetodoDePago)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboMetodoDePago, 0, 117, Short.MAX_VALUE))
-                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                        .addComponent(MetodoDePago1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(57, 57, 57))
-                            .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnConsultarCarrito)
-                                    .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                                        .addComponent(MetodoDePago2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -604,31 +609,31 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
                 .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelNuevaVentaLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(43, 43, 43)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DescuentoNV)
-                            .addComponent(JcomboDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Producto)
-                            .addComponent(JcomboProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JcomboProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Producto))
                         .addGap(18, 18, 18)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(CantidadNV)
                             .addComponent(JcomboCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAñadirProductos)
-                            .addComponent(btnConsultarCarrito))
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnConsultarCarrito)
+                            .addComponent(btnAñadirProductos, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetodoDePago2)
                             .addComponent(txtPrecioUVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetodoDePago)
                             .addComponent(jComboMetodoDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DescuentoNV)
+                            .addComponent(JcomboDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelNuevaVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetodoDePago1)
                             .addComponent(txtTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1097,7 +1102,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        PanelGeneral.addTab("Pedido", PanelPedido);
+        PanelGeneral.addTab("Pedido domicilio", PanelPedido);
 
         NombrePrd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         NombrePrd.setText("Nombre");
@@ -2108,6 +2113,14 @@ public class Sistema extends javax.swing.JFrame {
         double subtotal = productos.calcularPrecioTotal(producto, cantidad,descuento);
         txtPrecioUVenta.setText(String.valueOf(subtotal));*/
     }//GEN-LAST:event_JcomboProductosItemStateChanged
+
+    private void BtnLimpiarNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarNVActionPerformed
+        JcomboDescuento.setSelectedIndex(0);
+        jSpinnStock.setValue(1);
+        txtPrecioProd.setText("");
+        txtTotalVenta.setText("");
+        carrito.limpiarCarrito();
+    }//GEN-LAST:event_BtnLimpiarNVActionPerformed
 
     /**
      * @param args the command line arguments

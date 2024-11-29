@@ -24,16 +24,19 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,42 +60,63 @@
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="LbNombreCIi" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="LbCorreoCli" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="LbDireccionCli" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="LbTelefonoCli" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="LbDireccionCli3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LbNombreCIi" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LbCorreoCli" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LbTelefonoCli" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                                   <Component id="TxtNombreCli" min="-2" pref="178" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="TxtCorreoCli" alignment="1" pref="178" max="32767" attributes="0"/>
-                                      <Component id="TxtTelefonoCli" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="TxtDireccionCli" alignment="1" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="LbApellidoPaternoCli" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="txtApellidoPaterno" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="LbApellidoMaternoCli" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="TxtApellidoMaterno" min="-2" pref="179" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="LbApellidoPaternoCli" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtApellidoPaterno" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="TxtTelefonoCli" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="TxtCorreoCli" alignment="1" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="LbDireccionCli" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="TxtCalleCli1" min="-2" pref="178" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="LbDireccionCli1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="LbDireccionCli2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtPaisCLT" min="-2" pref="178" max="-2" attributes="0"/>
+                                          <Component id="txtColoniaCLT1" min="-2" pref="178" max="-2" attributes="0"/>
+                                          <Component id="txtCPCLT" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="LbApellidoMaternoCli" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="TxtApellidoMaterno" min="-2" pref="179" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -120,16 +144,31 @@
                       <Component id="TxtTelefonoCli" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="LbDireccionCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtDireccionCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="TxtCalleCli1" min="-2" max="-2" attributes="0"/>
+                      <Component id="LbDireccionCli" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="LbCorreoCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtCorreoCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtColoniaCLT1" min="-2" max="-2" attributes="0"/>
+                      <Component id="LbDireccionCli1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="LbDireccionCli2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPaisCLT" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="LbDireccionCli3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCPCLT" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="LbCorreoCli" min="-2" max="-2" attributes="0"/>
+                      <Component id="TxtCorreoCli" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -164,7 +203,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Rockwell" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Direccion"/>
+            <Property name="text" type="java.lang.String" value="Calle"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LbTelefonoCli">
@@ -190,10 +229,43 @@
         <Component class="javax.swing.JTextField" name="txtApellidoPaterno">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtTelefonoCli">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtTelefonoCliActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="TxtDireccionCli">
+        <Component class="javax.swing.JTextField" name="txtPaisCLT">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtCorreoCli">
+        </Component>
+        <Component class="javax.swing.JLabel" name="LbDireccionCli1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Rockwell" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Colonia"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TxtCalleCli1">
+        </Component>
+        <Component class="javax.swing.JLabel" name="LbDireccionCli2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Rockwell" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Pais"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtColoniaCLT1">
+        </Component>
+        <Component class="javax.swing.JLabel" name="LbDireccionCli3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Rockwell" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Codigo postal"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCPCLT">
         </Component>
       </SubComponents>
     </Container>
@@ -214,7 +286,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="BtnGuardarCli" min="-2" pref="81" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="327" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

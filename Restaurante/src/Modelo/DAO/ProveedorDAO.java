@@ -233,7 +233,7 @@ public class ProveedorDAO {
             }
             
         }catch(SQLException e){
-            System.out.println("Error al contruir tabla. "+e);
+            System.out.println("Error al construir tabla. "+e);
         }
     }
 

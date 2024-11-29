@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class EmpleadoDAO {
 
@@ -27,19 +28,29 @@ public class EmpleadoDAO {
     }
 
     public Empleado crearEmpleado(Empleado empleado) {
-        String query = "INSERT INTO empleado (RFC, CURP, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto) " +
-                       "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id_empleado";
+        String query = "INSERT INTO restaurante.empleado (nombre, apellido_paterno, apellido_materno, telefono, direccion, rfc, curp, salario, fecha_contratacion, id_restaurante, id_horario, id_puesto)"
+                + "VALUES (?, ?, ?, ?, ROW(?, ?, ?, ?), ?, ?, ?, CURRENT_DATE, ?, ?, ?)";
+
+        
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
-
-            stmt.setString(1, empleado.getRfc());
-            stmt.setString(2, empleado.getCurp());
-            stmt.setBigDecimal(3, empleado.getSalario());
-            stmt.setDate(4, Date.valueOf(empleado.getFechaContratacion()));
-            stmt.setInt(5, empleado.getIdRestaurante());
-            stmt.setInt(6, empleado.getIdHorario());
-            stmt.setInt(7, empleado.getIdPuesto());
+            
+            stmt.setString(1, empleado.getNombre());
+            stmt.setString(2, empleado.getApellidoPaterno());
+            stmt.setString(3, empleado.getApellidoMaterno());
+            stmt.setString(4, empleado.getTelefono());
+            stmt.setString(5, empleado.getDireccion().getCalle());  
+            stmt.setString(6, empleado.getDireccion().getColonia());
+            stmt.setString(7, empleado.getDireccion().getPais());
+            stmt.setString(8, empleado.getDireccion().getCp());
+            stmt.setString(9, empleado.getRfc());
+            stmt.setString(10, empleado.getCurp());
+            stmt.setBigDecimal(11, empleado.getSalario());
+            stmt.setDate(12, Date.valueOf(empleado.getFechaContratacion()));
+            stmt.setInt(13, empleado.getIdRestaurante());
+            stmt.setInt(14, empleado.getIdHorario());
+            stmt.setInt(15, empleado.getIdPuesto());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -51,6 +62,32 @@ public class EmpleadoDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public void obtenerTdodosLosEmpleados(DefaultTableModel modeloTabla){
+        String query = "Select nombre,apellido_paterno,apellido_materno,telefono,direccion,rfc,curp,salario,id_restaurante,fecha_contratacion,id_horario,id_puesto from restaurante.empleado";
+        
+        try
+            (PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+            
+            
+        }catch(SQLException e){
+           System.out.println("Error al construir tabla. "+e);
+        }
+        
     }
 
     public Empleado obtenerEmpleadoPorId(int idEmpleado) {

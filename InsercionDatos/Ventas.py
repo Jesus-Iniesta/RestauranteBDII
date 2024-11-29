@@ -26,7 +26,7 @@ def insert_cliente(cursor):
     return id_cliente
 
 def insert_ventas_domicilio(cursor):
-    for i in range(1_000_000):
+    for i in range(750_000):
         # Insertar el cliente y obtener su ID
         id_cliente = insert_cliente(cursor)  
         IVA = round(random.uniform(0.05, 0.20), 2)

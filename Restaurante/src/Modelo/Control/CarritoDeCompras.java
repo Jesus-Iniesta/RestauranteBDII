@@ -51,6 +51,7 @@ public class CarritoDeCompras {
         cantidades.clear();
         TotalVenta = 0.0;
         descuentoTotal = 0.0;
+        subTotal = 0.0;
         System.out.println("Carrito limpiado.");
     }
     public double calcularTotal(double subtotal){

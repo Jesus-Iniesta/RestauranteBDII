@@ -33,7 +33,7 @@ public class CarritoFrame extends javax.swing.JFrame {
         BtnEliminarProducto = new javax.swing.JButton();
         BtnAceptarCarrito = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Carrito de comparas"));
 

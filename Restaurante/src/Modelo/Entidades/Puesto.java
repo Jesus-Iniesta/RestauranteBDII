@@ -12,15 +12,17 @@ public class Puesto {
     private int idPuesto;
     private String tituloPuesto;
     private String descripcion;
-    private int idEmpleado;  // Relación con la tabla 'empleado'
 
     // Constructor
-    public Puesto(int idPuesto, String tituloPuesto, String descripcion, int idEmpleado) {
+    public Puesto(int idPuesto, String tituloPuesto, String descripcion) {
         this.idPuesto = idPuesto;
         this.tituloPuesto = tituloPuesto;
         this.descripcion = descripcion;
-        this.idEmpleado = idEmpleado;
     }
+
+    public Puesto() {
+    }
+    
 
     // Getters y setters
     public int getIdPuesto() {
@@ -46,15 +48,6 @@ public class Puesto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public int getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
     @Override
     public String toString() {
         return "Puesto [idPuesto=" + idPuesto + ", tituloPuesto=" + tituloPuesto + ", descripcion=" + descripcion + "]";

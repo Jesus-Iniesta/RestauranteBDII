@@ -24,14 +24,14 @@ public class PuestoDAO {
     }
 
     public Puesto crearPuesto(Puesto puesto) {
-        String query = "INSERT INTO puesto (titulo_puesto, descripcion, id_empleado) VALUES (?, ?, ?) RETURNING id_puesto";
+        String query = "INSERT INTO puesto (titulo_puesto, descripcion) VALUES (?, ?, ?) RETURNING id_puesto";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, puesto.getTituloPuesto());
             stmt.setString(2, puesto.getDescripcion());
-            stmt.setInt(3, puesto.getIdEmpleado());
+            
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -82,15 +82,14 @@ public class PuestoDAO {
     }
 
     public boolean actualizarPuesto(Puesto puesto) {
-        String query = "UPDATE puesto SET titulo_puesto = ?, descripcion = ?, id_empleado = ? WHERE id_puesto = ?";
+        String query = "UPDATE puesto SET titulo_puesto = ?, descripcion = ? WHERE id_puesto = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, puesto.getTituloPuesto());
             stmt.setString(2, puesto.getDescripcion());
-            stmt.setInt(3, puesto.getIdEmpleado());
-            stmt.setInt(4, puesto.getIdPuesto());
+            stmt.setInt(3, puesto.getIdPuesto());
 
             return stmt.executeUpdate() > 0;
 
@@ -120,9 +119,8 @@ public class PuestoDAO {
         int idPuesto = rs.getInt("id_puesto");
         String tituloPuesto = rs.getString("titulo_puesto");
         String descripcion = rs.getString("descripcion");
-        int idEmpleado = rs.getInt("id_empleado");
 
-        return new Puesto(idPuesto, tituloPuesto, descripcion, idEmpleado);
+        return new Puesto(idPuesto, tituloPuesto, descripcion);
     }
 }
 

@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Control.CarritoDeCompras;
+import Modelo.Control.ListaPuesto;
 import Modelo.Control.ListadoCategorias;
 import Modelo.Control.ListadoProductos;
 import Modelo.Control.ListadoProveedores;
@@ -38,6 +39,8 @@ public class Sistema extends javax.swing.JFrame {
         this.conexion = conexion;
         initComponents();
         cargarComboProducto(JcomboProductos);
+        cargarComboProducto(CBProductosPdd);
+        cargarComboPuestos(JcomboPuesto);
         cargarComboProveedor(JcomboProveedor);
         cargarComboCategorias(JComboCategorias);
         cargarTabla();
@@ -189,18 +192,22 @@ public class Sistema extends javax.swing.JFrame {
         TablaPedido = new javax.swing.JTable();
         PrecioPdd = new javax.swing.JLabel();
         CantidadPdd = new javax.swing.JLabel();
-        TipoPdd = new javax.swing.JLabel();
         ProductosPdd = new javax.swing.JLabel();
         MetododePagoPdd = new javax.swing.JLabel();
         TFPrecioPdd = new javax.swing.JTextField();
-        TFCantidadPdd = new javax.swing.JTextField();
-        TFTipoPdd = new javax.swing.JTextField();
         CBProductosPdd = new javax.swing.JComboBox<>();
         CBMetododePagoPdd = new javax.swing.JComboBox<>();
         BtnNuevoPdd = new javax.swing.JButton();
         BtnActualizarPdd = new javax.swing.JButton();
         BtnEliminarPdd = new javax.swing.JButton();
         BtnConsultarPdd = new javax.swing.JButton();
+        JcomboCantidadDoc = new javax.swing.JComboBox<>();
+        btnAñadirProductos1 = new javax.swing.JButton();
+        btnConsultarCarrito1 = new javax.swing.JButton();
+        DescuentoNV1 = new javax.swing.JLabel();
+        JcomboDescuento1 = new javax.swing.JComboBox<>();
+        MetodoDePago3 = new javax.swing.JLabel();
+        txtTotalVenta1 = new javax.swing.JTextField();
         PanelProducto = new javax.swing.JPanel();
         NombrePrd = new javax.swing.JLabel();
         PrecioPrd = new javax.swing.JLabel();
@@ -996,18 +1003,18 @@ public class Sistema extends javax.swing.JFrame {
         CantidadPdd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         CantidadPdd.setText("Cantidad");
 
-        TipoPdd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        TipoPdd.setText("Tipo");
-
         ProductosPdd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         ProductosPdd.setText("Productos");
 
         MetododePagoPdd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         MetododePagoPdd.setText("Metodo de pago");
 
+        TFPrecioPdd.setEditable(false);
+
         CBProductosPdd.setEditable(true);
 
         CBMetododePagoPdd.setEditable(true);
+        CBMetododePagoPdd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Transferencia", "Efectivo", "Tarjeta" }));
 
         BtnNuevoPdd.setText("Nuevo");
         BtnNuevoPdd.addActionListener(new java.awt.event.ActionListener() {
@@ -1022,6 +1029,47 @@ public class Sistema extends javax.swing.JFrame {
 
         BtnConsultarPdd.setText("Consultar");
 
+        JcomboCantidadDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        JcomboCantidadDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JcomboCantidadDocActionPerformed(evt);
+            }
+        });
+
+        btnAñadirProductos1.setText("Añadir");
+        btnAñadirProductos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirProductos1ActionPerformed(evt);
+            }
+        });
+
+        btnConsultarCarrito1.setText("Carrito");
+        btnConsultarCarrito1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarCarrito1ActionPerformed(evt);
+            }
+        });
+
+        DescuentoNV1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        DescuentoNV1.setText("Descuento");
+
+        JcomboDescuento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0%", "5%", "10%", "15%", "20%", "30%" }));
+        JcomboDescuento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JcomboDescuento1ActionPerformed(evt);
+            }
+        });
+
+        MetodoDePago3.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        MetodoDePago3.setText("Total");
+
+        txtTotalVenta1.setEditable(false);
+        txtTotalVenta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalVenta1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelPedidoLayout = new javax.swing.GroupLayout(PanelPedido);
         PanelPedido.setLayout(PanelPedidoLayout);
         PanelPedidoLayout.setHorizontalGroup(
@@ -1031,71 +1079,97 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(PanelPedidoLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CBMetododePagoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CantidadPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TipoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ProductosPdd))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TFCantidadPdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TFTipoPdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CBProductosPdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(PanelPedidoLayout.createSequentialGroup()
-                                .addComponent(PrecioPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(TFPrecioPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPedidoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnNuevoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnEliminarPdd))
-                        .addGap(39, 39, 39)
+                            .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CantidadPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ProductosPdd, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnAñadirProductos1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnConsultarPdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnActualizarPdd, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(63, 63, 63)))
+                            .addComponent(btnConsultarCarrito1)
+                            .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CBProductosPdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(JcomboCantidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44))
+                    .addGroup(PanelPedidoLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BtnActualizarPdd)
+                            .addGroup(PanelPedidoLayout.createSequentialGroup()
+                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(BtnNuevoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BtnEliminarPdd))
+                                .addGap(39, 39, 39)
+                                .addComponent(BtnConsultarPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelPedidoLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPedidoLayout.createSequentialGroup()
+                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelPedidoLayout.createSequentialGroup()
+                                        .addComponent(PrecioPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(TFPrecioPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelPedidoLayout.createSequentialGroup()
+                                        .addComponent(MetododePagoPdd, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(CBMetododePagoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(44, 44, 44))
+                            .addGroup(PanelPedidoLayout.createSequentialGroup()
+                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(DescuentoNV1)
+                                    .addComponent(MetodoDePago3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelPedidoLayout.createSequentialGroup()
+                                        .addComponent(txtTotalVenta1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(JcomboDescuento1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7))
         );
         PanelPedidoLayout.setVerticalGroup(
             PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPedidoLayout.createSequentialGroup()
-                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelPedidoLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(41, 41, 41)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CBProductosPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProductosPdd))
+                        .addGap(30, 30, 30)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CantidadPdd)
+                            .addComponent(JcomboCantidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAñadirProductos1)
+                            .addComponent(btnConsultarCarrito1))
+                        .addGap(19, 19, 19)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(PrecioPdd)
                             .addComponent(TFPrecioPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CantidadPdd)
-                            .addComponent(TFCantidadPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TipoPdd)
-                            .addComponent(TFTipoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CBProductosPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ProductosPdd))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(CBMetododePagoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(MetododePagoPdd))
-                        .addGap(31, 31, 31)
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DescuentoNV1)
+                            .addComponent(JcomboDescuento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MetodoDePago3)
+                            .addComponent(txtTotalVenta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnActualizarPdd)
                             .addComponent(BtnNuevoPdd))
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnConsultarPdd)
-                            .addComponent(BtnEliminarPdd)))
+                            .addComponent(BtnEliminarPdd)
+                            .addComponent(BtnConsultarPdd)))
                     .addGroup(PanelPedidoLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1204,6 +1278,7 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         txtIDproducto.setEditable(false);
+        txtIDproducto.setEnabled(false);
 
         javax.swing.GroupLayout PanelProductoLayout = new javax.swing.GroupLayout(PanelProducto);
         PanelProducto.setLayout(PanelProductoLayout);
@@ -1790,7 +1865,9 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioProdActionPerformed
 
     private void BtnNuevoPddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoPddActionPerformed
-        // TODO add your handling code here:
+        ClientesFrame cliente = new ClientesFrame();
+        cliente.setVisible(true);
+                
     }//GEN-LAST:event_BtnNuevoPddActionPerformed
 
     private void BtnActualizarPrvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarPrvdActionPerformed
@@ -2092,7 +2169,8 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirProductosActionPerformed
 
     private void btnConsultarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCarritoActionPerformed
-        // TODO add your handling code here:
+        CarritoFrame carrito = new CarritoFrame();
+        carrito.setVisible(true);
     }//GEN-LAST:event_btnConsultarCarritoActionPerformed
 
     private void txtTotalVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVentaActionPerformed
@@ -2121,6 +2199,27 @@ public class Sistema extends javax.swing.JFrame {
         txtTotalVenta.setText("");
         carrito.limpiarCarrito();
     }//GEN-LAST:event_BtnLimpiarNVActionPerformed
+
+    private void JcomboCantidadDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboCantidadDocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JcomboCantidadDocActionPerformed
+
+    private void btnAñadirProductos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAñadirProductos1ActionPerformed
+
+    private void btnConsultarCarrito1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCarrito1ActionPerformed
+        CarritoFrame carrito = new CarritoFrame();
+        carrito.setVisible(true);
+    }//GEN-LAST:event_btnConsultarCarrito1ActionPerformed
+
+    private void JcomboDescuento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboDescuento1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JcomboDescuento1ActionPerformed
+
+    private void txtTotalVenta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalVenta1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalVenta1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2194,6 +2293,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel CorreoClnt;
     private javax.swing.JLabel DIreccionClnt;
     private javax.swing.JLabel DescuentoNV;
+    private javax.swing.JLabel DescuentoNV1;
     private javax.swing.JLabel DireccionPrvd;
     private javax.swing.JLabel DireccionPrvd1;
     private javax.swing.JLabel DireccionPrvd2;
@@ -2206,7 +2306,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel ImagenPrincipal;
     private javax.swing.JComboBox<String> JComboCategorias;
     private javax.swing.JComboBox<String> JcomboCantidad;
+    private javax.swing.JComboBox<String> JcomboCantidadDoc;
     private javax.swing.JComboBox<String> JcomboDescuento;
+    private javax.swing.JComboBox<String> JcomboDescuento1;
     private javax.swing.JComboBox<String> JcomboDia;
     private javax.swing.JComboBox<String> JcomboJornada;
     private javax.swing.JComboBox<String> JcomboProductos;
@@ -2215,6 +2317,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel MetodoDePago;
     private javax.swing.JLabel MetodoDePago1;
     private javax.swing.JLabel MetodoDePago2;
+    private javax.swing.JLabel MetodoDePago3;
     private javax.swing.JLabel MetododePagoPdd;
     private javax.swing.JLabel NombreClnt;
     private javax.swing.JLabel NombreFct;
@@ -2241,14 +2344,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel StockPrd;
     private javax.swing.JTextField TFApMaternoClnt;
     private javax.swing.JTextField TFApPaternoClnt;
-    private javax.swing.JTextField TFCantidadPdd;
     private javax.swing.JTextField TFCorreoClnt;
     private javax.swing.JTextField TFDireccionClnt;
     private javax.swing.JTextField TFIDFct;
     private javax.swing.JTextField TFNombreClnt;
     private javax.swing.JTextField TFPrecioPdd;
     private javax.swing.JTextField TFTelefonoClnt;
-    private javax.swing.JTextField TFTipoPdd;
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTable TablaNV;
     private javax.swing.JTable TablaPedido;
@@ -2257,13 +2358,14 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TablaVenta;
     private javax.swing.JLabel TelefonoClnt;
     private javax.swing.JLabel TelefonoPrvd;
-    private javax.swing.JLabel TipoPdd;
     private javax.swing.JTextField TxtFEmisorFct;
     private javax.swing.JTextField TxtFNombreFct;
     private javax.swing.JTextField TxtFRFCFct;
     private javax.swing.JButton Ventas;
     private javax.swing.JButton btnAñadirProductos;
+    private javax.swing.JButton btnAñadirProductos1;
     private javax.swing.JButton btnConsultarCarrito;
+    private javax.swing.JButton btnConsultarCarrito1;
     private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton jButton29;
@@ -2319,6 +2421,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelEmp;
     private javax.swing.JTextField txtTelefonoProv;
     private javax.swing.JTextField txtTotalVenta;
+    private javax.swing.JTextField txtTotalVenta1;
     // End of variables declaration//GEN-END:variables
 
     private void cargarComboProducto(JComboBox c) {
@@ -2387,6 +2490,29 @@ public class Sistema extends javax.swing.JFrame {
             System.out.println("Exito Categorias");
         } catch(Exception e){
             System.out.println("Error al consultar combo: "+e);
+        }
+    }
+    
+    private void cargarComboPuestos(JComboBox JComboPuestos){
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+        JComboPuestos.setModel(combo);
+        ListaPuesto lista_puesto = new ListaPuesto();
+        try {
+            Connection conn = conexion;
+            if(conn == null){
+                throw new SQLException("Conexión no inicializada.");
+            }
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT titulo_puesto FROM restaurante.puesto ORDER BY id_puesto");
+            while(rs.next()){
+                Puesto puesto = new Puesto();
+                puesto.setTituloPuesto(rs.getString(1));
+                lista_puesto.AgregarPuestos(puesto);
+                combo.addElement(puesto.getTituloPuesto());
+            }
+            System.out.println("Exito Puestos");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

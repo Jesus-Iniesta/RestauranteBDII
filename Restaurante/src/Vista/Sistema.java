@@ -45,6 +45,7 @@ public class Sistema extends javax.swing.JFrame {
         cargarComboCategorias(JComboCategorias);
         cargarTabla();
         cargarTablaProveedor();
+        cargarTablaFactura();
         this.carrito = new CarritoDeCompras();
         this.venta = new Venta();
     }
@@ -66,15 +67,30 @@ public class Sistema extends javax.swing.JFrame {
         
         int [] anchos = {5,150,100,70};
         if (TablaProvedor.getColumnCount() == anchos.length) {
-        for (int i = 0; i < TablaProvedor.getColumnCount(); i++) {
-            TablaProvedor.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            }
+            for (int i = 0; i < TablaProvedor.getColumnCount(); i++) {
+                TablaProvedor.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+                }
         } else {
             System.out.println("El número de columnas no coincide con los anchos definidos.");
         }
         
         ProveedorDAO tablaProv = new ProveedorDAO(conexion);
         tablaProv.obtenerTodosLosProveedor(modeloTabla);
+    }
+    public void cargarTablaFactura(){
+        DefaultTableModel modeloTabla = (DefaultTableModel)TablaFactura.getModel();
+        modeloTabla.setRowCount(0);
+        
+        int [] anchos = {10,100,100,100,100,100,100};
+        if(TablaFactura.getColumnCount() == anchos.length){
+            for(int i = 0; i<TablaFactura.getColumnCount();i++ ){
+                TablaFactura.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+        } else{
+            System.out.println("El número de columnas no coincide con los anchos definidos");
+        }
+        FacturaDAO tableFact = new FacturaDAO(conexion);
+        tableFact.obtenerTodasLasFacturas(modeloTabla);
     }
     public void limpiarTablaProductos(){
         txtIDproducto.setText("");
@@ -239,7 +255,7 @@ public class Sistema extends javax.swing.JFrame {
         jTable10 = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        TablaFactura = new javax.swing.JTable();
         BtnNuevoFct = new javax.swing.JButton();
         BtnEliminarFct = new javax.swing.JButton();
         BtnActualizarFct = new javax.swing.JButton();
@@ -269,7 +285,6 @@ public class Sistema extends javax.swing.JFrame {
         txtApellidoPEmp = new javax.swing.JTextField();
         txtApellidoMEmp = new javax.swing.JTextField();
         txtTelEmp = new javax.swing.JTextField();
-        txtDireccionEmp = new javax.swing.JTextField();
         txtRFCEmp = new javax.swing.JTextField();
         txtCurpEmp = new javax.swing.JTextField();
         txtSalarioEmp = new javax.swing.JTextField();
@@ -280,6 +295,7 @@ public class Sistema extends javax.swing.JFrame {
         jButton41 = new javax.swing.JButton();
         JcomboDia = new javax.swing.JComboBox<>();
         JcomboJornada = new javax.swing.JComboBox<>();
+        BtnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1028,6 +1044,11 @@ public class Sistema extends javax.swing.JFrame {
         BtnEliminarPdd.setText("Eliminar");
 
         BtnConsultarPdd.setText("Consultar");
+        BtnConsultarPdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnConsultarPddActionPerformed(evt);
+            }
+        });
 
         JcomboCantidadDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         JcomboCantidadDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -1468,7 +1489,7 @@ public class Sistema extends javax.swing.JFrame {
 
         PanelGeneral.addTab("Hist", PanelHistorial);
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        TablaFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1476,7 +1497,7 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "RFC", "Emisor", "Nombre", "Fecha", "id_cliente", "id_pedido"
             }
         ));
-        jScrollPane8.setViewportView(jTable8);
+        jScrollPane8.setViewportView(TablaFactura);
 
         BtnNuevoFct.setText("Nuevo");
         BtnNuevoFct.addActionListener(new java.awt.event.ActionListener() {
@@ -1678,6 +1699,8 @@ public class Sistema extends javax.swing.JFrame {
 
         JcomboJornada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:00:00 - 15:00:00", "15:00:00 - 23:00:00", "8:00:00 - 13:00:00", "13:00:00 - 18:00:00" }));
 
+        BtnAgregar.setText("Agregar");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1715,27 +1738,27 @@ public class Sistema extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtRFCEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDireccionEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 5, Short.MAX_VALUE))
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellidoMEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtApellidoPEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNombreEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNombreEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnAgregar)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtApellidoMEmp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -1765,7 +1788,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel33)
-                            .addComponent(txtDireccionEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BtnAgregar))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel34)
@@ -2221,6 +2244,10 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalVenta1ActionPerformed
 
+    private void BtnConsultarPddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarPddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnConsultarPddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2266,6 +2293,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton BtnActualizarPdd;
     private javax.swing.JButton BtnActualizarPrd;
     private javax.swing.JButton BtnActualizarPrvd;
+    private javax.swing.JButton BtnAgregar;
     private javax.swing.JLabel BtnCategoriaPrd;
     private javax.swing.JButton BtnCerrarSesion;
     private javax.swing.JButton BtnConsultarClnt;
@@ -2351,6 +2379,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField TFPrecioPdd;
     private javax.swing.JTextField TFTelefonoClnt;
     private javax.swing.JTable TablaClientes;
+    private javax.swing.JTable TablaFactura;
     private javax.swing.JTable TablaNV;
     private javax.swing.JTable TablaPedido;
     private javax.swing.JTable TablaProducto;
@@ -2400,7 +2429,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinnStock;
     private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
     private javax.swing.JTextField txtApellidoMEmp;
     private javax.swing.JTextField txtApellidoPEmp;
@@ -2408,7 +2436,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigoPProv;
     private javax.swing.JTextField txtColoniaProveedor;
     private javax.swing.JTextField txtCurpEmp;
-    private javax.swing.JTextField txtDireccionEmp;
     private javax.swing.JTextField txtIDproducto;
     private javax.swing.JTextField txtNombreEmp;
     private javax.swing.JTextField txtNombreProducto;

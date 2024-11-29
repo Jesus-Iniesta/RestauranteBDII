@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class FacturaDAO {
 
@@ -119,6 +120,28 @@ public class FacturaDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    public void obtenerTodasLasFacturas(DefaultTableModel modeloTabla) {
+         String query = "SELECT id_factura,rfc_cliente,emisor,nombre_cliente,fecha_expedicion,id_cliente,id_pedido FROM restaurante.factura ORDER BY id_factura ASC";
+                                   
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
+        }
     }
 
     // Mapea un ResultSet a un objeto Factura

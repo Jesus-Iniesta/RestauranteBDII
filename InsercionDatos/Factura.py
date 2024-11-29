@@ -58,7 +58,7 @@ def main():
     cursor = conn.cursor()
     
     try:
-        insert_data_factura(cursor, total_facturas=750_000)
+        insert_data_factura(cursor, total_facturas=50_000)
         conn.commit()
         print("\nInserción FACTURAS completada.")
     except Exception as e:

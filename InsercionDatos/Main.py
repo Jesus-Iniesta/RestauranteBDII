@@ -47,7 +47,7 @@ def main():
     #insert_horario()
     #insert_puesto()
     #insert_empleado()
-    #insert_venta()
+    insert_venta()
     insert_factura()
     print("""
 ██ ███    ██ ███████ ███████ ██████   ██████ ██  ██████  ███    ██      ██████  ██████  ███    ██  ██████ ██      ██    ██ ██ ██████   █████  

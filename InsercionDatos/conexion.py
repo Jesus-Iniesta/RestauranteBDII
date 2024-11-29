@@ -4,7 +4,7 @@ import psycopg2
 def connect_to_db():
     return psycopg2.connect(
         host="localhost",
-        dbname="prueba_proyecto",
+        dbname="Restaurante",
         user="postgres",
         password="1234"
     )

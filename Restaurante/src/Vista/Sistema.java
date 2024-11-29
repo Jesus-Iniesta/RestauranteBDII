@@ -250,9 +250,12 @@ public class Sistema extends javax.swing.JFrame {
         TablaVenta = new javax.swing.JTable();
         PanelHistorial = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        Tabla_hist_emp = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable10 = new javax.swing.JTable();
+        Tabla_hist_pro = new javax.swing.JTable();
+        Hist_emp = new javax.swing.JLabel();
+        Hist_product = new javax.swing.JLabel();
+        btnActTabl = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         TablaFactura = new javax.swing.JTable();
@@ -1440,51 +1443,74 @@ public class Sistema extends javax.swing.JFrame {
 
         PanelGeneral.addTab("Vent", PanelVenta);
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_hist_emp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "ID puesto", "RFC", "Fecha_Inicio", "Fecha_Fin"
             }
         ));
-        jScrollPane9.setViewportView(jTable9);
+        jScrollPane9.setViewportView(Tabla_hist_emp);
 
-        jTable10.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_hist_pro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Fecha_Compra", "Precio"
             }
         ));
-        jScrollPane10.setViewportView(jTable10);
+        jScrollPane10.setViewportView(Tabla_hist_pro);
+
+        Hist_emp.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        Hist_emp.setText("Historial Empleado");
+
+        Hist_product.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        Hist_product.setText("Historial Producto");
+
+        btnActTabl.setText("Actualizar");
+        btnActTabl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActTablActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelHistorialLayout = new javax.swing.GroupLayout(PanelHistorial);
         PanelHistorial.setLayout(PanelHistorialLayout);
         PanelHistorialLayout.setHorizontalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelHistorialLayout.createSequentialGroup()
+                .addGap(243, 243, 243)
+                .addComponent(Hist_emp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Hist_product)
+                .addGap(237, 237, 237))
+            .addGroup(PanelHistorialLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelHistorialLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActTabl)
+                .addGap(547, 547, 547))
         );
         PanelHistorialLayout.setVerticalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelHistorialLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(16, 16, 16)
+                .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Hist_emp)
+                    .addComponent(Hist_product))
+                .addGap(18, 18, 18)
                 .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane9)
                     .addComponent(jScrollPane10))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(btnActTabl))
         );
 
         PanelGeneral.addTab("Hist", PanelHistorial);
@@ -2248,6 +2274,10 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnConsultarPddActionPerformed
 
+    private void btnActTablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActTablActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActTablActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2329,6 +2359,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel EmisorFct;
     private javax.swing.JButton Empleado;
     private javax.swing.JButton Factura;
+    private javax.swing.JLabel Hist_emp;
+    private javax.swing.JLabel Hist_product;
     private javax.swing.JButton Historial;
     private javax.swing.JLabel IDFct;
     private javax.swing.JLabel ImagenPrincipal;
@@ -2385,12 +2417,15 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable TablaProducto;
     private javax.swing.JTable TablaProvedor;
     private javax.swing.JTable TablaVenta;
+    private javax.swing.JTable Tabla_hist_emp;
+    private javax.swing.JTable Tabla_hist_pro;
     private javax.swing.JLabel TelefonoClnt;
     private javax.swing.JLabel TelefonoPrvd;
     private javax.swing.JTextField TxtFEmisorFct;
     private javax.swing.JTextField TxtFNombreFct;
     private javax.swing.JTextField TxtFRFCFct;
     private javax.swing.JButton Ventas;
+    private javax.swing.JButton btnActTabl;
     private javax.swing.JButton btnAñadirProductos;
     private javax.swing.JButton btnAñadirProductos1;
     private javax.swing.JButton btnConsultarCarrito;
@@ -2427,9 +2462,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinnStock;
-    private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable9;
     private javax.swing.JTextField txtApellidoMEmp;
     private javax.swing.JTextField txtApellidoPEmp;
     private javax.swing.JTextField txtCalleProvedor;

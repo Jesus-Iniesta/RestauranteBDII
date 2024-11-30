@@ -269,7 +269,6 @@ public class Sistema extends javax.swing.JFrame {
         BtnGuardarClnt = new javax.swing.JButton();
         BtnEliminarClnt = new javax.swing.JButton();
         BtnActualizarClnt = new javax.swing.JButton();
-        BtnConsultarClnt = new javax.swing.JButton();
         DIreccionClnt1 = new javax.swing.JLabel();
         DIreccionClnt2 = new javax.swing.JLabel();
         DIreccionClnt3 = new javax.swing.JLabel();
@@ -309,7 +308,6 @@ public class Sistema extends javax.swing.JFrame {
         BtnNuevoPdd = new javax.swing.JButton();
         BtnActualizarPdd = new javax.swing.JButton();
         BtnEliminarPdd = new javax.swing.JButton();
-        BtnConsultarPdd = new javax.swing.JButton();
         JcomboCantidadDoc = new javax.swing.JComboBox<>();
         btnAñadirProductos1 = new javax.swing.JButton();
         btnConsultarCarrito1 = new javax.swing.JButton();
@@ -358,7 +356,6 @@ public class Sistema extends javax.swing.JFrame {
         btnGuardarProducto = new javax.swing.JButton();
         BtnActualizarPrd = new javax.swing.JButton();
         BtnEliminarPrd = new javax.swing.JButton();
-        BtnConsultarPrd = new javax.swing.JButton();
         BtnDescripcionPrd = new javax.swing.JLabel();
         AreaDesc = new java.awt.TextArea();
         BtnCategoriaPrd = new javax.swing.JLabel();
@@ -561,14 +558,14 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Fecha", "Productos", "Cantidad", "Precio", "Total"
+                "ID", "Fecha", "Cantidad", "Productos", "Precio", "Total"
             }
         ));
         jScrollPane2.setViewportView(TablaNV);
         if (TablaNV.getColumnModel().getColumnCount() > 0) {
             TablaNV.getColumnModel().getColumn(0).setPreferredWidth(15);
             TablaNV.getColumnModel().getColumn(1).setPreferredWidth(50);
-            TablaNV.getColumnModel().getColumn(3).setPreferredWidth(30);
+            TablaNV.getColumnModel().getColumn(2).setPreferredWidth(30);
             TablaNV.getColumnModel().getColumn(4).setPreferredWidth(15);
             TablaNV.getColumnModel().getColumn(5).setPreferredWidth(25);
         }
@@ -836,8 +833,6 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        BtnConsultarClnt.setText("Consultar");
-
         DIreccionClnt1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         DIreccionClnt1.setText("Pais");
 
@@ -894,9 +889,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(BtnActualizarClnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(BtnGuardarClnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(45, 45, 45)
-                                .addGroup(PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(BtnConsultarClnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BtnEliminarClnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(BtnEliminarClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(TFDireccionClnt2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFDireccionClnt1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFDireccionClnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -950,9 +943,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(BtnGuardarClnt)
                             .addComponent(BtnEliminarClnt))
                         .addGap(18, 18, 18)
-                        .addGroup(PanelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnConsultarClnt)
-                            .addComponent(BtnActualizarClnt)))
+                        .addComponent(BtnActualizarClnt))
                     .addGroup(PanelClienteLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -975,7 +966,7 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Telefono", "Direccion"
+                "ID", "Nombre", "Direccion", "Telefono"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -995,8 +986,8 @@ public class Sistema extends javax.swing.JFrame {
         if (TablaProvedor.getColumnModel().getColumnCount() > 0) {
             TablaProvedor.getColumnModel().getColumn(0).setPreferredWidth(40);
             TablaProvedor.getColumnModel().getColumn(1).setPreferredWidth(100);
-            TablaProvedor.getColumnModel().getColumn(2).setPreferredWidth(70);
-            TablaProvedor.getColumnModel().getColumn(3).setPreferredWidth(80);
+            TablaProvedor.getColumnModel().getColumn(2).setPreferredWidth(80);
+            TablaProvedor.getColumnModel().getColumn(3).setPreferredWidth(70);
         }
 
         BtnGuardarPrvd.setText("Guardar");
@@ -1178,13 +1169,6 @@ public class Sistema extends javax.swing.JFrame {
 
         BtnEliminarPdd.setText("Eliminar");
 
-        BtnConsultarPdd.setText("Consultar");
-        BtnConsultarPdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnConsultarPddActionPerformed(evt);
-            }
-        });
-
         JcomboCantidadDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         JcomboCantidadDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1254,8 +1238,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(BtnNuevoPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BtnEliminarPdd))
-                                .addGap(39, 39, 39)
-                                .addComponent(BtnConsultarPdd, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(122, 122, 122)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelPedidoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -1323,9 +1306,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(BtnActualizarPdd)
                             .addComponent(BtnNuevoPdd))
                         .addGap(32, 32, 32)
-                        .addGroup(PanelPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnEliminarPdd)
-                            .addComponent(BtnConsultarPdd)))
+                        .addComponent(BtnEliminarPdd))
                     .addGroup(PanelPedidoLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1629,8 +1610,6 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        BtnConsultarPrd.setText("Consultar");
-
         BtnDescripcionPrd.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         BtnDescripcionPrd.setText("Descripcion");
 
@@ -1666,44 +1645,38 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(PanelProductoLayout.createSequentialGroup()
                 .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelProductoLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnGuardarProducto)
-                            .addComponent(BtnEliminarPrd))
-                        .addGap(18, 18, 18)
+                        .addGap(88, 88, 88)
                         .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnActualizarPrd)
-                            .addComponent(BtnConsultarPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(btnLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ProvedorPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnDescripcionPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(StockPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PrecioPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnCategoriaPrd)
+                            .addComponent(NombrePrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelProductoLayout.createSequentialGroup()
+                                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnGuardarProducto)
+                                    .addComponent(BtnEliminarPrd))
+                                .addGap(18, 18, 18)
+                                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BtnActualizarPrd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(PanelProductoLayout.createSequentialGroup()
-                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelProductoLayout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ProvedorPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BtnDescripcionPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(StockPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PrecioPrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BtnCategoriaPrd)
-                                    .addComponent(NombrePrd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(PanelProductoLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(txtIDproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSpinnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AreaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPrecioProd, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelProductoLayout.createSequentialGroup()
-                                    .addGap(4, 4, 4)
-                                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(JcomboProveedor, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                                .addComponent(JComboCategorias, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
+                        .addGap(17, 17, 17)
+                        .addComponent(txtIDproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSpinnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AreaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtPrecioProd, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelProductoLayout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(JcomboProveedor, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
+                        .addComponent(JComboCategorias, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 821, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -1714,7 +1687,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelProductoLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelProductoLayout.createSequentialGroup()
                         .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NombrePrd)
@@ -1742,21 +1715,15 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ProvedorPrd)
                             .addComponent(JcomboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelProductoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnGuardarProducto)
-                                    .addComponent(BtnActualizarPrd))
-                                .addGap(18, 18, 18)
-                                .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BtnEliminarPrd)
-                                    .addComponent(BtnConsultarPrd))
-                                .addGap(33, 33, 33))
-                            .addGroup(PanelProductoLayout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(btnLimpiar)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarProducto)
+                            .addComponent(BtnActualizarPrd))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnEliminarPrd)
+                            .addComponent(btnLimpiar))
+                        .addGap(33, 33, 33))))
         );
 
         PanelGeneral.addTab("Prod", PanelProducto);
@@ -2085,11 +2052,6 @@ public class Sistema extends javax.swing.JFrame {
         PanelGeneral.setSelectedIndex(8);
         // TODO add your handling code here:
     }//GEN-LAST:event_FacturaActionPerformed
-
-    private void EmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadoActionPerformed
-        PanelGeneral.setSelectedIndex(4);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmpleadoActionPerformed
 
     private void HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistorialActionPerformed
         
@@ -2640,10 +2602,6 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalVenta1ActionPerformed
 
-    private void BtnConsultarPddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarPddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnConsultarPddActionPerformed
-
     private void btnActHsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActHsActionPerformed
        cargarTablaHspProductos();
        cargarTablaHsEmp();
@@ -2765,6 +2723,11 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PedidosActionPerformed
 
+    private void EmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadoActionPerformed
+        PanelGeneral.setSelectedIndex(4);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmpleadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2813,9 +2776,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel BtnCategoriaPrd;
     private javax.swing.JButton BtnCerrarSesion;
     private javax.swing.JButton BtnComprobante;
-    private javax.swing.JButton BtnConsultarClnt;
-    private javax.swing.JButton BtnConsultarPdd;
-    private javax.swing.JButton BtnConsultarPrd;
     private javax.swing.JLabel BtnDescripcionPrd;
     private javax.swing.JButton BtnEliminarClnt;
     private javax.swing.JButton BtnEliminarFct;

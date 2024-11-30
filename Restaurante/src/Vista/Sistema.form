@@ -463,8 +463,8 @@
                       <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                        <Column editable="true" title="Productos" type="java.lang.Object"/>
                         <Column editable="true" title="Cantidad" type="java.lang.Object"/>
+                        <Column editable="true" title="Productos" type="java.lang.Object"/>
                         <Column editable="true" title="Precio" type="java.lang.Object"/>
                         <Column editable="true" title="Total" type="java.lang.Object"/>
                       </Table>
@@ -481,12 +481,12 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -742,10 +742,7 @@
                                           <Component id="BtnGuardarClnt" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="BtnConsultarClnt" max="32767" attributes="0"/>
-                                          <Component id="BtnEliminarClnt" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="BtnEliminarClnt" min="-2" pref="80" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="TFDireccionClnt2" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
                                   <Component id="TFDireccionClnt1" alignment="1" min="-2" pref="135" max="-2" attributes="0"/>
@@ -815,10 +812,7 @@
                                   <Component id="BtnEliminarClnt" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="BtnConsultarClnt" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BtnActualizarClnt" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="BtnActualizarClnt" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -986,11 +980,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnActualizarClntActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="BtnConsultarClnt">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="DIreccionClnt1">
               <Properties>
@@ -1195,8 +1184,8 @@
                       <Table columnCount="4" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.Object"/>
                         <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                        <Column editable="false" title="Telefono" type="java.lang.Object"/>
                         <Column editable="false" title="Direccion" type="java.lang.Object"/>
+                        <Column editable="false" title="Telefono" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1211,12 +1200,12 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="70" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="70" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1348,8 +1337,7 @@
                                           <Component id="BtnNuevoPdd" min="-2" pref="73" max="-2" attributes="0"/>
                                           <Component id="BtnEliminarPdd" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                      <Component id="BtnConsultarPdd" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1441,10 +1429,7 @@
                                   <Component id="BtnNuevoPdd" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="BtnEliminarPdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BtnConsultarPdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="BtnEliminarPdd" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -1597,14 +1582,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="BtnConsultarPdd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnConsultarPddActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="JcomboCantidadDoc">
               <Properties>
@@ -2169,58 +2146,50 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnGuardarProducto" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BtnEliminarPrd" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="BtnActualizarPrd" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BtnConsultarPrd" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="ProvedorPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="BtnDescripcionPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="StockPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="PrecioPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="BtnCategoriaPrd" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="NombrePrd" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="btnGuardarProducto" min="-2" max="-2" attributes="0"/>
+                                          <Component id="BtnEliminarPrd" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="BtnActualizarPrd" max="32767" attributes="0"/>
+                                          <Component id="btnLimpiar" min="-2" pref="83" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="ProvedorPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                          <Component id="BtnDescripcionPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                          <Component id="StockPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                          <Component id="PrecioPrd" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                          <Component id="BtnCategoriaPrd" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="NombrePrd" min="-2" pref="87" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Component id="txtIDproducto" min="-2" pref="26" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jSpinnStock" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
-                                  <Component id="AreaDesc" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="txtPrecioProd" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                          <Component id="txtNombreProducto" min="-2" pref="168" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="JcomboProveedor" alignment="0" pref="165" max="32767" attributes="0"/>
-                                      <Component id="JComboCategorias" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="11" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              <Component id="txtIDproducto" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSpinnStock" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
+                          <Component id="AreaDesc" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtPrecioProd" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                  <Component id="txtNombreProducto" min="-2" pref="168" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="JcomboProveedor" alignment="0" pref="165" max="32767" attributes="0"/>
+                              <Component id="JComboCategorias" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="821" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
@@ -2269,26 +2238,17 @@
                                   <Component id="ProvedorPrd" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="JcomboProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace pref="42" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="btnGuardarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="BtnActualizarPrd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="BtnEliminarPrd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="BtnConsultarPrd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                      <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace pref="42" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnGuardarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BtnActualizarPrd" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="BtnEliminarPrd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -2429,11 +2389,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnEliminarPrdActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="BtnConsultarPrd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="BtnDescripcionPrd">
               <Properties>

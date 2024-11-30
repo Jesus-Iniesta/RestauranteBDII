@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class HistorialProductoDAO {
 
@@ -65,24 +66,26 @@ public class HistorialProductoDAO {
     }
 
     // Obtener todos los historiales de productos
-    public List<HistorialProducto> obtenerTodosLosHistoriales() {
-        List<HistorialProducto> historialProductos = new ArrayList<>();
-        String sql = "SELECT * FROM historial_producto";
-        try (
-             Statement stmt = this.conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                historialProductos.add(new HistorialProducto(
-                        rs.getInt("id_producto"),
-                        rs.getString("nombre_producto"),
-                        rs.getDate("fecha_compra").toLocalDate(),
-                        rs.getBigDecimal("precio")
-                ));
+    public void obtenerTodosLosHistoriales(DefaultTableModel modeloTabla) {
+        String query = "SELECT * FROM restaurante.historial_producto";
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
         }
-        return historialProductos;
     }
 
     // Eliminar un historial de producto

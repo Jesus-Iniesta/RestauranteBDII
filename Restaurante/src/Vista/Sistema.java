@@ -47,7 +47,6 @@ public class Sistema extends javax.swing.JFrame {
         cargarTablaProveedor();
         cargarTablaFactura();
         cargarTablaVenta(); 
-        cargarTablaHsEmp();
         this.carrito = new CarritoDeCompras();
         this.venta = new Venta();
     }
@@ -139,6 +138,21 @@ public class Sistema extends javax.swing.JFrame {
         }
         HistorialEmpleadoDAO tabla = new  HistorialEmpleadoDAO(conexion);
         tabla.obtenerTodosLosHistoriales(modeloTabla);
+    }
+    public void cargarTablaHspProductos(){
+        DefaultTableModel modeloTabla = (DefaultTableModel)Tabla_hist_pro.getModel();
+        modeloTabla.setRowCount(0);
+        
+        int [] anchos = {10,100,100,150};
+        if(Tabla_hist_pro.getColumnCount() == anchos.length){
+            for(int i = 0; i<Tabla_hist_pro.getColumnCount();i++ ){
+                Tabla_hist_pro.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+        } else{
+            System.out.println("El número de columnas no coincide con los anchos definidos");
+        }
+        HistorialProductoDAO tbHistorial = new HistorialProductoDAO(conexion);
+        tbHistorial.obtenerTodosLosHistoriales(modeloTabla);
     }
     
     public void limpiarTablaProductos(){
@@ -286,22 +300,24 @@ public class Sistema extends javax.swing.JFrame {
         Tabla_hist_pro = new javax.swing.JTable();
         Hist_emp = new javax.swing.JLabel();
         Hist_product = new javax.swing.JLabel();
-        btnActTabl = new javax.swing.JButton();
+        btnActHs = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         TablaFactura = new javax.swing.JTable();
         BtnNuevoFct = new javax.swing.JButton();
         BtnEliminarFct = new javax.swing.JButton();
         BtnActualizarFct = new javax.swing.JButton();
-        IDFct = new javax.swing.JLabel();
         RFCFct = new javax.swing.JLabel();
         NombreFct = new javax.swing.JLabel();
         EmisorFct = new javax.swing.JLabel();
         TFIDFct = new javax.swing.JTextField();
         TxtFRFCFct = new javax.swing.JTextField();
         TxtFNombreFct = new javax.swing.JTextField();
-        TxtFEmisorFct = new javax.swing.JTextField();
         jButton33 = new javax.swing.JButton();
+        txtIdFactura = new javax.swing.JTextField();
+        JComboEmisores = new javax.swing.JComboBox<>();
+        EmisorFct1 = new javax.swing.JLabel();
+        txtId_pedido = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable7 = new javax.swing.JTable();
@@ -1385,10 +1401,10 @@ public class Sistema extends javax.swing.JFrame {
         Hist_product.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         Hist_product.setText("Historial Producto");
 
-        btnActTabl.setText("Actualizar");
-        btnActTabl.addActionListener(new java.awt.event.ActionListener() {
+        btnActHs.setText("Actualizar");
+        btnActHs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActTablActionPerformed(evt);
+                btnActHsActionPerformed(evt);
             }
         });
 
@@ -1410,7 +1426,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelHistorialLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActTabl)
+                .addComponent(btnActHs)
                 .addGap(547, 547, 547))
         );
         PanelHistorialLayout.setVerticalGroup(
@@ -1425,7 +1441,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(jScrollPane9)
                     .addComponent(jScrollPane10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(btnActTabl))
+                .addComponent(btnActHs))
         );
 
         PanelGeneral.addTab("Hist", PanelHistorial);
@@ -1438,6 +1454,11 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "RFC", "Emisor", "Nombre", "Fecha", "id_cliente", "id_pedido"
             }
         ));
+        TablaFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaFacturaMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(TablaFactura);
 
         BtnNuevoFct.setText("Nuevo");
@@ -1455,9 +1476,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         BtnActualizarFct.setText("Actualizar");
-
-        IDFct.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        IDFct.setText("ID");
+        BtnActualizarFct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarFctActionPerformed(evt);
+            }
+        });
 
         RFCFct.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         RFCFct.setText("RFC");
@@ -1468,15 +1491,11 @@ public class Sistema extends javax.swing.JFrame {
         EmisorFct.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         EmisorFct.setText("Emisor");
 
+        TFIDFct.setEditable(false);
+        TFIDFct.setEnabled(false);
         TFIDFct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFIDFctActionPerformed(evt);
-            }
-        });
-
-        TxtFEmisorFct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtFEmisorFctActionPerformed(evt);
             }
         });
 
@@ -1487,6 +1506,12 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
+        txtIdFactura.setEditable(false);
+        txtIdFactura.setEnabled(false);
+
+        EmisorFct1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        EmisorFct1.setText("No. pedido");
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -1494,19 +1519,24 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IDFct, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RFCFct, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NombreFct, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EmisorFct, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TFIDFct, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(TxtFRFCFct)
-                            .addComponent(TxtFNombreFct)
-                            .addComponent(TxtFEmisorFct)))
+                            .addComponent(NombreFct, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(EmisorFct, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EmisorFct1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TFIDFct, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                .addComponent(TxtFRFCFct)
+                                .addComponent(TxtFNombreFct))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtId_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JComboEmisores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(BtnNuevoFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1514,7 +1544,8 @@ public class Sistema extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -1523,9 +1554,7 @@ public class Sistema extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IDFct)
-                    .addComponent(TFIDFct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(TFIDFct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RFCFct)
@@ -1537,8 +1566,14 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmisorFct)
-                    .addComponent(TxtFEmisorFct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JComboEmisores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EmisorFct1)
+                    .addComponent(txtId_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnNuevoFct)
                     .addComponent(BtnEliminarFct))
@@ -2147,14 +2182,14 @@ public class Sistema extends javax.swing.JFrame {
         // Obtener los datos de los campos de texto
         String rfc = TxtFRFCFct.getText();
         String nombre = TxtFNombreFct.getText();
-        String emisor = TxtFEmisorFct.getText();
+        String emisor = String.valueOf(JComboEmisores.getSelectedItem());
         int idCliente = Integer.parseInt(TFIDFct.getText()); // Asegúrate de tener un campo de texto para el ID cliente
 
         // Crear un objeto de tipo Factura
-        Factura nuevaFactura = new Factura(0, rfc, null, nombre, null, idCliente); // El ID y la fecha serán manejados por la base de datos
+       
+        Factura nuevaFactura = new Factura(rfc, null, idCliente, 0, nombre);  // El ID y la fecha serán manejados por la base de datos
         nuevaFactura.setRfcCliente(rfc);
-        nuevaFactura.setNombreCliente(nombre);
-        nuevaFactura.setTelefonoCliente("1234567890");  // Puedes poner un valor por defecto si el teléfono no es obligatorio
+        nuevaFactura.setNombre_cliente(nombre);
         nuevaFactura.setFechaExpedicion(new Date(System.currentTimeMillis())); // Fecha actual
 
         // Crear el objeto FacturaDAO y llamar al método para guardar la factura
@@ -2200,14 +2235,6 @@ public class Sistema extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
 }
     }//GEN-LAST:event_BtnEliminarFctActionPerformed
-
-    private void TFIDFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDFctActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFIDFctActionPerformed
-
-    private void TxtFEmisorFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFEmisorFctActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtFEmisorFctActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         // TODO add your handling code here:
@@ -2471,9 +2498,16 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnConsultarPddActionPerformed
 
-    private void btnActTablActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActTablActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActTablActionPerformed
+    private void btnActHsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActHsActionPerformed
+       cargarTablaHspProductos();
+       cargarTablaHsEmp();
+       // Crear una ventana principal para probar el mensaje temporal
+        JFrame frame = new JFrame("Aviso");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200, 100);
+        frame.setLayout(new FlowLayout());
+        mostrarMensaje(frame, "Tablas actualizadas...", 1200);
+    }//GEN-LAST:event_btnActHsActionPerformed
 
     private void txtCodigoPProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoPProvActionPerformed
         // TODO add your handling code here:
@@ -2488,6 +2522,21 @@ public class Sistema extends javax.swing.JFrame {
         mostrarMensaje(frame, "Cargando tabla...", 15000);
         cargarTablaVentasTotales();
     }//GEN-LAST:event_BtnVerTablaActionPerformed
+
+    private void BtnActualizarFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarFctActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnActualizarFctActionPerformed
+
+    private void TablaFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFacturaMouseClicked
+        int fila = TablaProducto.getSelectedRow();
+        int id = Integer.parseInt(TablaProducto.getValueAt(fila, 0).toString());
+        txtIdFactura.setText(String.valueOf(id));
+        //Factura consulta = new 
+    }//GEN-LAST:event_TablaFacturaMouseClicked
+
+    private void TFIDFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDFctActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFIDFctActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2571,14 +2620,15 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel DireccionPrvd2;
     private javax.swing.JLabel DireccionPrvd3;
     private javax.swing.JLabel EmisorFct;
+    private javax.swing.JLabel EmisorFct1;
     private javax.swing.JButton Empleado;
     private javax.swing.JButton Factura;
     private javax.swing.JLabel Hist_emp;
     private javax.swing.JLabel Hist_product;
     private javax.swing.JButton Historial;
-    private javax.swing.JLabel IDFct;
     private javax.swing.JLabel ImagenPrincipal;
     private javax.swing.JComboBox<String> JComboCategorias;
+    private javax.swing.JComboBox<String> JComboEmisores;
     private javax.swing.JComboBox<String> JcomboCantidad;
     private javax.swing.JComboBox<String> JcomboCantidadDoc;
     private javax.swing.JComboBox<String> JcomboDescuento;
@@ -2638,11 +2688,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable Tabla_hist_pro;
     private javax.swing.JLabel TelefonoClnt;
     private javax.swing.JLabel TelefonoPrvd;
-    private javax.swing.JTextField TxtFEmisorFct;
     private javax.swing.JTextField TxtFNombreFct;
     private javax.swing.JTextField TxtFRFCFct;
     private javax.swing.JButton Ventas;
-    private javax.swing.JButton btnActTabl;
+    private javax.swing.JButton btnActHs;
     private javax.swing.JButton btnAñadirProductos;
     private javax.swing.JButton btnAñadirProductos1;
     private javax.swing.JButton btnConsultarCarrito;
@@ -2687,7 +2736,9 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtColoniaProveedor;
     private javax.swing.JTextField txtCurpEmp;
     private javax.swing.JTextField txtIDproducto;
+    private javax.swing.JTextField txtIdFactura;
     private javax.swing.JTextField txtIdProveedor;
+    private javax.swing.JTextField txtId_pedido;
     private javax.swing.JTextField txtNombreEmp;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtNombreProv;

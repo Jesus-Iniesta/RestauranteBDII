@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo.DAO;
 
 /**
@@ -26,20 +23,20 @@ public class FacturaDAO {
     }
     
     public Factura crearFactura(Factura factura) {
-        String query = "INSERT INTO restaurante.factura (rfc_cliente,nombre_cliente, fecha_expedicion, id_cliente) VALUES (?, ?, ?, ?) RETURNING id_factura";
+        String query = "INSERT INTO restaurante.factura (rfc_cliente, nombre_cliente, fecha_expedicion, id_cliente, id_pedido) VALUES (?, ?, ?, ?, ?) RETURNING id_factura";
 
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer parámetros de la consulta
             stmt.setString(1, factura.getRfcCliente());
-            stmt.setString(2, factura.getNombreCliente());
+            stmt.setString(2, factura.getNombre_cliente());
             stmt.setDate(3, factura.getFechaExpedicion());
             stmt.setInt(4, factura.getIdCliente());
+            stmt.setInt(5, factura.getIdPedido());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                factura.setIdFactura(rs.getInt("id_factura"));
+                factura.setIdFactura(rs.getInt("id_factura")); // Establecer el ID generado
             }
 
             return factura;
@@ -48,10 +45,10 @@ public class FacturaDAO {
             e.printStackTrace();
         }
         return null;
-    }
+}
 
     public Factura obtenerFacturaPorId(int idFactura) {
-        String query = "SELECT id_factura, rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente FROM factura WHERE id_factura = ?";
+        String query = "SELECT id_factura, rfc_cliente, nombre_cliente, fecha_expedicion,emisor id_cliente FROM factura WHERE id_factura = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -92,8 +89,6 @@ public class FacturaDAO {
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             stmt.setString(1, factura.getRfcCliente());
-            stmt.setString(2, factura.getTelefonoCliente());
-            stmt.setString(3, factura.getNombreCliente());
             stmt.setDate(4, factura.getFechaExpedicion());
             stmt.setInt(5, factura.getIdCliente());
             stmt.setInt(6, factura.getIdFactura());
@@ -121,7 +116,7 @@ public class FacturaDAO {
         return false;
     }
     public void obtenerTodasLasFacturas(DefaultTableModel modeloTabla) {
-         String query = "SELECT id_factura,rfc_cliente,emisor,nombre_cliente,fecha_expedicion,id_cliente,id_pedido FROM restaurante.factura ORDER BY id_factura ASC";
+         String query = "SELECT id_factura,rfc_cliente,emisor,nombre_cliente,fecha_expedicion,id_cliente,id_pedido FROM restaurante.factura ORDER BY id_factura ASC limit 30000";
                                    
         try(
              PreparedStatement stmt = this.conn.prepareStatement(query)){
@@ -145,12 +140,15 @@ public class FacturaDAO {
 
     // Mapea un ResultSet a un objeto Factura
     private Factura mapRowToFactura(ResultSet rs) throws SQLException {
-        int idFactura = rs.getInt("id_factura");
-        String rfcCliente = rs.getString("rfc_cliente");
-        String telefonoCliente = rs.getString("telefono_cliente");
-        String nombreCliente = rs.getString("nombre_cliente");
-        Date fechaExpedicion = rs.getDate("fecha_expedicion");
-        int idCliente = rs.getInt("id_cliente");
+    String rfcCliente = rs.getString("rfc_cliente");
+    String nombreCliente = rs.getString("nombre_cliente");
+    Date fechaExpedicion = rs.getDate("fecha_expedicion");
+    int idCliente = rs.getInt("id_cliente");
+    int idPedido = rs.getInt("id_pedido");
 
-        return new Factura(idFactura, rfcCliente, telefonoCliente, nombreCliente, fechaExpedicion, idCliente);}
+    Factura factura = new Factura(rfcCliente, fechaExpedicion, idCliente, idPedido, nombreCliente);
+    factura.setIdFactura(rs.getInt("id_factura")); // Establecer ID después del constructor
+
+    return factura;
+}
 }

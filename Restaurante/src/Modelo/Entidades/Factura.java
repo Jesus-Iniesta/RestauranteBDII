@@ -13,20 +13,23 @@ import java.sql.Date;
 public class Factura {
     private int idFactura;
     private String rfcCliente;
-    private String telefonoCliente;
-    private String nombreCliente;
     private Date fechaExpedicion;
     private int idCliente;  // Clave foránea que hace referencia a 'cliente'
+    private int idPedido;
+    private String nombre_cliente;
 
     // Constructor
-    public Factura(int idFactura, String rfcCliente, String telefonoCliente, String nombreCliente, Date fechaExpedicion, int idCliente) {
-        this.idFactura = idFactura;
+
+    public Factura(String rfcCliente, Date fechaExpedicion, int idCliente, int idPedido, String nombre_cliente) {
         this.rfcCliente = rfcCliente;
-        this.telefonoCliente = telefonoCliente;
-        this.nombreCliente = nombreCliente;
         this.fechaExpedicion = fechaExpedicion;
         this.idCliente = idCliente;
+        this.idPedido = idPedido;
+        this.nombre_cliente = nombre_cliente;
     }
+
+    
+
 
     // Getters y setters
     public int getIdFactura() {
@@ -45,21 +48,8 @@ public class Factura {
         this.rfcCliente = rfcCliente;
     }
 
-    public String getTelefonoCliente() {
-        return telefonoCliente;
-    }
 
-    public void setTelefonoCliente(String telefonoCliente) {
-        this.telefonoCliente = telefonoCliente;
-    }
 
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
 
     public Date getFechaExpedicion() {
         return fechaExpedicion;
@@ -77,10 +67,33 @@ public class Factura {
         this.idCliente = idCliente;
     }
 
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public String getNombre_cliente() {
+        return nombre_cliente;
+    }
+
+    public void setNombre_cliente(String nombre_cliente) {
+        this.nombre_cliente = nombre_cliente;
+    }
+    
+
     @Override
     public String toString() {
-        return "Factura [idFactura=" + idFactura + ", rfcCliente=" + rfcCliente + ", telefonoCliente=" + telefonoCliente +
-                ", nombreCliente=" + nombreCliente + ", fechaExpedicion=" + fechaExpedicion + ", idCliente=" + idCliente + "]";
-    }
+    return "Factura{" +
+           "idFactura=" + idFactura +
+           ", rfcCliente='" + rfcCliente + '\'' +
+           ", nombre_cliente='" + nombre_cliente + '\'' +
+           ", fechaExpedicion=" + fechaExpedicion +
+           ", idCliente=" + idCliente +
+           ", idPedido=" + idPedido +
+           '}';
+}
 }
 

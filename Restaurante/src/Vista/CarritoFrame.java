@@ -15,8 +15,7 @@ public class CarritoFrame extends javax.swing.JFrame {
     /**
      * Creates new form CarritoFrame
      */
-    private Connection conexion;
-    Sistema productos = new Sistema(conexion);
+    
     public CarritoFrame() {
         initComponents();
     }
@@ -57,6 +56,11 @@ public class CarritoFrame extends javax.swing.JFrame {
         BtnEliminarProducto.setText("Eliminar");
 
         BtnAceptarCarrito.setText("Aceptar");
+        BtnAceptarCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAceptarCarritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,6 +115,11 @@ public class CarritoFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAceptarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarCarritoActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_BtnAceptarCarritoActionPerformed
 
     /**
      * @param args the command line arguments

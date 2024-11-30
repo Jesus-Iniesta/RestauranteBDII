@@ -551,14 +551,14 @@ public class Sistema extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha", "Cantidad", "Productos", "Precio", "Total"
+                "ID", "Fecha", "Productos", "Cantidad", "Precio", "Total"
             }
         ));
         jScrollPane2.setViewportView(TablaNV);
         if (TablaNV.getColumnModel().getColumnCount() > 0) {
             TablaNV.getColumnModel().getColumn(0).setPreferredWidth(15);
             TablaNV.getColumnModel().getColumn(1).setPreferredWidth(50);
-            TablaNV.getColumnModel().getColumn(2).setPreferredWidth(30);
+            TablaNV.getColumnModel().getColumn(3).setPreferredWidth(30);
             TablaNV.getColumnModel().getColumn(4).setPreferredWidth(15);
             TablaNV.getColumnModel().getColumn(5).setPreferredWidth(25);
         }
@@ -779,7 +779,7 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Direccion", "Telefono"
+                "ID", "Nombre", "Telefono", "Direccion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -799,8 +799,8 @@ public class Sistema extends javax.swing.JFrame {
         if (TablaProvedor.getColumnModel().getColumnCount() > 0) {
             TablaProvedor.getColumnModel().getColumn(0).setPreferredWidth(40);
             TablaProvedor.getColumnModel().getColumn(1).setPreferredWidth(100);
-            TablaProvedor.getColumnModel().getColumn(2).setPreferredWidth(80);
-            TablaProvedor.getColumnModel().getColumn(3).setPreferredWidth(70);
+            TablaProvedor.getColumnModel().getColumn(2).setPreferredWidth(70);
+            TablaProvedor.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
 
         BtnGuardarPrvd.setText("Guardar");

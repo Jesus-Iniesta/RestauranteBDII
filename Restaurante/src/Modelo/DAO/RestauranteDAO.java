@@ -66,6 +66,36 @@ public class RestauranteDAO {
         }
         return null;
     }
+    public String obtenerNombreRestaurantePorNombre(String nombreRestaurante) {
+    String obtenerIdQuery = "SELECT id_restaurante FROM restaurante.restaurante WHERE nombre = ?";
+    String obtenerNombreQuery = "SELECT nombre FROM restaurante.restaurante WHERE id_restaurante = ?";
+
+    try (
+        PreparedStatement obtenerIdStmt = this.conn.prepareStatement(obtenerIdQuery);
+        PreparedStatement obtenerNombreStmt = this.conn.prepareStatement(obtenerNombreQuery)
+    ) {
+        // 1. Buscar el ID del restaurante por su nombre
+        obtenerIdStmt.setString(1, nombreRestaurante);
+        ResultSet idResult = obtenerIdStmt.executeQuery();
+
+        if (idResult.next()) {
+            int idRestaurante = idResult.getInt("id_restaurante");
+
+            // 2. Buscar el nombre del restaurante por su ID
+            obtenerNombreStmt.setInt(1, idRestaurante);
+            ResultSet nombreResult = obtenerNombreStmt.executeQuery();
+
+            if (nombreResult.next()) {
+                return nombreResult.getString("nombre");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null; // Retornar null si no se encontró el restaurante
+}
+
 
     public List<Restaurante> obtenerTodosLosRestaurantes() {
         String query = "SELECT id_restaurante, nombre, telefono, direccion FROM restaurante";

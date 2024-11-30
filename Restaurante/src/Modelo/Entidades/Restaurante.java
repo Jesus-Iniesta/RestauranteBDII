@@ -19,6 +19,10 @@ public class Restaurante {
         this.direccion = direccion;
     }
 
+    public Restaurante() {
+    }
+    
+
     // Getters y setters
     public int getIdRestaurante() {
         return idRestaurante;

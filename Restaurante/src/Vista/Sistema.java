@@ -5,17 +5,22 @@ import Modelo.Control.ListaPuesto;
 import Modelo.Control.ListadoCategorias;
 import Modelo.Control.ListadoProductos;
 import Modelo.Control.ListadoProveedores;
+import Modelo.Control.ListadoRestaurantes;
 import Modelo.Control.ProductoControlador;
+import Modelo.Control.XmlControl;
 import Modelo.DAO.*;
 import Modelo.Entidades.*;
 import Util.Conexion;
 import java.awt.FlowLayout;
 import java.awt.TextField;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,6 +48,7 @@ public class Sistema extends javax.swing.JFrame {
         cargarComboPuestos(JcomboPuesto);
         cargarComboProveedor(JcomboProveedor);
         cargarComboCategorias(JComboCategorias);
+        cargarComboEmisor(JComboEmisores);
         cargarTabla();
         cargarTablaProveedor();
         cargarTablaFactura();
@@ -310,14 +316,15 @@ public class Sistema extends javax.swing.JFrame {
         RFCFct = new javax.swing.JLabel();
         NombreFct = new javax.swing.JLabel();
         EmisorFct = new javax.swing.JLabel();
-        TFIDFct = new javax.swing.JTextField();
+        TFIDCliente = new javax.swing.JTextField();
         TxtFRFCFct = new javax.swing.JTextField();
         TxtFNombreFct = new javax.swing.JTextField();
-        jButton33 = new javax.swing.JButton();
+        BtnComprobante = new javax.swing.JButton();
         txtIdFactura = new javax.swing.JTextField();
         JComboEmisores = new javax.swing.JComboBox<>();
         EmisorFct1 = new javax.swing.JLabel();
         txtId_pedido = new javax.swing.JTextField();
+        RFCFct1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable7 = new javax.swing.JTable();
@@ -1151,6 +1158,15 @@ public class Sistema extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaProducto.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                TablaProductoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         TablaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProductoMouseClicked(evt);
@@ -1491,18 +1507,16 @@ public class Sistema extends javax.swing.JFrame {
         EmisorFct.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         EmisorFct.setText("Emisor");
 
-        TFIDFct.setEditable(false);
-        TFIDFct.setEnabled(false);
-        TFIDFct.addActionListener(new java.awt.event.ActionListener() {
+        TFIDCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFIDFctActionPerformed(evt);
+                TFIDClienteActionPerformed(evt);
             }
         });
 
-        jButton33.setText("Comprobante");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
+        BtnComprobante.setText("Comprobante");
+        BtnComprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
+                BtnComprobanteActionPerformed(evt);
             }
         });
 
@@ -1512,49 +1526,65 @@ public class Sistema extends javax.swing.JFrame {
         EmisorFct1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         EmisorFct1.setText("No. pedido");
 
+        RFCFct1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        RFCFct1.setText("No_cliente");
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RFCFct, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NombreFct, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(EmisorFct, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EmisorFct1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(TFIDFct, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                .addComponent(TxtFRFCFct)
-                                .addComponent(TxtFNombreFct))
+                            .addComponent(RFCFct, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtId_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JComboEmisores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BtnNuevoFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BtnActualizarFct, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(BtnComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(NombreFct, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                    .addComponent(EmisorFct1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(RFCFct1)))
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BtnNuevoFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnActualizarFct, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnEliminarFct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TFIDCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                    .addComponent(TxtFRFCFct)
+                                    .addComponent(TxtFNombreFct)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addComponent(txtId_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7))))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(EmisorFct, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JComboEmisores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(TFIDFct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TFIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RFCFct1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RFCFct)
@@ -1580,7 +1610,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnActualizarFct)
-                    .addComponent(jButton33))
+                    .addComponent(BtnComprobante))
                 .addGap(111, 111, 111))
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -2182,15 +2212,13 @@ public class Sistema extends javax.swing.JFrame {
         // Obtener los datos de los campos de texto
         String rfc = TxtFRFCFct.getText();
         String nombre = TxtFNombreFct.getText();
-        String emisor = String.valueOf(JComboEmisores.getSelectedItem());
-        int idCliente = Integer.parseInt(TFIDFct.getText()); // Asegúrate de tener un campo de texto para el ID cliente
+        String emisor = (String) JComboEmisores.getSelectedItem();
+        int id_pedido = Integer.parseInt(txtId_pedido.getText()); // Asegúrate de tener un campo de texto para el ID cliente
+        int id_cliente = Integer.parseInt(TFIDCliente.getText());
 
         // Crear un objeto de tipo Factura
        
-        Factura nuevaFactura = new Factura(rfc, null, idCliente, 0, nombre);  // El ID y la fecha serán manejados por la base de datos
-        nuevaFactura.setRfcCliente(rfc);
-        nuevaFactura.setNombre_cliente(nombre);
-        nuevaFactura.setFechaExpedicion(new Date(System.currentTimeMillis())); // Fecha actual
+        Factura nuevaFactura = new Factura(id_cliente,rfc, id_pedido, nombre, emisor);
 
         // Crear el objeto FacturaDAO y llamar al método para guardar la factura
         FacturaDAO facturaDAO = new FacturaDAO(conexion);
@@ -2204,7 +2232,7 @@ public class Sistema extends javax.swing.JFrame {
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al guardar la factura: " + e.getMessage());}
+        }
 
 
     }//GEN-LAST:event_BtnNuevoFctActionPerformed
@@ -2252,9 +2280,46 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JcomboPuestoActionPerformed
 
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton33ActionPerformed
+    private void BtnComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprobanteActionPerformed
+        try {
+            int idFactura = Integer.parseInt(txtIdFactura.getText());
+            FacturaDAO xml = new FacturaDAO(conexion);
+            Factura factura = xml.obtenerFacturaPorIdXML(idFactura);
+
+            if (factura != null) {
+                // Configurar JFileChooser para guardar archivo
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Guardar XML como...");
+
+                // Establece un nombre predeterminado para el archivo
+                fileChooser.setSelectedFile(new java.io.File("factura_" + idFactura + ".xml"));
+
+                // Mostrar el diálogo de guardar y obtener la elección del usuario
+                int userSelection = fileChooser.showSaveDialog(this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    java.io.File fileToSave = fileChooser.getSelectedFile();
+
+                    // Formatear el XML antes de guardarlo
+                    XmlControl xmlControl = new XmlControl();
+                    String formattedXml = xmlControl.formatXML(factura.getFacturaXml());
+
+                    try (FileWriter writer = new FileWriter(fileToSave)) {
+                        writer.write(formattedXml); // Guardar el XML formateado
+                        JOptionPane.showMessageDialog(this, "Archivo XML guardado en: " + fileToSave.getAbsolutePath());
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Error al escribir el archivo: " + ex.getMessage());
+                    }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Guardado cancelado.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró la factura con el ID especificado (posiblemente no se seleccionó una factura).");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Por favor, introduce un ID de factura válido.");
+            }
+    }//GEN-LAST:event_BtnComprobanteActionPerformed
 
     private void BtnPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarVentaActionPerformed
         // TODO add your handling code here:
@@ -2524,19 +2589,74 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVerTablaActionPerformed
 
     private void BtnActualizarFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarFctActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Obtener los datos de los campos de texto
+            String rfc = TxtFRFCFct.getText();
+            String nombre = TxtFNombreFct.getText();
+            String emisor = (String) JComboEmisores.getSelectedItem();
+            int id_pedido = Integer.parseInt(txtId_pedido.getText()); // Asegúrate de tener un campo de texto para el ID del pedido
+            int id_cliente = Integer.parseInt(TFIDCliente.getText());
+            int id_factura = Integer.parseInt(txtIdFactura.getText()); // Obtener el ID de la factura que se va a actualizar
+
+            // Crear un objeto de tipo Factura con los datos obtenidos
+            Factura facturaActualizar = new Factura(id_cliente, rfc, id_pedido, nombre, emisor);
+            facturaActualizar.setIdFactura(id_factura); // Establecer el ID de la factura a actualizar
+
+            // Crear el objeto FacturaDAO y llamar al método para actualizar la factura
+            FacturaDAO facturaDAO = new FacturaDAO(conexion);
+            boolean facturaActualizada = facturaDAO.actualizarFactura(facturaActualizar);
+
+            if (facturaActualizada) {
+                JOptionPane.showMessageDialog(this, "Factura actualizada con éxito!");
+                cargarTablaFactura();  // Llamar al método para actualizar la tabla de facturas
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar la factura.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_BtnActualizarFctActionPerformed
 
     private void TablaFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFacturaMouseClicked
-        int fila = TablaProducto.getSelectedRow();
-        int id = Integer.parseInt(TablaProducto.getValueAt(fila, 0).toString());
-        txtIdFactura.setText(String.valueOf(id));
-        //Factura consulta = new 
+        int fila = TablaFactura.getSelectedRow();
+        int id = Integer.parseInt(TablaFactura.getValueAt(fila, 0).toString()); // Obtener la fila seleccionada
+        if (fila == -1) { // Verificar si no hay una fila seleccionada
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método
+        }
+
+        try {
+            // Obtener el ID de la factura desde la tabla
+            txtIdFactura.setText(String.valueOf(id));
+
+            // Obtener los datos de la factura desde la base de datos
+            Factura consulta = new FacturaDAO(conexion).obtenerFacturaPorId(id);
+            RestauranteDAO consulta2 = new RestauranteDAO(conexion);
+            if (consulta != null) {
+                // Llenar los campos con los datos de la factura
+                TFIDCliente.setText(String.valueOf(consulta.getIdCliente()));
+                TxtFRFCFct.setText(consulta.getRfcCliente());
+                TxtFNombreFct.setText(consulta.getNombre_cliente());
+                JComboEmisores.setSelectedItem(consulta2.obtenerNombreRestaurantePorNombre(consulta.getEmisor().toString()));
+                txtId_pedido.setText(String.valueOf(consulta.getIdPedido()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró la factura con el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El ID seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ocurrió un error al procesar la fila seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
     }//GEN-LAST:event_TablaFacturaMouseClicked
 
-    private void TFIDFctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDFctActionPerformed
+    private void TFIDClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFIDClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFIDFctActionPerformed
+    }//GEN-LAST:event_TFIDClienteActionPerformed
+
+    private void TablaProductoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TablaProductoAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaProductoAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -2585,6 +2705,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JLabel BtnCategoriaPrd;
     private javax.swing.JButton BtnCerrarSesion;
+    private javax.swing.JButton BtnComprobante;
     private javax.swing.JButton BtnConsultarClnt;
     private javax.swing.JButton BtnConsultarPdd;
     private javax.swing.JButton BtnConsultarPrd;
@@ -2665,6 +2786,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton Provedor;
     private javax.swing.JLabel ProvedorPrd;
     private javax.swing.JLabel RFCFct;
+    private javax.swing.JLabel RFCFct1;
     private javax.swing.JLabel StockPrd;
     private javax.swing.JTextField TFApMaternoClnt;
     private javax.swing.JTextField TFApPaternoClnt;
@@ -2673,7 +2795,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField TFDireccionClnt1;
     private javax.swing.JTextField TFDireccionClnt2;
     private javax.swing.JTextField TFDireccionClnt3;
-    private javax.swing.JTextField TFIDFct;
+    private javax.swing.JTextField TFIDCliente;
     private javax.swing.JTextField TFNombreClnt;
     private javax.swing.JTextField TFPrecioPdd;
     private javax.swing.JTextField TFTelefonoClnt;
@@ -2700,7 +2822,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton40;
     private javax.swing.JButton jButton41;
     private javax.swing.JComboBox<String> jComboMetodoDePago;
@@ -2840,6 +2961,28 @@ public class Sistema extends javax.swing.JFrame {
                 combo.addElement(puesto.getTituloPuesto());
             }
             System.out.println("Exito Puestos");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void cargarComboEmisor(JComboBox jComboEmisores){
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+        jComboEmisores.setModel(combo);
+        ListadoRestaurantes lista_emisores = new ListadoRestaurantes();
+        try {
+            Connection conn = conexion;
+            if(conn == null){
+                throw new SQLException("Conexión no inicializada.");
+            }
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre FROM restaurante.restaurante ORDER BY id_restaurante");
+            while(rs.next()){
+                Restaurante emisores = new Restaurante();
+                emisores.setNombre(rs.getString(1));
+                lista_emisores.Agregaremisores(emisores);
+                combo.addElement(emisores.getNombre());
+            }
+            System.out.println("Exito emisores");
         } catch (Exception e) {
             e.printStackTrace();
         }

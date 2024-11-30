@@ -17,6 +17,7 @@ public class Factura {
     private int idCliente;  // Clave foránea que hace referencia a 'cliente'
     private int idPedido;
     private String nombre_cliente;
+    private String emisor;
 
     // Constructor
 
@@ -28,6 +29,26 @@ public class Factura {
         this.nombre_cliente = nombre_cliente;
     }
 
+    public Factura(int idCliente,String rfcCliente, int idPedido, String nombre_cliente, String emisor) {
+        this.idCliente = idCliente;
+        this.rfcCliente = rfcCliente;
+        this.idPedido = idPedido;
+        this.nombre_cliente = nombre_cliente;
+        this.emisor = emisor;
+    }
+
+    public Factura() {
+    }
+    
+    private String facturaXml;
+
+    public String getFacturaXml() {
+        return facturaXml;
+    }
+
+    public void setFacturaXml(String facturaXml) {
+        this.facturaXml = facturaXml;
+    }
     
 
 
@@ -48,7 +69,15 @@ public class Factura {
         this.rfcCliente = rfcCliente;
     }
 
+    public String getEmisor() {
+        return emisor;
+    }
 
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
+    }
+
+    
 
 
     public Date getFechaExpedicion() {

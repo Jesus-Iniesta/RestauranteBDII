@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Emmanuel
@@ -13,6 +15,8 @@ public class CarritoFrame extends javax.swing.JFrame {
     /**
      * Creates new form CarritoFrame
      */
+    private Connection conexion;
+    Sistema productos = new Sistema(conexion);
     public CarritoFrame() {
         initComponents();
     }

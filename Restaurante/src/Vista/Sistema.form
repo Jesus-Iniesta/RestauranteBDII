@@ -2000,6 +2000,7 @@
                                       </Group>
                                   </Group>
                                   <Component id="txtIdFactura" min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Component id="btnLimpiarFactura" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -2047,49 +2048,54 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="TFIDCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="RFCFct1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="RFCFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TxtFRFCFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="NombreFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TxtFNombreFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="EmisorFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="JComboEmisores" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="EmisorFct1" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtId_pedido" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txtIdFactura" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BtnNuevoFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BtnEliminarFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BtnActualizarFct" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BtnComprobante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jScrollPane8" min="-2" pref="451" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="TFIDCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="RFCFct1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="RFCFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TxtFRFCFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="NombreFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TxtFNombreFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="EmisorFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="JComboEmisores" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="EmisorFct1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtId_pedido" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtIdFactura" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="BtnNuevoFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BtnEliminarFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="BtnActualizarFct" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BtnComprobante" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="btnLimpiarFactura" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jScrollPane8" min="-2" pref="451" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace pref="56" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -2263,6 +2269,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="No_cliente"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="btnLimpiarFactura">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarFacturaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -2723,6 +2737,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnAgregarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

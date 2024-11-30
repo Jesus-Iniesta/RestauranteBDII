@@ -19,6 +19,9 @@ public class Direccion {
         this.cp = cp;
     }
 
+    public Direccion() {
+    }
+
     // Getters y setters
     public String getCalle() {
         return calle;

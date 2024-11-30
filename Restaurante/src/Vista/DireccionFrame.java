@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import Modelo.Entidades.Direccion;
+import java.sql.Connection;
+
 /**
  *
  * @author Emmanuel
@@ -13,9 +16,27 @@ public class DireccionFrame extends javax.swing.JFrame {
     /**
      * Creates new form DireccionFrame
      */
+    Connection conexion;
+    Direccion dir ;
+    Sistema direc;
+    public DireccionFrame(Connection conexion) {
+        this.conexion = conexion;
+        initComponents();
+        dir = new Direccion();
+        direc = new Sistema(conexion);
+    }
+
     public DireccionFrame() {
         initComponents();
     }
+    public Sistema returnarDireccion(){
+        direc.dir.setCalle(TxtCalleDir.getText());
+        direc.dir.setColonia(TxtColoniaDir.getText());
+        direc.dir.setCp(TxtCpDir.getText());
+        direc.dir.setPais(TxtPaisDir.getText());
+        return direc;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,6 +121,11 @@ public class DireccionFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 0, 12))); // NOI18N
 
         BtnGuardarDir.setText("Guardar");
+        BtnGuardarDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarDirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -138,6 +164,11 @@ public class DireccionFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnGuardarDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDirActionPerformed
+        returnarDireccion();
+        
+    }//GEN-LAST:event_BtnGuardarDirActionPerformed
 
     /**
      * @param args the command line arguments

@@ -26,17 +26,16 @@ public class FacturaDAO {
     }
     
     public Factura crearFactura(Factura factura) {
-        String query = "INSERT INTO factura (rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente) VALUES (?, ?, ?, ?, ?) RETURNING id_factura";
+        String query = "INSERT INTO restaurante.factura (rfc_cliente,nombre_cliente, fecha_expedicion, id_cliente) VALUES (?, ?, ?, ?) RETURNING id_factura";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
 
             // Establecer parámetros de la consulta
             stmt.setString(1, factura.getRfcCliente());
-            stmt.setString(2, factura.getTelefonoCliente());
-            stmt.setString(3, factura.getNombreCliente());
-            stmt.setDate(4, factura.getFechaExpedicion());
-            stmt.setInt(5, factura.getIdCliente());
+            stmt.setString(2, factura.getNombreCliente());
+            stmt.setDate(3, factura.getFechaExpedicion());
+            stmt.setInt(4, factura.getIdCliente());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -70,7 +69,7 @@ public class FacturaDAO {
     }
 
     public List<Factura> obtenerTodasLasFacturas() {
-        String query = "SELECT id_factura, rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente FROM factura";
+        String query = "SELECT id_factura, rfc_cliente, telefono_cliente, nombre_cliente, fecha_expedicion, id_cliente FROM restaurante.factura";
         List<Factura> facturas = new ArrayList<>();
 
         try (
@@ -87,7 +86,7 @@ public class FacturaDAO {
     }
 
     public boolean actualizarFactura(Factura factura) {
-        String query = "UPDATE factura SET rfc_cliente = ?, telefono_cliente = ?, nombre_cliente = ?, fecha_expedicion = ?, id_cliente = ? WHERE id_factura = ?";
+        String query = "UPDATE restaurante.factura SET rfc_cliente = ?, telefono_cliente = ?, nombre_cliente = ?, fecha_expedicion = ?, id_cliente = ? WHERE id_factura = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -108,7 +107,7 @@ public class FacturaDAO {
     }
 
     public boolean eliminarFactura(int idFactura) {
-        String query = "DELETE FROM factura WHERE id_factura = ?";
+        String query = "DELETE FROM restaurante.factura WHERE id_factura = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -153,7 +152,5 @@ public class FacturaDAO {
         Date fechaExpedicion = rs.getDate("fecha_expedicion");
         int idCliente = rs.getInt("id_cliente");
 
-        return new Factura(idFactura, rfcCliente, telefonoCliente, nombreCliente, fechaExpedicion, idCliente);
-    }
+        return new Factura(idFactura, rfcCliente, telefonoCliente, nombreCliente, fechaExpedicion, idCliente);}
 }
-

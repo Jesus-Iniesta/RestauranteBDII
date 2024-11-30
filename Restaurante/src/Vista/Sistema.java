@@ -218,7 +218,7 @@ public class Sistema extends javax.swing.JFrame {
     private void initComponents() {
 
         ImagenPrincipal = new javax.swing.JLabel();
-        canvas2 = new java.awt.Canvas();
+        canvas1 = new java.awt.Canvas();
         jPanel1 = new javax.swing.JPanel();
         NuevaVenta = new javax.swing.JButton();
         Clientes = new javax.swing.JButton();
@@ -403,7 +403,7 @@ public class Sistema extends javax.swing.JFrame {
 
         ImagenPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoooestaa.png"))); // NOI18N
         getContentPane().add(ImagenPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, 150));
-        getContentPane().add(canvas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 1190, 35));
+        getContentPane().add(canvas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 1190, 40));
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -2120,6 +2120,7 @@ public class Sistema extends javax.swing.JFrame {
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Producto insertado correctamente");
                 cargarTabla();
+                cargarComboProducto(JcomboProductos);
             } else {
                 JOptionPane.showMessageDialog(this, "Error al insertar producto");
                 cargarTabla();
@@ -2929,7 +2930,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JToggleButton btnLimpiarFactura;
-    private java.awt.Canvas canvas2;
+    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton40;

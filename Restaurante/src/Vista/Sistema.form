@@ -37,10 +37,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="java.awt.Canvas" name="canvas2">
+    <Component class="java.awt.Canvas" name="canvas1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="150" width="1190" height="35"/>
+          <AbsoluteConstraints x="140" y="150" width="1190" height="40"/>
         </Constraint>
       </Constraints>
     </Component>

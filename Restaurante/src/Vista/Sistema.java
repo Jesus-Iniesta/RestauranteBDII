@@ -52,7 +52,8 @@ public class Sistema extends javax.swing.JFrame {
         cargarTabla();
         cargarTablaProveedor();
         cargarTablaFactura();
-        cargarTablaVenta(); 
+        cargarTablaVenta();
+        cargarTablaClientes();
         this.carrito = new CarritoDeCompras();
         this.dir = new Direccion();
     }
@@ -67,6 +68,21 @@ public class Sistema extends javax.swing.JFrame {
         
         ProductosDAO tabla = new ProductosDAO(conexion);
         tabla.obtenerTodosLosProductos(modeloTabla);
+    }
+    public void cargarTablaClientes(){
+        DefaultTableModel modeloTabla = (DefaultTableModel)TablaClientes.getModel();
+        modeloTabla.setRowCount(0);
+        
+        int [] anchos = {5,150,100,70,100,100,100};
+        if (TablaClientes.getColumnCount() == anchos.length) {
+            for (int i = 0; i < TablaClientes.getColumnCount(); i++) {
+                TablaClientes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+                }
+        } else {
+            System.out.println("El número de columnas no coincide con los anchos definidos.");
+        }
+        ClienteDAO tbCliente = new ClienteDAO(conexion);
+        tbCliente.cargarClientesEnTabla(modeloTabla);
     }
     public void cargarTablaProveedor(){
         DefaultTableModel modeloTabla = (DefaultTableModel)TablaProvedor.getModel();

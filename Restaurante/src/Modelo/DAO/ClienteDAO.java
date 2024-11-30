@@ -112,36 +112,26 @@ public class ClienteDAO {
 
     // Método para cargar los clientes en la tabla
    public void cargarClientesEnTabla(DefaultTableModel modeloTabla) {
-    // Limpiar la tabla antes de cargar los nuevos datos
-    modeloTabla.setRowCount(0);
-
-    // Obtener los clientes de la base de datos
-    List<Cliente> clientes = obtenerTodosLosClientes();
-
-    // Verificar si la lista de clientes tiene elementos
-    if (clientes.isEmpty()) {
-        System.out.println("No hay clientes en la base de datos.");
-    } else {
-        // Agregar los clientes a la tabla
-        for (Cliente cliente : clientes) {
-            // Concatenar la dirección de los clientes en un solo campo (si es necesario)
-            String direccionCompleta = cliente.getDireccion().getCalle() + ", " +
-                                       cliente.getDireccion().getColonia() + ", " +
-                                       cliente.getDireccion().getPais() + ", " +
-                                       cliente.getDireccion().getCp();
-
-            // Agregar la fila con los datos del cliente al modelo de la tabla
-            modeloTabla.addRow(new Object[] {
-                cliente.getIdPersona(),
-                cliente.getNombre(),
-                cliente.getApellidoPaterno(),
-                cliente.getApellidoMaterno(),
-                cliente.getCorreo(),
-                cliente.getTelefono(),
-                direccionCompleta  // Asegúrate de que 'Direccion' tenga un toString adecuado
-            });
+     String query = "SELECT id_cliente,nombre,apellido_paterno,apellido_materno,telefono,direccion,correo FROM restaurante.cliente ORDER BY id_cliente ASC limit 50000";
+                                   
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
         }
-    }
 }
 
     // Método privado para mapear un ResultSet a un objeto Cliente

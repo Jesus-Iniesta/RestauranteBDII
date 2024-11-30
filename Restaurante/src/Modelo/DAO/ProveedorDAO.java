@@ -201,7 +201,7 @@ public class ProveedorDAO {
     }
 
     public boolean eliminarProveedor(int idProveedor) {
-        String query = "DELETE FROM proveedor WHERE id_proveedor = ?";
+        String query = "DELETE FROM restaurante.proveedor WHERE id_proveedor = ?";
 
         try (
              PreparedStatement stmt = this.conn.prepareStatement(query)) {
@@ -216,7 +216,7 @@ public class ProveedorDAO {
     }
     
     public void obtenerTodosLosProveedor(DefaultTableModel modeloTabla) {
-         String query = "SELECT id_proveedor, nombre,direccion,telefono FROM restaurante.proveedor ORDER BY id_proveedor ASC";
+         String query = "SELECT * FROM restaurante.proveedor ORDER BY id_proveedor ASC";
         try(
              PreparedStatement stmt = this.conn.prepareStatement(query)){
             ResultSet rs = stmt.executeQuery();

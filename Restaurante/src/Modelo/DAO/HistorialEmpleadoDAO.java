@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Entidades.*;
 import Util.Conexion;
+import javax.swing.table.DefaultTableModel;
 
 public class HistorialEmpleadoDAO {
 
@@ -66,24 +67,39 @@ public class HistorialEmpleadoDAO {
     }
 
     // Obtener todos los historiales de empleados
-    public List<HistorialEmpleado> obtenerTodosLosHistoriales() {
-        List<HistorialEmpleado> historialEmpleados = new ArrayList<>();
-        String sql = "SELECT * FROM historial_empleado";
-        try (
-             Statement stmt = this.conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                historialEmpleados.add(new HistorialEmpleado(
-                        rs.getInt("id_empleado"),
-                        rs.getDate("fecha_inicioPuesto").toLocalDate(),
-                        rs.getDate("fecha_finPuesto").toLocalDate(),
-                        rs.getInt("id_puesto")
-                ));
+    public void obtenerTodosLosHistoriales(DefaultTableModel modeloTabla) {
+        
+        String query = "SELECT \n" +
+            "    he.id_empleado AS id_empleado,\n" +
+            "    p.titulo_puesto AS puesto,\n" +
+            "    he.id_rfc AS rfc,\n" +
+            "    he.fecha_iniciopuesto AS fecha_inicio,\n" +
+            "    he.fecha_finpuesto AS fecha_fin\n" +
+            "FROM \n" +
+            "    restaurante.historial_empleado he\n" +
+            "JOIN \n" +
+            "    restaurante.puesto p \n" +
+            "    ON he.id_puesto = p.id_puesto\n" +
+            "ORDER BY \n" +
+            "    he.id_empleado";
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            
+        }catch(SQLException e){
+            System.out.println("Error al contruir tabla. "+e);
         }
-        return historialEmpleados;
     }
 
     // Eliminar historial de empleado por ID

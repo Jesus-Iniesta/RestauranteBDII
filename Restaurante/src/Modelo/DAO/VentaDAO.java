@@ -14,6 +14,7 @@ import java.util.List;
 import Modelo.Entidades.*;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.table.DefaultTableModel;
 
 public class VentaDAO {
 
@@ -119,21 +120,54 @@ public class VentaDAO {
         return null;
     }
 
-    public List<Venta> obtenerTodasLasVentas() {
-        String query = "SELECT id_venta, IVA, cliente, fecha_venta, descuento, id_cliente FROM venta";
-        List<Venta> ventas = new ArrayList<>();
+    public void obtenerTodasLasVentas(DefaultTableModel modeloTabla) {
+        String query = "SELECT \n" +
+            "    v.id_venta AS id_venta,\n" +
+            "    v.id_cliente AS id_cliente,\n" +
+            "    v.no_cliente_temp AS no_cliente_temp,\n" +
+            "    v.fecha_venta AS fecha_venta,\n" +
+            "    v.iva AS iva,\n" +
+            "    v.descuento AS descuento,\n" +
+            "    SUM(d.cantidad_producto * pr.precio) AS subtotal,\n" +
+            "    ROUND(SUM(d.cantidad_producto * pr.precio) * (1 + (v.iva / 100)) - v.descuento, 2) AS total\n" +
+            "FROM \n" +
+            "    restaurante.venta v\n" +
+            "JOIN (\n" +
+            "    SELECT \n" +
+            "        p.id_venta,\n" +
+            "        p.fecha_venta,\n" +
+            "        unnest(p.id_producto) AS id_producto,\n" +
+            "        unnest(p.cantidad) AS cantidad_producto\n" +
+            "    FROM \n" +
+            "        restaurante.pedidos p\n" +
+            ") d \n" +
+            "    ON v.id_venta = d.id_venta AND v.fecha_venta = d.fecha_venta\n" +
+            "JOIN \n" +
+            "    restaurante.productos pr \n" +
+            "    ON d.id_producto = pr.id_producto\n" +
+            "GROUP BY \n" +
+            "    v.id_venta, v.id_cliente, v.no_cliente_temp, v.fecha_venta, v.iva, v.descuento\n" +
+            "ORDER BY \n" +
+            "    v.id_venta ASC";
 
-        try (
-             PreparedStatement stmt = this.conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                ventas.add(mapRowToVenta(rs));
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            
+        }catch(SQLException e){
+            System.out.println("Error al construir tabla. "+e);
         }
-        return ventas;
     }
 
     public boolean actualizarVenta(Venta venta) {
@@ -172,6 +206,54 @@ public class VentaDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    public void mostrarTablaVenta(DefaultTableModel modeloTabla){
+        String query = "SELECT \n" +
+            "    v.id_venta AS id_venta,\n" +
+            "    v.fecha_venta AS fecha_venta,\n" +
+            "    array_agg(pr.nombre) AS productos,\n" +
+            "    array_agg(d.cantidad_producto) AS cantidades,\n" +
+            "    array_agg(pr.precio) AS precios_unitarios,\n" +
+            "    SUM(d.cantidad_producto * pr.precio) AS total_a_pagar\n" +
+            "FROM \n" +
+            "    restaurante.venta v\n" +
+            "JOIN (\n" +
+            "    SELECT \n" +
+            "        p.id_venta,\n" +
+            "        p.fecha_venta,\n" +
+            "        unnest(p.id_producto) AS id_producto,\n" +
+            "        unnest(p.cantidad) AS cantidad_producto\n" +
+            "    FROM \n" +
+            "        restaurante.pedidos p\n" +
+            ") d \n" +
+            "    ON v.id_venta = d.id_venta AND v.fecha_venta = d.fecha_venta\n" +
+            "JOIN \n" +
+            "    restaurante.productos pr \n" +
+            "    ON d.id_producto = pr.id_producto\n" +
+            "WHERE \n" +
+            "    v.fecha_venta = CURRENT_DATE\n" +
+            "GROUP BY \n" +
+            "    v.id_venta, v.fecha_venta\n" +
+            "ORDER BY \n" +
+            "    v.id_venta DESC;";
+        try(
+             PreparedStatement stmt = this.conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+            
+            while(rs.next()){
+                Object[] fila = new Object[columnas];
+                for(int i = 0; i< columnas;i++){
+                    fila[i] = rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error al construir tabla. "+e);
+        }
     }
 
     // Mapea un ResultSet a un objeto Venta

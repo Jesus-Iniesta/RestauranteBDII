@@ -148,7 +148,7 @@ public class VentaDAO {
             "GROUP BY \n" +
             "    v.id_venta, v.id_cliente, v.no_cliente_temp, v.fecha_venta, v.iva, v.descuento\n" +
             "ORDER BY \n" +
-            "    v.id_venta ASC";
+            "    v.id_venta ASC LIMIT 500";
 
         try(
              PreparedStatement stmt = this.conn.prepareStatement(query)){
